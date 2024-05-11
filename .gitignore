@@ -1,4 +1,4 @@
-.vscode
+*.vscode
 bin
-.zip
-.jar
+*.zip
+*.jar
