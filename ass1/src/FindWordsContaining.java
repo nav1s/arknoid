@@ -1,4 +1,3 @@
-//! PlaceHolder
 
 /**
  * The main class for FindWordsContaining.
