@@ -1,4 +1,3 @@
-//! PlaceHolder
 
 /**
  * The main class for CountPairs.
@@ -15,8 +14,8 @@ public class CountPairs {
          System.out.println("Invalid input");
          System.exit(0);
       }
+
       int targetNumber = Integer.parseInt(args[args.length - 1]);
-      System.out.println(targetNumber);
 
       int pairsCounter = 0;
       // loop over all the arguments except for the last one
@@ -26,8 +25,6 @@ public class CountPairs {
             int num2 = Integer.parseInt(args[j]);
 
             if (num1 + num2 < targetNumber) {
-               System.out.println("num1 is: " + num1);
-               System.out.println("num2 is: " + num2);
                pairsCounter += 1;
             }
          }

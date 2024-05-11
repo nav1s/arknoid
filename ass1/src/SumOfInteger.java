@@ -1,4 +1,3 @@
-//! PlaceHolder
 
 /**
  * The main class for SumOfInteger.
@@ -17,6 +16,14 @@ public class SumOfInteger {
       }
       // save our number for ease of use
       String numToFindSumOf = args[0];
+      // check if our string isn't a number
+      try {
+         Integer.parseInt(numToFindSumOf);
+      } catch (Exception e) {
+         System.out.println("Invalid input");
+         System.exit(0);
+      }
+
       int numSum = 0;
 
       // loop over the number we got
