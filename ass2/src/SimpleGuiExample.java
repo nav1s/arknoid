@@ -4,7 +4,13 @@ import java.util.Random;
 import biuoop.DrawSurface;
 import biuoop.GUI;
 
+/**
+ * This class does some simple testing of the Point and Line classes.
+ *
+ */
 public class SimpleGuiExample {
+    /**
+     */
     public void drawRandomCircles() {
         Random rand = new Random(); // create a random-number generator
         // Create a window with the title "Random Circles Example"
@@ -21,6 +27,9 @@ public class SimpleGuiExample {
         gui.show(d);
     }
 
+    /**
+     * @param args ignored.
+     */
     public static void main(String[] args) {
         SimpleGuiExample example = new SimpleGuiExample();
         example.drawRandomCircles();

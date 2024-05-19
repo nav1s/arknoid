@@ -8,8 +8,8 @@ public class Point {
     private double y;
 
     /**
-     * @param x
-     * @param y
+     * @param x x coordinate of our point
+     * @param y y coordinate of our point
      */
     public Point(double x, double y) {
         this.x = x;
@@ -21,7 +21,9 @@ public class Point {
      * @return distance of this point to the other point
      */
     public double distance(Point other) {
-        return 0;
+        double xDist = Math.pow((this.x - other.x), 2);
+        double yDist = Math.pow((this.y - other.y), 2);
+        return Math.sqrt(xDist - yDist);
     }
 
     /**
@@ -29,7 +31,11 @@ public class Point {
      * @return true is the points are equal, false otherwise
      */
     public boolean equals(Point other) {
-        return true;
+        if (this.x == other.x && this.y == other.y) {
+            return true;
+
+        }
+        return false;
     }
 
     /**
