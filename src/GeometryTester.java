@@ -1,6 +1,4 @@
 
-package ass2.src;
-
 /**
  * This class does some simple testing of the Point and Line classes.
  */
