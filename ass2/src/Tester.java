@@ -1,4 +1,7 @@
-public class tester {
+/**
+ *
+ */
+public class Tester {
     /**
      * Main method, running tests on both the point and the line classes.
      *
