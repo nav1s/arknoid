@@ -1,6 +1,6 @@
 
 /**
- * This class does some simple testing of the Point and Line classes.
+ * This class represents a point in a two dimensional cartesian plane.
  *
  */
 public class Point {
@@ -17,13 +17,13 @@ public class Point {
     }
 
     /**
-     * @param other
+     * @param other the other point to compare
      * @return distance of this point to the other point
      */
     public double distance(Point other) {
         double xDist = Math.pow((this.x - other.x), 2);
         double yDist = Math.pow((this.y - other.y), 2);
-        return Math.sqrt(xDist - yDist);
+        return Math.sqrt(xDist + yDist);
     }
 
     /**
@@ -50,5 +50,12 @@ public class Point {
      */
     public double getY() {
         return this.y;
+    }
+    /**
+     * @return A string
+     */
+    @Override
+    public String toString() {
+        return "(" + this.x + ", " + this.y + ")";
     }
 }
