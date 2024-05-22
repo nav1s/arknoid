@@ -8,8 +8,8 @@ public class Line {
     private Point end;
 
     /**
-     * @param start
-     * @param end
+     * @param start the starting point of our line
+     * @param end the ending point of our line
      */
     public Line(Point start, Point end) {
         this.start = start;
@@ -17,7 +17,7 @@ public class Line {
     }
 
     /**
-     * @param x1
+     * @param x1 coordinate x of the start line
      * @param y1
      * @param x2
      * @param y2
@@ -84,10 +84,26 @@ public class Line {
     }
 
     /**
-     * @param other
+     * @param other the line we want to compare to
      * @return true is the lines are equal, false otherwise
      */
     public boolean equals(Line other) {
-        return true;
+        // if both lines have same start and same end then we can conclude they are equal
+        if (this.start.equals(other.start) && this.end.equals(other.end)) {
+            return true;
+        }
+        if (this.start.equals(other.end) && this.end.equals(other.start)) {
+            return true;
+        }
+        return false;
     }
+
+    /**
+     * @return A string
+     */
+    @Override
+    public String toString() {
+        return "";
+    }
+
 }

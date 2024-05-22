@@ -10,6 +10,7 @@ import biuoop.GUI;
  *
  */
 public class AbstractArtDrawing {
+
     /**
      * @return A randomly generated line
      */
@@ -24,7 +25,7 @@ public class AbstractArtDrawing {
     }
 
     /**
-     * @param line
+     * @param line the line to draw
      * @param drawer
      */
     public void drawLine(Line line, DrawSurface drawer) {
@@ -34,7 +35,17 @@ public class AbstractArtDrawing {
         int y1 = (int) line.start().getY();
         int y2 = (int) line.end().getY();
 
-        drawer.drawLine(x1, x2, y1, y2);
+        drawer.drawLine(x1, y1, x2, y2);
+    }
+
+    /**
+     * @param x
+     * @param y
+     * @param drawer
+     */
+    public void drawCircle(int x, int y, DrawSurface drawer) {
+        int r = 3;
+        drawer.fillCircle(x, y, r);
     }
 
     /**
@@ -44,11 +55,21 @@ public class AbstractArtDrawing {
         // which is 400 pixels wide and 300 pixels high.
         GUI gui = new GUI("abc", 400, 300);
         DrawSurface drawer = gui.getDrawSurface();
-        for (int i = 0; i < 10; ++i) {
+        for (int i = 0; i <= 10; i++) {
             Line line = generateRandomLine();
+            System.out.println("line start: " + line.start().toString());
+            System.out.println("line end: " + line.end().toString());
 
-            drawer.setColor(Color.RED);
+            drawer.setColor(Color.GRAY);
             drawLine(line, drawer);
+            Point middle = line.middle();
+            System.out.println("middle: " + middle.toString());
+            System.out.println("middle X: " + (int) middle.getX());
+
+            drawer.setColor(Color.BLUE);
+            drawCircle((int) middle.getX(), (int) middle.getY(), drawer);
+            drawer.setColor(Color.GREEN);
+            drawCircle(200, 150, drawer);
         }
 
         gui.show(drawer);

@@ -20,40 +20,62 @@ public class GeometryTester {
      *
      * @return true if not mistakes were found, false otherwise.
      */
-    public boolean testPoint() {
+    public boolean testPointFailing() {
         boolean mistake = false;
-        Point p1 = new Point(12, 2);
-        Point p2 = new Point(9, -2);
-
-        if (!doubleEquals(p1.getX(), 12)) {
-            System.out.println("Test p1.getX() failed.");
-            mistake = true;
-        }
-        if (!doubleEquals(p1.getY(), 2)) {
-            System.out.println("Test p1.getY() failed.");
-            mistake = true;
-        }
-        if (!doubleEquals(p1.distance(p1), 0)) {
-            System.out.println("Test distance to self failed.");
-            mistake = true;
-        }
-        if (!doubleEquals(p1.distance(p2), p2.distance(p1))) {
-            System.out.println("Test distance symmetry failed.");
-            mistake = true;
-        }
-        if (!doubleEquals(p1.distance(p2), 5)) {
+        Point point1 = new Point(12, 2);
+        Point point2 = new Point(9, -2);
+        double d1 = point1.distance(point2);
+        System.out.println("d1: " + d1);
+        if (!doubleEquals(d1, 5)) {
             System.out.println("Test distance failed.");
             mistake = true;
         }
-        if (!p1.equals(p1)) {
+
+        return !mistake;
+    }
+
+    /**
+     * The method is in charge of testing the Point class.
+     *
+     * @return true if not mistakes were found, false otherwise.
+     */
+    public boolean testPoint() {
+        boolean mistake = false;
+        Point point1 = new Point(12, 2);
+        Point point2 = new Point(9, -2);
+
+        double d1 = point1.distance(point2);
+        double d2 = point2.distance(point1);
+        if (!doubleEquals(d1, d2)) {
+            System.out.println("Test distance symmetry failed.");
+            mistake = true;
+        }
+
+        if (!doubleEquals(point1.getX(), 12)) {
+            System.out.println("Test p1.getX() failed.");
+            mistake = true;
+        }
+        if (!doubleEquals(point1.getY(), 2)) {
+            System.out.println("Test p1.getY() failed.");
+            mistake = true;
+        }
+        if (!doubleEquals(point1.distance(point1), 0)) {
+            System.out.println("Test distance to self failed.");
+            mistake = true;
+        }
+        if (!doubleEquals(point1.distance(point2), 5)) {
+            System.out.println("Test distance failed.");
+            mistake = true;
+        }
+        if (!point1.equals(point1)) {
             System.out.println("Equality to self failed.");
             mistake = true;
         }
-        if (!p1.equals(new Point(12, 2))) {
+        if (!point1.equals(new Point(12, 2))) {
             System.out.println("Equality failed.");
             mistake = true;
         }
-        if (p1.equals(p2)) {
+        if (point1.equals(point2)) {
             System.out.println("Equality failed -- should not be equal.");
             mistake = true;
         }
