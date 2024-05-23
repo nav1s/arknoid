@@ -21,6 +21,9 @@ public class Point {
      * @return distance of this point to the other point
      */
     public double distance(Point other) {
+        if (other == null) {
+            return -1;
+        }
         double xDist = Math.pow((this.x - other.x), 2);
         double yDist = Math.pow((this.y - other.y), 2);
         return Math.sqrt(xDist + yDist);
@@ -31,6 +34,9 @@ public class Point {
      * @return true is the points are equal, false otherwise
      */
     public boolean equals(Point other) {
+        if (other == null) {
+            return false;
+        }
         if (this.x == other.x && this.y == other.y) {
             return true;
 
