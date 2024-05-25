@@ -19,6 +19,7 @@ public class Point {
     }
 
     /**
+     * The main constructor for point (taken from the exercise description).
      * @param x x coordinate of our point
      * @param y y coordinate of our point
      */
@@ -28,6 +29,7 @@ public class Point {
     }
 
     /**
+     * A function to calculate the distance between two points (taken from the exercise description).
      * @param other the other point to compare
      * @return distance of this point to the other point
      */
@@ -41,7 +43,8 @@ public class Point {
     }
 
     /**
-     * @param other
+     * A function to check if two points are equal (taken from the exercise description).
+     * @param other the point to compare with
      * @return true is the points are equal, false otherwise
      */
     public boolean equals(Point other) {
@@ -56,6 +59,7 @@ public class Point {
     }
 
     /**
+     * A function to get the value of y (taken from the exercise description).
      * @return the value of x
      */
     public double getX() {
@@ -63,6 +67,7 @@ public class Point {
     }
 
     /**
+     * A function to get the value of y (taken from the exercise description).
      * @return the value of y
      */
     public double getY() {
