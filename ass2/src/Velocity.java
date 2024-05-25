@@ -1,3 +1,4 @@
+// Velocity specifies the change in position on the `x` and the `y` axes.
 
 /**
  */
@@ -40,11 +41,20 @@ public class Velocity {
     }
 
     /**
-     * @param d
-     * @param e
+     * @param angle
+     * @param speed
      * @return the value of dx
      */
-    public static Velocity fromAngleAndSpeed(double d, double e) {
-        return new Velocity(0, 0);
+    public static Velocity fromAngleAndSpeed(double angle, double speed) {
+        double angleInRadians = angle / 180 * Math.PI;
+        double dx = speed * Math.cos(angleInRadians);
+        double dy = speed * Math.sin(angleInRadians);
+        return new Velocity(dx, dy);
     }
+
+    @Override
+    public String toString() {
+        return "Velocity [dx=" + dx + ", dy=" + dy + "]";
+    }
+
 }
