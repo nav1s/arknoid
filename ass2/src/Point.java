@@ -6,6 +6,17 @@
 public class Point {
     private double x;
     private double y;
+    static final double COMPARISONTHRESHOLD = 0.00001;
+
+    /**
+     *
+     * @param a The first double number to compare.
+     * @param b the second double number to compare.
+     * @return true if our two doubles are equal, otherwise false.
+     */
+    public static boolean doubleEquals(double a, double b) {
+        return Math.abs(a - b) < GeometryTester.COMPARISONTHRESHOLD;
+    }
 
     /**
      * @param x x coordinate of our point
@@ -37,7 +48,7 @@ public class Point {
         if (other == null) {
             return false;
         }
-        if (this.x == other.x && this.y == other.y) {
+        if (doubleEquals(this.x, other.x) && doubleEquals(this.y, other.y)) {
             return true;
 
         }
@@ -57,11 +68,10 @@ public class Point {
     public double getY() {
         return this.y;
     }
-    /**
-     * @return A string
-     */
+
     @Override
     public String toString() {
-        return "(" + this.x + ", " + this.y + ")";
+        return "Point [x=" + x + ", y=" + y + "]";
     }
+
 }
