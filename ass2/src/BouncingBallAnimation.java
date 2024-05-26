@@ -1,35 +1,27 @@
+
 import biuoop.DrawSurface;
 import biuoop.GUI;
+import biuoop.Sleeper;
 
 /**
  */
 public class BouncingBallAnimation {
-    /**
-     */
-    private static void drawAnimationV1() {
-        GUI gui = new GUI("title", 200, 200);
-        biuoop.Sleeper sleeper = new biuoop.Sleeper();
-        java.util.Random rand = new java.util.Random();
-        while (true) {
-            DrawSurface d = gui.getDrawSurface();
-
-            Ball ball = new Ball(rand.nextInt(200), rand.nextInt(200), 30, java.awt.Color.BLACK);
-            ball.drawOn(d);
-            gui.show(d);
-            sleeper.sleepFor(50); // wait for 50 milliseconds.
-        }
-    }
 
     /**
-     * @param start
-     * @param dx
-     * @param dy
+     * @param start the starting point of our ball
+     * @param dx    the initial dx velocity
+     * @param dy    the initial dy velocity
      */
     private static void drawAnimation(Point start, double dx, double dy) {
-        GUI gui = new GUI("title", 200, 200);
-        biuoop.Sleeper sleeper = new biuoop.Sleeper();
-        Ball ball = new Ball(start, 30, java.awt.Color.BLACK);
+        int height = 200;
+        int width = 200;
+        Sleeper sleeper = new Sleeper();
+        Ball ball = new Ball(start.getX(), start.getY(), 30, java.awt.Color.BLACK);
         ball.setVelocity(dx, dy);
+        ball.setHeight(height);
+        ball.setWidth(width);
+
+        GUI gui = new GUI("title", height, width);
         while (true) {
             ball.moveOneStep();
             DrawSurface d = gui.getDrawSurface();
@@ -40,9 +32,26 @@ public class BouncingBallAnimation {
     }
 
     /**
-     * @param args ignored.
+     * @param args command line arguments used to create the ball.
      */
     public static void main(String[] args) {
-        drawAnimationV1();
+        // check we got a correct number of variables
+        if (args.length != 4) {
+            System.out.println("Invalid input");
+            System.exit(0);
+        }
+
+        int[] argsButInteger = new int[args.length];
+        // make sure all of the variables we got are integers
+        for (int i = 0; i < args.length; i++) {
+            try {
+                argsButInteger[i] = Integer.parseInt(args[i]);
+            } catch (Exception e) {
+                System.out.println("Invalid input");
+                System.exit(0);
+            }
+        }
+
+        drawAnimation(new Point(argsButInteger[0], argsButInteger[1]), argsButInteger[2], argsButInteger[3]);
     }
 }
