@@ -6,6 +6,21 @@
 public class Point {
     private double x;
     private double y;
+
+    /**
+     * @param y
+     */
+    public void setY(double y) {
+        this.y = y;
+    }
+
+    /**
+     * @param x
+     */
+    public void setX(double x) {
+        this.x = x;
+    }
+
     static final double COMPARISONTHRESHOLD = 0.00001;
 
     /**
@@ -15,7 +30,7 @@ public class Point {
      * @return true if our two doubles are equal, otherwise false.
      */
     public static boolean doubleEquals(double a, double b) {
-        return Math.abs(a - b) < GeometryTester.COMPARISONTHRESHOLD;
+        return Math.abs(a - b) < Point.COMPARISONTHRESHOLD;
     }
 
     /**
