@@ -57,14 +57,11 @@ public class AbstractArtDrawing {
         // which is 400 pixels wide and 300 pixels high.
         GUI gui = new GUI("Random Circles", 400, 300);
         DrawSurface drawer = gui.getDrawSurface();
-        Line[] lines = new Line[2];
+        Line[] lines = new Line[10];
 
         for (int i = 0; i <= lines.length - 1; i++) {
             lines[i] = generateRandomLine();
         }
-        lines[0] = new Line(133, 224, 72, 50);
-        lines[1] = new Line(210, 25, 81, 284);
-
         for (int i = 0; i <= lines.length - 1; i++) {
             drawer.setColor(Color.BLACK);
             drawLine(lines[i], drawer);
@@ -77,9 +74,6 @@ public class AbstractArtDrawing {
             for (int j = 0; j < i; j++) {
                 Point intersectionPoint = lines[i].intersectionWith(lines[j]);
                 if (intersectionPoint != null) {
-                    System.out.println(lines[i]);
-                    System.out.println(lines[j]);
-                    System.out.println(intersectionPoint);
                     drawCircle(intersectionPoint.getX(), intersectionPoint.getY(), drawer);
                 }
             }

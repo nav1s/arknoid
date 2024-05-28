@@ -105,10 +105,6 @@ public class Line {
         double b = ((x4 - x3) * (y2 - y1) - (y4 - y3) * (x2 - x1));
         double c = ((x2 - x1) * (y3 - y1) - (y2 - y1) * (x3 - x1));
         double d = ((x4 - x3) * (y2 - y1) - (y4 - y3) * (x2 - x1));
-        System.out.println("a:" + a);
-        System.out.println("b:" + b);
-        System.out.println("c:" + c);
-        System.out.println("d:" + d);
 
         if (b == 0 || d == 0) {
             return null;
@@ -116,11 +112,9 @@ public class Line {
 
         double alpha = a / b;
         double beta = c / d;
-        System.out.println("alpha:" + alpha);
-        System.out.println("beta:" + beta);
         if (alpha >= 0 && alpha <= 1 && beta >= 0 && beta <= 1) {
             double x0 = x1 + alpha * (x2 - x1);
-            double y0 = y1 + beta * (y2 - y1);
+            double y0 = y1 + alpha * (y2 - y1);
             return new Point(x0, y0);
         }
 
