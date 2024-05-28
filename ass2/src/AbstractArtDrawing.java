@@ -6,8 +6,6 @@ import biuoop.DrawSurface;
 import biuoop.GUI;
 
 /**
- * This class does some simple testing of the Point and Line classes.
- *
  */
 public class AbstractArtDrawing {
 
@@ -16,16 +14,19 @@ public class AbstractArtDrawing {
      */
     public Line generateRandomLine() {
         Random rand = new Random(); // create a random-number generator
-        int x1 = rand.nextInt(400) + 1; // get integer in range 1-400
-        int x2 = rand.nextInt(400) + 1; // get integer in range 1-400
-        int y1 = rand.nextInt(300) + 1; // get integer in range 1-300
-        int y2 = rand.nextInt(300) + 1; // get integer in range 1-300
+        int guiWidth = 400;
+        int guiHeight = 300;
+        int x1 = rand.nextInt(guiWidth) + 1; // get integer in range 1-400
+        int x2 = rand.nextInt(guiWidth) + 1; // get integer in range 1-400
 
-        return new Line(x1, x2, y1, y2);
+        int y1 = rand.nextInt(guiHeight) + 1; // get integer in range 1-300
+        int y2 = rand.nextInt(guiHeight) + 1; // get integer in range 1-300
+
+        return new Line(x1, y1, x2, y2);
     }
 
     /**
-     * @param line the line to draw
+     * @param line   the line to draw
      * @param drawer
      */
     public void drawLine(Line line, DrawSurface drawer) {
@@ -39,37 +40,50 @@ public class AbstractArtDrawing {
     }
 
     /**
-     * @param x
-     * @param y
+     * @param x the x coordinate of the circle center
+     * @param y the y coordinate of the circle center
      * @param drawer
      */
-    public void drawCircle(int x, int y, DrawSurface drawer) {
+    public void drawCircle(double x, double y, DrawSurface drawer) {
         int r = 3;
-        drawer.fillCircle(x, y, r);
+        drawer.fillCircle((int) x, (int) y, r);
     }
 
     /**
+     * Draw 10 random lines.
      */
     public void drawRandomLines() {
         // Create a window with the title "Random Circles Example"
         // which is 400 pixels wide and 300 pixels high.
-        GUI gui = new GUI("abc", 400, 300);
+        GUI gui = new GUI("Random Circles", 400, 300);
         DrawSurface drawer = gui.getDrawSurface();
-        for (int i = 0; i <= 10; i++) {
-            Line line = generateRandomLine();
-            System.out.println("line start: " + line.start().toString());
-            System.out.println("line end: " + line.end().toString());
+        Line[] lines = new Line[2];
 
-            drawer.setColor(Color.GRAY);
-            drawLine(line, drawer);
-            Point middle = line.middle();
-            System.out.println("middle: " + middle.toString());
-            System.out.println("middle X: " + (int) middle.getX());
+        for (int i = 0; i <= lines.length - 1; i++) {
+            lines[i] = generateRandomLine();
+        }
+        lines[0] = new Line(133, 224, 72, 50);
+        lines[1] = new Line(210, 25, 81, 284);
+
+        for (int i = 0; i <= lines.length - 1; i++) {
+            drawer.setColor(Color.BLACK);
+            drawLine(lines[i], drawer);
+            Point middle = lines[i].middle();
 
             drawer.setColor(Color.BLUE);
-            drawCircle((int) middle.getX(), (int) middle.getY(), drawer);
-            drawer.setColor(Color.GREEN);
-            drawCircle(200, 150, drawer);
+            drawCircle(middle.getX(), middle.getY(), drawer);
+            drawer.setColor(Color.RED);
+
+            for (int j = 0; j < i; j++) {
+                Point intersectionPoint = lines[i].intersectionWith(lines[j]);
+                if (intersectionPoint != null) {
+                    System.out.println(lines[i]);
+                    System.out.println(lines[j]);
+                    System.out.println(intersectionPoint);
+                    drawCircle(intersectionPoint.getX(), intersectionPoint.getY(), drawer);
+                }
+            }
+
         }
 
         gui.show(drawer);
@@ -79,8 +93,8 @@ public class AbstractArtDrawing {
      * @param args ignored.
      */
     public static void main(String[] args) {
-        AbstractArtDrawing example = new AbstractArtDrawing();
-        example.drawRandomLines();
+        AbstractArtDrawing abstractDrawer = new AbstractArtDrawing();
+        abstractDrawer.drawRandomLines();
     }
 
 }
