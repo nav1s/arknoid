@@ -68,6 +68,7 @@ public class Line {
      *         taken from the exercise description
      */
     public boolean isIntersecting(Line other) {
+        // todo switch to better algorithm
         double x1 = this.start.getX();
         double y1 = this.start.getY();
 
@@ -80,21 +81,13 @@ public class Line {
         double x4 = other.end.getX();
         double y4 = other.end.getY();
 
-        double a = ((x4 - x3) * (y3 - y1) - (y4 - y3) * (x3 - x1));
-        double b = ((x4 - x3) * (y2 - y1) - (y4 - y3) * (x2 - x1));
-        double c = ((x2 - x1) * (y3 - y1) - (y2 - y1) * (x3 - x1));
-        if (b == 0) {
-            // the lines are colinear
-            if (a == 0) {
-                return true;
-            }
-            // the lines don't intersect
-            return false;
-        }
-        double alpha = a / b;
-        double beta = c / b;
+        double p0 = (y4 - y3) * (x4 - x1) - (x4 - x3) * (y4 - y1);
+        double p1 = (y4 - y3) * (x4 - x2) - (x4 - x3) * (y4 - y2);
+        double p2 = (y2 - y1) * (x2 - x3) - (x2 - x1) * (y2 - y3);
+        double p3 = (y2 - y1) * (x2 - x4) - (x2 - x1) * (y2 - y4);
+
         // check if the lines intersect
-        if (alpha >= 0 && alpha <= 1 && beta >= 0 && beta <= 1) {
+        if (p0 * p1 >= 0 && p0 * p1 <= 1 && p2 * p3 >= 0 && p2 * p3 <= 1) {
             return true;
         }
 
