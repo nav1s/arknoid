@@ -4,8 +4,13 @@ import biuoop.GUI;
 import biuoop.Sleeper;
 
 /**
+ * This class creates a gui with a bouncing ball in it.
  */
 public class BouncingBallAnimation {
+    private static final int GUI_HEIGHT = 200;
+    private static final int GUI_WIDTH = 200;
+    private static final int RADIUS = 30;
+
 
     /**
      * @param start the starting point of our ball
@@ -13,15 +18,13 @@ public class BouncingBallAnimation {
      * @param dy    the initial dy velocity
      */
     private static void drawAnimation(Point start, double dx, double dy) {
-        int height = 200;
-        int width = 200;
         Sleeper sleeper = new Sleeper();
-        Ball ball = new Ball(start.getX(), start.getY(), 30, java.awt.Color.BLACK);
+        Ball ball = new Ball(start.getX(), start.getY(), RADIUS, java.awt.Color.BLACK);
         ball.setVelocity(dx, dy);
-        ball.setHeight(height);
-        ball.setWidth(width);
+        ball.setMaxHeight(GUI_HEIGHT);
+        ball.setMaxWidth(GUI_WIDTH);
 
-        GUI gui = new GUI("title", height, width);
+        GUI gui = new GUI("Bouncing Ball Animation", GUI_HEIGHT, GUI_WIDTH);
         while (true) {
             ball.moveOneStep();
             DrawSurface d = gui.getDrawSurface();
@@ -42,11 +45,12 @@ public class BouncingBallAnimation {
         }
 
         int[] argsButInteger = new int[args.length];
-        // make sure all of the variables we got are integers
+        // convert all of our arguments to integer and exit if one of them isn't
         for (int i = 0; i < args.length; i++) {
             try {
                 argsButInteger[i] = Integer.parseInt(args[i]);
             } catch (Exception e) {
+                // exit if one of our arguments isn't an integer
                 System.out.println("Invalid input");
                 System.exit(0);
             }
