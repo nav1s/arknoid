@@ -10,11 +10,10 @@ public class Line {
     /**
      * @param start the starting point of our line
      * @param end   the ending point of our line
-     *              taken from the exercise description.
+     *              taken from the exercise description
      */
     public Line(Point start, Point end) {
-        this.start = start;
-        this.end = end;
+        this(start.getX(), start.getY(), end.getX(), end.getY());
     }
 
     /**
@@ -31,7 +30,7 @@ public class Line {
 
     /**
      * @return length of the line
-     *         taken from the exercise description.
+     *         taken from the exercise description
      */
     public double length() {
         return this.start.distance(this.end);
@@ -39,7 +38,7 @@ public class Line {
 
     /**
      * @return middle point of the line
-     *         taken from the exercise description.
+     *         taken from the exercise description
      */
     public Point middle() {
         double midX = (this.start.getX() + this.end.getX()) / 2;
@@ -49,7 +48,7 @@ public class Line {
 
     /**
      * @return start point of the line
-     *         taken from the exercise description.
+     *         taken from the exercise description
      */
     public Point start() {
         return this.start;
@@ -57,7 +56,7 @@ public class Line {
 
     /**
      * @return end point of the line
-     *         taken from the exercise description.
+     *         taken from the exercise description
      */
     public Point end() {
         return this.end;
@@ -66,17 +65,47 @@ public class Line {
     /**
      * @param other the line we are comparing to
      * @return true if the lines intersect, false otherwise
-     *         taken from the exercise description.
+     *         taken from the exercise description
      */
     public boolean isIntersecting(Line other) {
-        return true;
+        double x1 = this.start.getX();
+        double y1 = this.start.getY();
+
+        double x2 = this.end.getX();
+        double y2 = this.end.getY();
+
+        double x3 = other.start.getX();
+        double y3 = other.start.getY();
+
+        double x4 = other.end.getX();
+        double y4 = other.end.getY();
+
+        double a = ((x4 - x3) * (y3 - y1) - (y4 - y3) * (x3 - x1));
+        double b = ((x4 - x3) * (y2 - y1) - (y4 - y3) * (x2 - x1));
+        double c = ((x2 - x1) * (y3 - y1) - (y2 - y1) * (x3 - x1));
+        if (b == 0) {
+            // the lines are colinear
+            if (a == 0) {
+                return true;
+            }
+            // the lines don't intersect
+            return false;
+        }
+        double alpha = a / b;
+        double beta = c / b;
+        // check if the lines intersect
+        if (alpha >= 0 && alpha <= 1 && beta >= 0 && beta <= 1) {
+            return true;
+        }
+
+        return false;
     }
 
     /**
      * @param other1 the first line we are comparing to
      * @param other2 the second line we are comparing to
      * @return true if this 2 lines intersect with this line, false otherwise
-     *         taken from the exercise description.
+     *         taken from the exercise description
      */
     public boolean isIntersecting(Line other1, Line other2) {
         return isIntersecting(other1) && isIntersecting(other2);
@@ -104,14 +133,13 @@ public class Line {
         double a = ((x4 - x3) * (y3 - y1) - (y4 - y3) * (x3 - x1));
         double b = ((x4 - x3) * (y2 - y1) - (y4 - y3) * (x2 - x1));
         double c = ((x2 - x1) * (y3 - y1) - (y2 - y1) * (x3 - x1));
-        double d = ((x4 - x3) * (y2 - y1) - (y4 - y3) * (x2 - x1));
 
-        if (b == 0 || d == 0) {
+        if (b == 0) {
             return null;
         }
 
         double alpha = a / b;
-        double beta = c / d;
+        double beta = c / b;
         if (alpha >= 0 && alpha <= 1 && beta >= 0 && beta <= 1) {
             double x0 = x1 + alpha * (x2 - x1);
             double y0 = y1 + alpha * (y2 - y1);
@@ -124,7 +152,7 @@ public class Line {
     /**
      * @param other the line we want to compare to
      * @return true is the lines are equal, false otherwise
-     *         taken from the exercise description.
+     *         taken from the exercise description
      */
     public boolean equals(Line other) {
         // if both lines have same start and same end then we can conclude they are
