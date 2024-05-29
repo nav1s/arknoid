@@ -7,20 +7,6 @@ public class Point {
     private double x;
     private double y;
 
-    /**
-     * @param y
-     */
-    public void setY(double y) {
-        this.y = y;
-    }
-
-    /**
-     * @param x
-     */
-    public void setX(double x) {
-        this.x = x;
-    }
-
     static final double COMPARISONTHRESHOLD = 0.00001;
 
     /**
@@ -34,9 +20,9 @@ public class Point {
     }
 
     /**
-     * The main constructor for point (taken from the exercise description).
      * @param x x coordinate of our point
      * @param y y coordinate of our point
+     * taken from the exercise description
      */
     public Point(double x, double y) {
         this.x = x;
@@ -44,9 +30,9 @@ public class Point {
     }
 
     /**
-     * A function to calculate the distance between two points (taken from the exercise description).
      * @param other the other point to compare
-     * @return distance of this point to the other point
+     * @return distance from this point to the other point
+     * taken from the exercise description
      */
     public double distance(Point other) {
         if (other == null) {
@@ -58,9 +44,9 @@ public class Point {
     }
 
     /**
-     * A function to check if two points are equal (taken from the exercise description).
-     * @param other the point to compare with
+     * @param other the point we want to compare
      * @return true is the points are equal, false otherwise
+     * taken from the exercise description
      */
     public boolean equals(Point other) {
         if (other == null) {
@@ -74,16 +60,16 @@ public class Point {
     }
 
     /**
-     * A function to get the value of y (taken from the exercise description).
      * @return the value of x
+     * taken from the exercise description
      */
     public double getX() {
         return this.x;
     }
 
     /**
-     * A function to get the value of y (taken from the exercise description).
      * @return the value of y
+     * taken from the exercise description
      */
     public double getY() {
         return this.y;
@@ -92,6 +78,20 @@ public class Point {
     @Override
     public String toString() {
         return "Point [x=" + x + ", y=" + y + "]";
+    }
+
+    /**
+     * @param y the new value of this.y
+     */
+    public void setY(double y) {
+        this.y = y;
+    }
+
+    /**
+     * @param x the new value of this.x
+     */
+    public void setX(double x) {
+        this.x = x;
     }
 
 }
