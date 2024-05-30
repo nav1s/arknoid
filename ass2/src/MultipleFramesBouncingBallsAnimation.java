@@ -6,62 +6,92 @@ import biuoop.GUI;
 import biuoop.Sleeper;
 
 /**
+ * This class creates a gui with multiple bouncing balls and two frames.
  */
 public class MultipleFramesBouncingBallsAnimation {
-    private int guiHeight;
-    private int guiWidth;
-    private GUI gui;
-    private Sleeper sleeper = new Sleeper();
+    private static final int NUMBER_OF_MILLISECONDS_TO_WAIT = 50;
+    private static final int SPEED_MODIFIER = 60;
+    private static final int GUI_HEIGHT = 800;
+    private static final int GUI_WIDTH = 600;
+    private static final String GUI_TITLE = "Multiple Frames Bouncing Balls";
+
+    private static final int GRAY_RECTANGLE_X = 50;
+    private static final int GRAY_RECTANGLE_Y = 50;
+    private static final int GRAY_RECTANGLE_HEIGHT = 450;
+    private static final int GRAY_RECTANGLE_WIDTH = 450;
+
+    private static final int YELLOW_RECTANGLE_X = 450;
+    private static final int YELLOW_RECTANGLE_Y = 450;
+    private static final int YELLOW_RECTANGLE_HEIGHT = 150;
+    private static final int YELLOW_RECTANGLE_WIDTH = 150;
 
     /**
-     * @param title
-     * @param guiWidth
-     * @param guiHeight
+     * @param height
+     * @param width
+     * @return a randomly generated point bounded to a given area
      */
-    public MultipleFramesBouncingBallsAnimation(String title, int guiWidth, int guiHeight) {
-        this.guiHeight = guiHeight;
-        this.guiWidth = guiWidth;
-        this.gui = new GUI(title, guiWidth, guiHeight);
-    }
+    public Point generateRandomPointBounded(int height, int width) {
+        Random rand = new Random(); // create a random-number generator
+        int x1 = rand.nextInt(width) + 1; // get integer in range 1-400
+        int y1 = rand.nextInt(height) + 1; // get integer in range 1-300
 
+        return new Point(x1, y1);
+    }
     /**
      * @return a randomly generated point
      */
     public Point generateRandomPoint() {
         Random rand = new Random(); // create a random-number generator
-        int x1 = rand.nextInt(this.guiWidth) + 1; // get integer in range 1-400
-        int y1 = rand.nextInt(this.guiHeight) + 1; // get integer in range 1-300
+        int x1 = rand.nextInt(GUI_WIDTH) + 1; // get integer in range 1-400
+        int y1 = rand.nextInt(GUI_HEIGHT) + 1; // get integer in range 1-300
 
         return new Point(x1, y1);
     }
+
 
     /**
      * @param sizes
      */
     private void drawAnimation(int[] sizes) {
+        Sleeper sleeper = new Sleeper();
+        GUI gui = new GUI(GUI_TITLE, GUI_HEIGHT, GUI_WIDTH);
         Ball[] balls = new Ball[sizes.length];
+
+        // for (int i = 0; i < sizes.length; i++) {
+        //     int maxWidth = GRAY_RECTANGLE_X + GRAY_RECTANGLE_HEIGHT;
+        //     int maxHeight = GRAY_RECTANGLE_Y + GRAY_RECTANGLE_WIDTH;
+        //     Point start = generateRandomPointBounded(maxHeight, maxWidth);
+        //     balls[i] = new Ball(start, sizes[i], maxHeight, maxWidth);
+        // }
         for (int i = 0; i < sizes.length; i++) {
-            Point start = generateRandomPoint();
-            balls[i] = new Ball(start.getX(), start.getY(), sizes[i], java.awt.Color.RED);
-            balls[i].setVelocity(10, 15);
-            balls[i].setHeight(this.guiHeight);
-            balls[i].setWidth(this.guiWidth);
+            int maxWidth = GRAY_RECTANGLE_X + GRAY_RECTANGLE_HEIGHT;
+            int maxHeight = GRAY_RECTANGLE_Y + GRAY_RECTANGLE_WIDTH;
+            Point start = generateRandomPointBounded(maxHeight, maxWidth);
+            balls[i] = new Ball(start.getX(), start.getY(), sizes[i], java.awt.Color.BLACK);
+            // balls[i] = new Ball(start, sizes[i], this.guiHeight, this.guiWidth);
+            balls[i].setVelocity(SPEED_MODIFIER / sizes[i], SPEED_MODIFIER / sizes[i]);
+            balls[i].setMaxHeight(maxHeight);
+            balls[i].setMaxWidth(maxWidth);
 
         }
 
+
         while (true) {
-            DrawSurface surface = this.gui.getDrawSurface();
+            DrawSurface surface = gui.getDrawSurface();
+            surface.setColor(java.awt.Color.GRAY);
+            surface.fillRectangle(GRAY_RECTANGLE_X, GRAY_RECTANGLE_Y, GRAY_RECTANGLE_WIDTH, GRAY_RECTANGLE_HEIGHT);
+
+            surface.setColor(java.awt.Color.YELLOW);
+            surface.fillRectangle(YELLOW_RECTANGLE_X, YELLOW_RECTANGLE_Y, YELLOW_RECTANGLE_WIDTH,
+                    YELLOW_RECTANGLE_HEIGHT);
+
             for (int i = 0; i < balls.length; i++) {
                 balls[i].moveOneStep();
                 balls[i].drawOn(surface);
             }
 
-            surface.setColor(java.awt.Color.GREEN);
-            surface.fillRectangle(50, 50, 500, 500);
-            surface.drawRectangle(50, 50, 500, 500);
-
-            this.gui.show(surface);
-            this.sleeper.sleepFor(50); // wait for 50 milliseconds.
+            gui.show(surface);
+            sleeper.sleepFor(NUMBER_OF_MILLISECONDS_TO_WAIT); // wait for 50 milliseconds.
         }
     }
 
@@ -71,6 +101,7 @@ public class MultipleFramesBouncingBallsAnimation {
     public static void main(String[] args) {
         int[] argsButInteger = new int[args.length];
         // convert all of our arguments to integer and exit if one of them isn't
+        // todo handle numbers below zero
         for (int i = 0; i < args.length; i++) {
             try {
                 argsButInteger[i] = Integer.parseInt(args[i]);
@@ -81,9 +112,7 @@ public class MultipleFramesBouncingBallsAnimation {
             }
         }
 
-        MultipleFramesBouncingBallsAnimation animation = new MultipleFramesBouncingBallsAnimation(
-                "Multiple Frames Bouncing Balls", 700,
-                700);
+        MultipleFramesBouncingBallsAnimation animation = new MultipleFramesBouncingBallsAnimation();
         animation.drawAnimation(argsButInteger);
 
     }

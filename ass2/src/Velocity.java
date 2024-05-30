@@ -1,12 +1,11 @@
-// Velocity specifies the change in position on the `x` and the `y` axes.
 
 /**
+ * This class represents a change in a position of an object on a two dimensional cartesian plane.
  */
 public class Velocity {
     private double dx;
     private double dy;
 
-    // constructor
     /**
      * @param dx
      * @param dy
@@ -37,7 +36,19 @@ public class Velocity {
      * @return the value of dx
      */
     public double getDx() {
-        return this.dy;
+        return this.dx;
+    }
+
+    /**
+     */
+    public void reverseDx() {
+        this.dx = -this.dx;
+    }
+
+    /**
+     */
+    public void reverseDy() {
+        this.dy = -this.dy;
     }
 
     /**
