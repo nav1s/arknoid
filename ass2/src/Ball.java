@@ -1,4 +1,6 @@
 
+import java.util.Random;
+
 import biuoop.DrawSurface;
 
 /**
@@ -9,10 +11,16 @@ public class Ball {
     private Point center;
     private int r;
     private java.awt.Color color;
+    private int minHeight;
     private int maxHeight;
+
+    private int minWidth;
     private int maxWidth;
+    private static final int SPEED_MODIFIER = 60;
 
     private Velocity velocity = new Velocity(0, 0);
+    // create a random-number generator
+    private Random randomGenerator = new Random();
 
     /**
      * @param center
@@ -41,23 +49,52 @@ public class Ball {
      * @param color
      */
     public Ball(double x1, double x2, int r, java.awt.Color color) {
+        this.minHeight = 0;
+        this.minWidth = 0;
         this.center = new Point(x1, x2);
         this.r = r;
         this.color = color;
     }
 
     /**
-     * @param center
+     * @param x1
+     * @param x2
      * @param r
-     * @param maxWidth
+     * @param minHeight
      * @param maxHeight
+     * @param minWidth
+     * @param maxWidth
      */
-    public Ball(Point center, int r, int maxHeight, int maxWidth)  {
-        this.center = new Point(center.getX(), center.getY());
-        this.color = new java.awt.Color((int) (Math.random() * 0x1000000));
+    public Ball(int r, int minHeight, int maxHeight, int minWidth, int maxWidth) {
+        int red = randomGenerator.nextInt(256);
+        int green = randomGenerator.nextInt(256);
+        int blue = randomGenerator.nextInt(256);
+
+        this.color = new java.awt.Color(red, green, blue);
+        this.r = r;
+
+        this.minHeight = minHeight;
         this.maxHeight = maxHeight;
+
+        this.minWidth = minWidth;
         this.maxWidth = maxWidth;
-        this.velocity = new Velocity(50 / r, 50 / r);
+        this.velocity = new Velocity(SPEED_MODIFIER / r, SPEED_MODIFIER / r);
+        this.center = generateRandomPointBounded();
+    }
+
+    /**
+     * @param minHeight
+     * @param maxHeight
+     * @param minWidth
+     * @param maxWidth
+     * @return
+     * @return a randomly generated point bounded to a given area
+     */
+    public Point generateRandomPointBounded() {
+        int y1 = randomGenerator.nextInt(maxHeight - minHeight) + minHeight;
+        int x1 = randomGenerator.nextInt(maxWidth - minWidth) + minWidth;
+
+        return new Point(x1, y1);
     }
 
     /**
