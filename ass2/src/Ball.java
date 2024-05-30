@@ -57,15 +57,14 @@ public class Ball {
     }
 
     /**
-     * @param x1
-     * @param x2
-     * @param r
-     * @param minHeight
-     * @param maxHeight
-     * @param minWidth
-     * @param maxWidth
+     * @param r the ball radius
+     * @param minHeight the minimum height our ball is allowed to be in
+     * @param maxHeight the maximum height our ball is allowed to be in
+     * @param minWidth the minimum width our ball is allowed to be in
+     * @param maxWidth the maximum width our ball is allowed to be in
      */
     public Ball(int r, int minHeight, int maxHeight, int minWidth, int maxWidth) {
+        // generate a random color
         int red = randomGenerator.nextInt(256);
         int green = randomGenerator.nextInt(256);
         int blue = randomGenerator.nextInt(256);
@@ -147,18 +146,6 @@ public class Ball {
     public void setVelocity(Velocity v) {
         this.velocity = new Velocity(v.getDx(), v.getDy());
 
-    }
-
-    /**
-     * @param weight the weight of our object
-     */
-    public void setVelocityWithWeight(int weight) {
-        // Random rand = new Random(); // create a random-number generator
-        // double dx = rand.nextDouble() * (1 / weight);
-        // int x1 = rand.nextInt(this.guiWidth) + 1; // get integer in range 1-400
-        // int y1 = rand.nextInt(this.guiHeight) + 1; // get integer in range 1-300
-
-        this.velocity = new Velocity(0, 0);
     }
 
     /**
