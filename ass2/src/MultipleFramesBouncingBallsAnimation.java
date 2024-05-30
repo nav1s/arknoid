@@ -7,16 +7,19 @@ import biuoop.Sleeper;
  * This class creates a gui with multiple bouncing balls and two frames.
  */
 public class MultipleFramesBouncingBallsAnimation {
+    // gui related finals
     private static final int NUMBER_OF_MILLISECONDS_TO_WAIT = 50;
     private static final int GUI_HEIGHT = 800;
     private static final int GUI_WIDTH = 600;
     private static final String GUI_TITLE = "Multiple Frames Bouncing Balls";
 
+    // gray rectangle related finals
     private static final int GRAY_RECTANGLE_X = 50;
     private static final int GRAY_RECTANGLE_Y = 50;
     private static final int GRAY_RECTANGLE_HEIGHT = 450;
     private static final int GRAY_RECTANGLE_WIDTH = 450;
 
+    // yellow rectangle related finals
     private static final int YELLOW_RECTANGLE_X = 450;
     private static final int YELLOW_RECTANGLE_Y = 450;
     private static final int YELLOW_RECTANGLE_HEIGHT = 150;
@@ -33,11 +36,11 @@ public class MultipleFramesBouncingBallsAnimation {
 
         // generate an array of balls
         for (int i = 0; i < sizes.length; i++) {
-            int minHeight = GRAY_RECTANGLE_Y + sizes[i];
-            int maxHeight = GRAY_RECTANGLE_Y + GRAY_RECTANGLE_HEIGHT - sizes[i];
+            int minHeight = GRAY_RECTANGLE_Y;
+            int maxHeight = GRAY_RECTANGLE_Y + GRAY_RECTANGLE_HEIGHT;
 
-            int minWidth = GRAY_RECTANGLE_X + sizes[i];
-            int maxWidth = GRAY_RECTANGLE_X + GRAY_RECTANGLE_WIDTH - sizes[i];
+            int minWidth = GRAY_RECTANGLE_X;
+            int maxWidth = GRAY_RECTANGLE_X + GRAY_RECTANGLE_WIDTH;
 
             balls[i] = new Ball(sizes[i], minHeight, maxHeight, minWidth, maxWidth);
         }
