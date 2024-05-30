@@ -7,6 +7,7 @@ import biuoop.Sleeper;
  * This class creates a gui with a bouncing ball.
  */
 public class BouncingBallAnimation {
+    private static final String GUI_TITLE = "Bouncing Ball Animation";
     private static final int GUI_HEIGHT = 200;
     private static final int GUI_WIDTH = 200;
     private static final int RADIUS = 30;
@@ -24,7 +25,7 @@ public class BouncingBallAnimation {
         ball.setMaxHeight(GUI_HEIGHT);
         ball.setMaxWidth(GUI_WIDTH);
 
-        GUI gui = new GUI("Bouncing Ball Animation", GUI_HEIGHT, GUI_WIDTH);
+        GUI gui = new GUI(GUI_TITLE, GUI_HEIGHT, GUI_WIDTH);
         while (true) {
             ball.moveOneStep();
             DrawSurface d = gui.getDrawSurface();
