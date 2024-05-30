@@ -101,12 +101,16 @@ public class MultipleFramesBouncingBallsAnimation {
     public static void main(String[] args) {
         int[] argsButInteger = new int[args.length];
         // convert all of our arguments to integer and exit if one of them isn't
-        // todo handle numbers below zero
         for (int i = 0; i < args.length; i++) {
             try {
                 argsButInteger[i] = Integer.parseInt(args[i]);
                 // exit if one of our arguments isn't an integer
             } catch (Exception e) {
+                System.out.println("Invalid input");
+                System.exit(0);
+            }
+            if (argsButInteger[i] <= 0) {
+                // exit if one of our arguments is 0 or below
                 System.out.println("Invalid input");
                 System.exit(0);
             }

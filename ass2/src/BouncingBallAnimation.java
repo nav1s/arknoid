@@ -12,7 +12,6 @@ public class BouncingBallAnimation {
     private static final int GUI_WIDTH = 200;
     private static final int RADIUS = 30;
 
-
     /**
      * @param start the starting point of our ball
      * @param dx    the initial dx velocity
@@ -52,6 +51,11 @@ public class BouncingBallAnimation {
                 argsButInteger[i] = Integer.parseInt(args[i]);
             } catch (Exception e) {
                 // exit if one of our arguments isn't an integer
+                System.out.println("Invalid input");
+                System.exit(0);
+            }
+            if (argsButInteger[i] <= 0) {
+                // exit if one of our arguments is 0 or below
                 System.out.println("Invalid input");
                 System.exit(0);
             }
