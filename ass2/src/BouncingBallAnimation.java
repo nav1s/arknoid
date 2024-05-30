@@ -4,7 +4,7 @@ import biuoop.GUI;
 import biuoop.Sleeper;
 
 /**
- * This class creates a gui with a bouncing ball in it.
+ * This class creates a gui with a bouncing ball.
  */
 public class BouncingBallAnimation {
     private static final int GUI_HEIGHT = 200;
