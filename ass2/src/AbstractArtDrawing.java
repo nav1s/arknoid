@@ -1,28 +1,33 @@
 
 import java.awt.Color;
-import java.util.Arrays;
 import java.util.Random;
 
 import biuoop.DrawSurface;
 import biuoop.GUI;
 
 /**
+ * This class Draws 10 random lines.
  */
 public class AbstractArtDrawing {
+    // define some finals for later use
+    private static final int GUI_HEIGHT = 300;
+    private static final int GUI_WIDTH = 400;
+    private static final String GUI_TITLE = "Random Lines";
     private static final int RADIUS = 3;
+    private static final int NUMBER_OF_LINES = 10;
 
     /**
      * @return A randomly generated line
      */
     public Line generateRandomLine() {
-        Random rand = new Random(); // create a random-number generator
-        int guiWidth = 400;
-        int guiHeight = 300;
-        int x1 = rand.nextInt(guiWidth) + 1; // get integer in range 1-400
-        int x2 = rand.nextInt(guiWidth) + 1; // get integer in range 1-400
+        // create a random-number generator
+        Random rand = new Random();
 
-        int y1 = rand.nextInt(guiHeight) + 1; // get integer in range 1-300
-        int y2 = rand.nextInt(guiHeight) + 1; // get integer in range 1-300
+        int x1 = rand.nextInt(GUI_WIDTH) + 1;
+        int x2 = rand.nextInt(GUI_WIDTH) + 1;
+
+        int y1 = rand.nextInt(GUI_HEIGHT) + 1;
+        int y2 = rand.nextInt(GUI_HEIGHT) + 1;
 
         return new Line(x1, y1, x2, y2);
     }
@@ -54,43 +59,36 @@ public class AbstractArtDrawing {
      * Draw 10 random lines.
      */
     public void drawRandomLines() {
-        // Create a window with the title "Random Circles Example"
-        // which is 400 pixels wide and 300 pixels high.
-        GUI gui = new GUI("Random Lines", 400, 300);
-        DrawSurface drawer = gui.getDrawSurface();
-        Line[] lines = new Line[3];
+        GUI gui = new GUI(GUI_TITLE, GUI_WIDTH, GUI_HEIGHT);
+        DrawSurface surface = gui.getDrawSurface();
+        Line[] lines = new Line[NUMBER_OF_LINES];
+
+        Point[][] intersectionPoints = new Point[NUMBER_OF_LINES][NUMBER_OF_LINES];
 
         for (int i = 0; i <= lines.length - 1; i++) {
+            // generate a random lines
             lines[i] = generateRandomLine();
-        }
+            // draw the line we generated
+            surface.setColor(Color.BLACK);
+            drawLine(lines[i], surface);
 
-        lines[0] = new Line(50, 50, 300, 300);
-        lines[1] = new Line(203.0, 272.0, 341.0, 188.0);
-        lines[2] = new Line(76.0, 204.0, 361.0, 225.0);
-        // lines[3] = new Line(208.0, 248.0, 322.0, 209.0);
-        Point[][] intersectionPoints = new Point[3][3];
-
-        for (int i = 0; i <= lines.length - 1; i++) {
-            drawer.setColor(Color.BLACK);
-            drawLine(lines[i], drawer);
+            // mark the middle point of our line
             Point middle = lines[i].middle();
+            surface.setColor(Color.BLUE);
+            drawCircle(middle.getX(), middle.getY(), surface);
 
-            drawer.setColor(Color.BLUE);
-            drawCircle(middle.getX(), middle.getY(), drawer);
-            drawer.setColor(Color.RED);
-
+            // mark all the intersection points between our lines
+            surface.setColor(Color.RED);
             for (int j = 0; j < i; j++) {
                 Point intersectionPoint = lines[i].intersectionWith(lines[j]);
                 if (intersectionPoint != null) {
-                    drawCircle(intersectionPoint.getX(), intersectionPoint.getY(), drawer);
+                    drawCircle(intersectionPoint.getX(), intersectionPoint.getY(), surface);
                     intersectionPoints[i][j] = intersectionPoint;
                     intersectionPoints[j][i] = intersectionPoint;
                 }
             }
 
         }
-        System.out.println(
-                Arrays.deepToString(intersectionPoints).replace("], ", "]\n").replace("[[", "[").replace("]]", "]"));
 
         // loop over the rows of our matrix
         for (int i = 0; i < intersectionPoints.length; i++) {
@@ -113,15 +111,15 @@ public class AbstractArtDrawing {
                     if (maybeTriangle == null) {
                         continue;
                     }
-                    drawer.setColor(Color.GREEN);
-                    drawLine(new Line(maybeTriangle, secondIntersectionPoint), drawer);
-                    drawLine(new Line(maybeTriangle, firstIntersectionPoint), drawer);
+                    surface.setColor(Color.GREEN);
+                    drawLine(new Line(maybeTriangle, secondIntersectionPoint), surface);
+                    drawLine(new Line(maybeTriangle, firstIntersectionPoint), surface);
                 }
 
             }
         }
 
-        gui.show(drawer);
+        gui.show(surface);
 
     }
 
