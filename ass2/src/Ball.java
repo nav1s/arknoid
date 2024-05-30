@@ -171,13 +171,13 @@ public class Ball {
      */
     public void moveOneStep() {
         this.center = this.getVelocity().applyToPoint(this.center);
-        if (this.center.getX() < this.r) {
+        if (this.center.getX() < this.r + this.minWidth) {
             this.velocity.reverseDx();
-            this.center.setX(this.r);
+            this.center.setX(this.r + this.minWidth);
         }
-        if (this.center.getY() < this.r) {
+        if (this.center.getY() < this.r + this.minHeight) {
             this.velocity.reverseDy();
-            this.center.setY(this.r);
+            this.center.setY(this.r + this.minHeight);
         }
         double maximumHeight = this.maxHeight - this.r;
         double maximumWidth = this.maxWidth - this.r;
