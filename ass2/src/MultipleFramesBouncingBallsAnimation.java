@@ -26,28 +26,21 @@ public class MultipleFramesBouncingBallsAnimation {
     private static final int YELLOW_RECTANGLE_WIDTH = 150;
 
     /**
-     * @param height
-     * @param width
+     * @param minHeight
+     * @param maxHeight
+     * @param minWidth
+     * @param maxWidth
+     * @return
      * @return a randomly generated point bounded to a given area
      */
-    public Point generateRandomPointBounded(int height, int width) {
-        Random rand = new Random(); // create a random-number generator
-        int x1 = rand.nextInt(width) + 1; // get integer in range 1-400
-        int y1 = rand.nextInt(height) + 1; // get integer in range 1-300
+    public Point generateRandomPointBounded(int minHeight, int maxHeight, int minWidth, int maxWidth) {
+        // create a random-number generator
+        Random rand = new Random();
+        int y1 = rand.nextInt(maxHeight - minHeight) + minHeight;
+        int x1 = rand.nextInt(maxWidth - minWidth) + minWidth;
 
         return new Point(x1, y1);
     }
-    /**
-     * @return a randomly generated point
-     */
-    public Point generateRandomPoint() {
-        Random rand = new Random(); // create a random-number generator
-        int x1 = rand.nextInt(GUI_WIDTH) + 1; // get integer in range 1-400
-        int y1 = rand.nextInt(GUI_HEIGHT) + 1; // get integer in range 1-300
-
-        return new Point(x1, y1);
-    }
-
 
     /**
      * @param sizes
@@ -58,23 +51,22 @@ public class MultipleFramesBouncingBallsAnimation {
         Ball[] balls = new Ball[sizes.length];
 
         // for (int i = 0; i < sizes.length; i++) {
-        //     int maxWidth = GRAY_RECTANGLE_X + GRAY_RECTANGLE_HEIGHT;
-        //     int maxHeight = GRAY_RECTANGLE_Y + GRAY_RECTANGLE_WIDTH;
-        //     Point start = generateRandomPointBounded(maxHeight, maxWidth);
-        //     balls[i] = new Ball(start, sizes[i], maxHeight, maxWidth);
+        // int maxWidth = GRAY_RECTANGLE_X + GRAY_RECTANGLE_HEIGHT;
+        // int maxHeight = GRAY_RECTANGLE_Y + GRAY_RECTANGLE_WIDTH;
+        // Point start = generateRandomPointBounded(maxHeight, maxWidth);
+        // balls[i] = new Ball(start, sizes[i], maxHeight, maxWidth);
         // }
         for (int i = 0; i < sizes.length; i++) {
-            int maxWidth = GRAY_RECTANGLE_X + GRAY_RECTANGLE_HEIGHT;
-            int maxHeight = GRAY_RECTANGLE_Y + GRAY_RECTANGLE_WIDTH;
-            Point start = generateRandomPointBounded(maxHeight, maxWidth);
+            Point start = generateRandomPointBounded(GRAY_RECTANGLE_Y + sizes[i], YELLOW_RECTANGLE_Y - sizes[i],
+                    GRAY_RECTANGLE_X + sizes[i],
+                    YELLOW_RECTANGLE_X - sizes[i]);
             balls[i] = new Ball(start.getX(), start.getY(), sizes[i], java.awt.Color.BLACK);
             // balls[i] = new Ball(start, sizes[i], this.guiHeight, this.guiWidth);
             balls[i].setVelocity(SPEED_MODIFIER / sizes[i], SPEED_MODIFIER / sizes[i]);
-            balls[i].setMaxHeight(maxHeight);
-            balls[i].setMaxWidth(maxWidth);
+            balls[i].setMaxHeight(YELLOW_RECTANGLE_Y);
+            balls[i].setMaxWidth(YELLOW_RECTANGLE_X);
 
         }
-
 
         while (true) {
             DrawSurface surface = gui.getDrawSurface();
@@ -91,7 +83,8 @@ public class MultipleFramesBouncingBallsAnimation {
             }
 
             gui.show(surface);
-            sleeper.sleepFor(NUMBER_OF_MILLISECONDS_TO_WAIT); // wait for 50 milliseconds.
+            sleeper.sleepFor(NUMBER_OF_MILLISECONDS_TO_WAIT);
+            break;
         }
     }
 
