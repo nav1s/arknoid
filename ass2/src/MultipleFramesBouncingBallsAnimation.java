@@ -35,7 +35,18 @@ public class MultipleFramesBouncingBallsAnimation {
         Ball[] balls = new Ball[sizes.length];
 
         // generate an array of balls
-        for (int i = 0; i < sizes.length; i++) {
+        for (int i = 0; i < sizes.length / 2; i++) {
+            int minHeight = GRAY_RECTANGLE_Y;
+            int maxHeight = GRAY_RECTANGLE_Y + GRAY_RECTANGLE_HEIGHT;
+
+            int minWidth = GRAY_RECTANGLE_X;
+            int maxWidth = GRAY_RECTANGLE_X + GRAY_RECTANGLE_WIDTH;
+
+            balls[i] = new Ball(sizes[i], minHeight, maxHeight, minWidth, maxWidth);
+        }
+
+        // generate an array of balls
+        for (int i = sizes.length / 2; i < sizes.length; i++) {
             int minHeight = GRAY_RECTANGLE_Y;
             int maxHeight = GRAY_RECTANGLE_Y + GRAY_RECTANGLE_HEIGHT;
 
@@ -55,6 +66,11 @@ public class MultipleFramesBouncingBallsAnimation {
 
             // move our balls
             for (int i = 0; i < balls.length; i++) {
+                if(balls[i] == null){
+                    System.out.println(1);
+                    continue;
+                }
+
                 balls[i].moveOneStep();
                 balls[i].drawOn(surface);
             }
