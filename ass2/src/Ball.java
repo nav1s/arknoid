@@ -82,11 +82,6 @@ public class Ball {
     }
 
     /**
-     * @param minHeight
-     * @param maxHeight
-     * @param minWidth
-     * @param maxWidth
-     * @return
      * @return a randomly generated point bounded to a given area
      */
     public Point generateRandomPointBounded() {

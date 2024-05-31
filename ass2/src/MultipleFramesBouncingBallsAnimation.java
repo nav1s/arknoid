@@ -14,16 +14,18 @@ public class MultipleFramesBouncingBallsAnimation {
     private static final String GUI_TITLE = "Multiple Frames Bouncing Balls";
 
     // gray rectangle related finals
-    private static final int GRAY_RECTANGLE_X = 50;
-    private static final int GRAY_RECTANGLE_Y = 50;
-    private static final int GRAY_RECTANGLE_HEIGHT = 450;
-    private static final int GRAY_RECTANGLE_WIDTH = 450;
+    private static final Point GRAY_RECTANGLE_START = new Point(50, 50);
+    private static final Point GRAY_RECTANGLE_END = new Point(500, 500);
+    private static final int GRAY_RECTANGLE_HEIGHT = (int) (GRAY_RECTANGLE_END.getX() - GRAY_RECTANGLE_START.getX());
+    private static final int GRAY_RECTANGLE_WIDTH = (int) (GRAY_RECTANGLE_END.getY() - GRAY_RECTANGLE_START.getY());
 
     // yellow rectangle related finals
-    private static final int YELLOW_RECTANGLE_X = 450;
-    private static final int YELLOW_RECTANGLE_Y = 450;
-    private static final int YELLOW_RECTANGLE_HEIGHT = 150;
-    private static final int YELLOW_RECTANGLE_WIDTH = 150;
+    private static final Point YELLOW_RECTANGLE_START = new Point(450, 450);
+    private static final Point YELLOW_RECTANGLE_END = new Point(600, 600);
+    private static final int YELLOW_RECTANGLE_HEIGHT = (int) (YELLOW_RECTANGLE_END.getX()
+            - YELLOW_RECTANGLE_START.getX());
+    private static final int YELLOW_RECTANGLE_WIDTH = (int) (YELLOW_RECTANGLE_END.getY()
+            - YELLOW_RECTANGLE_START.getY());
 
     /**
      * @param sizes an array containing the size of our radiuses
@@ -34,26 +36,16 @@ public class MultipleFramesBouncingBallsAnimation {
         GUI gui = new GUI(GUI_TITLE, GUI_HEIGHT, GUI_WIDTH);
         Ball[] balls = new Ball[sizes.length];
 
-        // generate an array of balls
         for (int i = 0; i < sizes.length / 2; i++) {
-            int minHeight = GRAY_RECTANGLE_Y;
-            int maxHeight = GRAY_RECTANGLE_Y + GRAY_RECTANGLE_HEIGHT;
-
-            int minWidth = GRAY_RECTANGLE_X;
-            int maxWidth = GRAY_RECTANGLE_X + GRAY_RECTANGLE_WIDTH;
-
-            balls[i] = new Ball(sizes[i], minHeight, maxHeight, minWidth, maxWidth);
+            balls[i] = new Ball(sizes[i], (int) GRAY_RECTANGLE_START.getY(), (int) GRAY_RECTANGLE_END.getY(),
+                    (int) GRAY_RECTANGLE_START.getX(),
+                    (int) GRAY_RECTANGLE_END.getX());
         }
 
-        // generate an array of balls
         for (int i = sizes.length / 2; i < sizes.length; i++) {
-            int minHeight = GRAY_RECTANGLE_Y;
-            int maxHeight = GRAY_RECTANGLE_Y + GRAY_RECTANGLE_HEIGHT;
-
-            int minWidth = GRAY_RECTANGLE_X;
-            int maxWidth = GRAY_RECTANGLE_X + GRAY_RECTANGLE_WIDTH;
-
-            balls[i] = new Ball(sizes[i], minHeight, maxHeight, minWidth, maxWidth);
+            balls[i] = new Ball(sizes[i], (int) GRAY_RECTANGLE_START.getY(), (int) GRAY_RECTANGLE_END.getY(),
+                    (int) GRAY_RECTANGLE_START.getX(),
+                    (int) GRAY_RECTANGLE_END.getX());
         }
 
         // main loop
@@ -62,11 +54,13 @@ public class MultipleFramesBouncingBallsAnimation {
 
             // create the gray rectangle
             surface.setColor(java.awt.Color.GRAY);
-            surface.fillRectangle(GRAY_RECTANGLE_X, GRAY_RECTANGLE_Y, GRAY_RECTANGLE_WIDTH, GRAY_RECTANGLE_HEIGHT);
+            surface.fillRectangle((int) GRAY_RECTANGLE_START.getX(), (int) GRAY_RECTANGLE_START.getY(),
+                    GRAY_RECTANGLE_WIDTH,
+                    GRAY_RECTANGLE_HEIGHT);
 
             // move our balls
             for (int i = 0; i < balls.length; i++) {
-                if(balls[i] == null){
+                if (balls[i] == null) {
                     System.out.println(1);
                     continue;
                 }
@@ -77,9 +71,9 @@ public class MultipleFramesBouncingBallsAnimation {
 
             // create the yellow rectangle
             surface.setColor(java.awt.Color.YELLOW);
-            surface.fillRectangle(YELLOW_RECTANGLE_X, YELLOW_RECTANGLE_Y, YELLOW_RECTANGLE_WIDTH,
+            surface.fillRectangle((int) YELLOW_RECTANGLE_START.getX(), (int) YELLOW_RECTANGLE_START.getY(),
+                    YELLOW_RECTANGLE_WIDTH,
                     YELLOW_RECTANGLE_HEIGHT);
-
 
             gui.show(surface);
             sleeper.sleepFor(NUMBER_OF_MILLISECONDS_TO_WAIT);
