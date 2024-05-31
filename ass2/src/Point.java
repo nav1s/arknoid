@@ -22,7 +22,7 @@ public class Point {
     /**
      * @param x x coordinate of our point
      * @param y y coordinate of our point
-     * taken from the exercise description
+     *          taken from the exercise description
      */
     public Point(double x, double y) {
         this.x = x;
@@ -32,7 +32,7 @@ public class Point {
     /**
      * @param other the other point to compare
      * @return distance from this point to the other point
-     * taken from the exercise description
+     *         taken from the exercise description
      */
     public double distance(Point other) {
         if (other == null) {
@@ -46,7 +46,7 @@ public class Point {
     /**
      * @param other the point we want to compare
      * @return true is the points are equal, false otherwise
-     * taken from the exercise description
+     *         taken from the exercise description
      */
     public boolean equals(Point other) {
         if (other == null) {
@@ -61,7 +61,7 @@ public class Point {
 
     /**
      * @return the value of x
-     * taken from the exercise description
+     *         taken from the exercise description
      */
     public double getX() {
         return this.x;
@@ -69,7 +69,7 @@ public class Point {
 
     /**
      * @return the value of y
-     * taken from the exercise description
+     *         taken from the exercise description
      */
     public double getY() {
         return this.y;
@@ -93,5 +93,4 @@ public class Point {
     public void setX(double x) {
         this.x = x;
     }
-
 }
