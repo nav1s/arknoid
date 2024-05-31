@@ -11,8 +11,8 @@ public class Ball {
     private Point center;
     private int r;
     private java.awt.Color color;
-    private int minHeight;
-    private int maxHeight;
+    private int minHeight = 0;
+    private int maxHeight = 0;
 
     private int minWidth;
     private int maxWidth;
@@ -20,7 +20,7 @@ public class Ball {
 
     private Velocity velocity = new Velocity(0, 0);
     // create a random-number generator
-    private Random randomGenerator = new Random();
+    private Random rand = new Random();
 
     /**
      * @param center
@@ -57,19 +57,13 @@ public class Ball {
     }
 
     /**
-     * @param r the ball radius
+     * @param r         the ball radius
      * @param minHeight the minimum height our ball is allowed to be in
      * @param maxHeight the maximum height our ball is allowed to be in
-     * @param minWidth the minimum width our ball is allowed to be in
-     * @param maxWidth the maximum width our ball is allowed to be in
+     * @param minWidth  the minimum width our ball is allowed to be in
+     * @param maxWidth  the maximum width our ball is allowed to be in
      */
     public Ball(int r, int minHeight, int maxHeight, int minWidth, int maxWidth) {
-        // generate a random color
-        int red = randomGenerator.nextInt(256);
-        int green = randomGenerator.nextInt(256);
-        int blue = randomGenerator.nextInt(256);
-
-        this.color = new java.awt.Color(red, green, blue);
         this.r = r;
 
         this.minHeight = minHeight;
@@ -77,16 +71,40 @@ public class Ball {
 
         this.minWidth = minWidth;
         this.maxWidth = maxWidth;
+
+        this.color = generateRandomColor();
         this.velocity = new Velocity(SPEED_MODIFIER / r, SPEED_MODIFIER / r);
         this.center = generateRandomPointBounded();
     }
 
     /**
+     * @param center
+     * @param r
+     */
+    public Ball(Point center, int r) {
+        this.center = new Point(center.getX(), center.getY());
+        this.r = r;
+        this.color = java.awt.Color.CYAN;
+
+        this.velocity = new Velocity(SPEED_MODIFIER / r, SPEED_MODIFIER / r);
+    }
+
+    private java.awt.Color generateRandomColor() {
+        // generate a random color
+        int blue = rand.nextInt(256);
+        int green = rand.nextInt(256);
+        int red = rand.nextInt(256);
+
+        return new java.awt.Color(red, green, blue);
+
+    }
+
+    /**
      * @return a randomly generated point bounded to a given area
      */
-    public Point generateRandomPointBounded() {
-        int y1 = randomGenerator.nextInt(maxHeight - minHeight) + minHeight;
-        int x1 = randomGenerator.nextInt(maxWidth - minWidth) + minWidth;
+    private Point generateRandomPointBounded() {
+        int y1 = rand.nextInt(maxHeight - minHeight) + minHeight;
+        int x1 = rand.nextInt(maxWidth - minWidth) + minWidth;
 
         return new Point(x1, y1);
     }
@@ -188,11 +206,6 @@ public class Ball {
         }
     }
 
-    @Override
-    public String toString() {
-        return "Ball [center=" + center + ", velocity=" + velocity + "]";
-    }
-
     /**
      * @return the height of the gui.
      */
@@ -219,6 +232,12 @@ public class Ball {
      */
     public void setMaxWidth(int width) {
         this.maxWidth = width;
+    }
+
+    @Override
+    public String toString() {
+        return "Ball [center=" + center + ", r=" + r + ", color=" + color + ", minHeight=" + minHeight + ", maxHeight="
+                + maxHeight + ", minWidth=" + minWidth + ", maxWidth=" + maxWidth + ", velocity=" + velocity + "]";
     }
 
 }
