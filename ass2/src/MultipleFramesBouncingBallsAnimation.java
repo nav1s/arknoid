@@ -16,10 +16,25 @@ public class MultipleFramesBouncingBallsAnimation {
     private static final String GUI_TITLE = "Multiple Frames Bouncing Balls";
 
     // gray rectangle related finals
-    private static final Point GRAY_RECTANGLE_START = new Point(50, 50);
-    private static final Point GRAY_RECTANGLE_END = new Point(500, 500);
-    private static final int GRAY_RECTANGLE_HEIGHT = (int) (GRAY_RECTANGLE_END.getX() - GRAY_RECTANGLE_START.getX());
-    private static final int GRAY_RECTANGLE_WIDTH = (int) (GRAY_RECTANGLE_END.getY() - GRAY_RECTANGLE_START.getY());
+    private static final Point GRAY_RECTANGLE_LEFT_UP_POINT = new Point(50, 50);
+    private static final Point GRAY_RECTANGLE_LEFT_DOWN_POINT = new Point(50, 500);
+
+    private static final Point GRAY_RECTANGLE_RIGHT_UP_POINT = new Point(500, 50);
+    private static final Point GRAY_RECTANGLE_RIGHT_DOWN_POINT = new Point(500, 500);
+
+    private static final int GRAY_RECTANGLE_HEIGHT = (int) (GRAY_RECTANGLE_RIGHT_DOWN_POINT.getX()
+            - GRAY_RECTANGLE_LEFT_UP_POINT.getX());
+    private static final int GRAY_RECTANGLE_WIDTH = (int) (GRAY_RECTANGLE_RIGHT_DOWN_POINT.getY()
+            - GRAY_RECTANGLE_LEFT_UP_POINT.getY());
+
+    private static final Line GRAY_RECTANGLE_LEFT_EDGE = new Line(GRAY_RECTANGLE_LEFT_UP_POINT,
+            GRAY_RECTANGLE_LEFT_DOWN_POINT);
+    private static final Line GRAY_RECTANGLE_UP_EDGE = new Line(GRAY_RECTANGLE_LEFT_UP_POINT,
+            GRAY_RECTANGLE_RIGHT_UP_POINT);
+    private static final Line GRAY_RECTANGLE_DOWN_EDGE = new Line(GRAY_RECTANGLE_LEFT_DOWN_POINT,
+            GRAY_RECTANGLE_RIGHT_DOWN_POINT);
+    private static final Line GRAY_RECTANGLE_RIGHT_EDGE = new Line(GRAY_RECTANGLE_RIGHT_UP_POINT,
+            GRAY_RECTANGLE_RIGHT_DOWN_POINT);
 
     // yellow rectangle related finals
     private static final Point YELLOW_RECTANGLE_START = new Point(450, 450);
@@ -75,7 +90,8 @@ public class MultipleFramesBouncingBallsAnimation {
 
         // create the second half of the balls inside th gray rectangle
         for (int i = 0; i < sizes.length; i++) {
-            Point start = generateRandomOutsideOfRectangle(sizes[i], GRAY_RECTANGLE_START, GRAY_RECTANGLE_END);
+            Point start = generateRandomOutsideOfRectangle(sizes[i], GRAY_RECTANGLE_LEFT_UP_POINT,
+                    GRAY_RECTANGLE_RIGHT_DOWN_POINT);
             balls[i] = new Ball(start, sizes[i]);
             balls[i].setMaxHeight(GUI_HEIGHT);
             balls[i].setMaxWidth(GUI_WIDTH);
@@ -87,7 +103,7 @@ public class MultipleFramesBouncingBallsAnimation {
 
             // create the gray rectangle
             surface.setColor(java.awt.Color.GRAY);
-            surface.fillRectangle((int) GRAY_RECTANGLE_START.getX(), (int) GRAY_RECTANGLE_START.getY(),
+            surface.fillRectangle((int) GRAY_RECTANGLE_LEFT_UP_POINT.getX(), (int) GRAY_RECTANGLE_LEFT_UP_POINT.getY(),
                     GRAY_RECTANGLE_WIDTH,
                     GRAY_RECTANGLE_HEIGHT);
 
@@ -99,12 +115,14 @@ public class MultipleFramesBouncingBallsAnimation {
                 }
                 int x = ball.getX();
                 int y = ball.getY();
-                if (y >= GRAY_RECTANGLE_START.getY() && y <= GRAY_RECTANGLE_END.getY()) {
-                    if (x >= GRAY_RECTANGLE_END.getX()) {
+                int radius = ball.getSize();
+                Line projection = new Line(x, y, x + ball.getSize(), y + ball.getSize());
+                if (y >= GRAY_RECTANGLE_LEFT_UP_POINT.getY() && y <= GRAY_RECTANGLE_RIGHT_DOWN_POINT.getY()) {
+                    if (x >= GRAY_RECTANGLE_RIGHT_DOWN_POINT.getX()) {
                         ball.setMaxWidth(GUI_WIDTH);
-                        ball.setMinWidth((int) GRAY_RECTANGLE_END.getX());
+                        ball.setMinWidth((int) GRAY_RECTANGLE_RIGHT_DOWN_POINT.getX());
                     } else {
-                        ball.setMaxWidth((int) GRAY_RECTANGLE_START.getX());
+                        ball.setMaxWidth((int) GRAY_RECTANGLE_LEFT_UP_POINT.getX());
                         ball.setMinWidth(0);
 
                     }
@@ -113,12 +131,12 @@ public class MultipleFramesBouncingBallsAnimation {
                     ball.setMinWidth(0);
                 }
 
-                if (x >= GRAY_RECTANGLE_START.getX() && x <= GRAY_RECTANGLE_END.getX()) {
-                    if (y >= GRAY_RECTANGLE_END.getY()) {
+                if (x >= GRAY_RECTANGLE_LEFT_UP_POINT.getX() && x <= GRAY_RECTANGLE_RIGHT_DOWN_POINT.getX()) {
+                    if (y >= GRAY_RECTANGLE_RIGHT_DOWN_POINT.getY()) {
                         ball.setMaxHeight(GUI_HEIGHT);
-                        ball.setMinHeight((int) GRAY_RECTANGLE_END.getY());
+                        ball.setMinHeight((int) GRAY_RECTANGLE_RIGHT_DOWN_POINT.getY());
                     } else {
-                        ball.setMaxHeight((int) GRAY_RECTANGLE_START.getY());
+                        ball.setMaxHeight((int) GRAY_RECTANGLE_LEFT_UP_POINT.getY());
                         ball.setMinHeight(0);
                     }
 
