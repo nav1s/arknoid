@@ -1,4 +1,6 @@
 
+import java.util.Random;
+
 import biuoop.DrawSurface;
 import biuoop.GUI;
 import biuoop.Sleeper;
@@ -9,8 +11,8 @@ import biuoop.Sleeper;
 public class MultipleFramesBouncingBallsAnimation {
     // gui related finals
     private static final int NUMBER_OF_MILLISECONDS_TO_WAIT = 50;
-    private static final int GUI_HEIGHT = 800;
-    private static final int GUI_WIDTH = 600;
+    private static final int GUI_HEIGHT = 600;
+    private static final int GUI_WIDTH = 800;
     private static final String GUI_TITLE = "Multiple Frames Bouncing Balls";
 
     // gray rectangle related finals
@@ -28,27 +30,57 @@ public class MultipleFramesBouncingBallsAnimation {
             - YELLOW_RECTANGLE_START.getY());
 
     /**
+     * @param radius
+     * @param rectStart
+     * @param rectEnd
+     * @return a randomly generated point outside of the rectangle
+     */
+    public Point generateRandomOutsideOfRectangle(int radius, Point rectStart, Point rectEnd) {
+        // create a random-number generator
+        Random rand = new Random();
+
+        while (true) {
+            // get integer in range of our gui width
+            int x = rand.nextInt(GUI_WIDTH) + 1;
+            // get integer in range of our gui height
+            int y = rand.nextInt(GUI_HEIGHT) + 1;
+
+            // continue if our point is inside the rectangle
+            if (x >= rectStart.getX() && x <= rectEnd.getX() && y >= rectStart.getY()
+                    && y <= rectEnd.getY()) {
+                continue;
+            }
+            // return the point if it isn't inside the rectangle
+            return new Point(x, y);
+
+        }
+    }
+
+    /**
      * @param sizes an array containing the size of our radiuses
      */
     private void drawAnimation(int[] sizes) {
         // setup some initial variables
         Sleeper sleeper = new Sleeper();
-        GUI gui = new GUI(GUI_TITLE, GUI_HEIGHT, GUI_WIDTH);
+        GUI gui = new GUI(GUI_TITLE, GUI_WIDTH, GUI_HEIGHT);
         Ball[] balls = new Ball[sizes.length];
 
+        // create the first half of the balls inside th gray rectangle
         for (int i = 0; i < sizes.length / 2; i++) {
             balls[i] = new Ball(sizes[i], (int) GRAY_RECTANGLE_START.getY(), (int) GRAY_RECTANGLE_END.getY(),
                     (int) GRAY_RECTANGLE_START.getX(),
                     (int) GRAY_RECTANGLE_END.getX());
         }
 
+        // create the second half of the balls inside th gray rectangle
         for (int i = sizes.length / 2; i < sizes.length; i++) {
-            balls[i] = new Ball(sizes[i], (int) GRAY_RECTANGLE_START.getY(), (int) GRAY_RECTANGLE_END.getY(),
-                    (int) GRAY_RECTANGLE_START.getX(),
-                    (int) GRAY_RECTANGLE_END.getX());
+            Point start = generateRandomOutsideOfRectangle(sizes[i], GRAY_RECTANGLE_START, GRAY_RECTANGLE_END);
+            balls[i] = new Ball(start, sizes[i]);
+            balls[i].setMaxHeight(GUI_HEIGHT);
+            balls[i].setMaxWidth(GUI_WIDTH);
         }
 
-        // main loop
+        // animation loop
         while (true) {
             DrawSurface surface = gui.getDrawSurface();
 
@@ -61,7 +93,7 @@ public class MultipleFramesBouncingBallsAnimation {
             // move our balls
             for (int i = 0; i < balls.length; i++) {
                 if (balls[i] == null) {
-                    System.out.println(1);
+                    System.out.println("found null balls");
                     continue;
                 }
 
@@ -77,6 +109,7 @@ public class MultipleFramesBouncingBallsAnimation {
 
             gui.show(surface);
             sleeper.sleepFor(NUMBER_OF_MILLISECONDS_TO_WAIT);
+            break;
         }
     }
 
