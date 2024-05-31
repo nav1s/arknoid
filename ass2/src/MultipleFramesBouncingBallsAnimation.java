@@ -135,6 +135,7 @@ public class MultipleFramesBouncingBallsAnimation {
                 balls[i].drawOn(surface);
             }
 
+            // move the balls outside of the gray rectangle
             for (int i = sizes.length / 2 + 1; i < sizes.length; i++) {
                 handleBallsOutsideOfGrayRectangle(balls[i]);
                 balls[i].moveOneStep();

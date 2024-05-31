@@ -24,9 +24,9 @@ public class Ball {
     private Random rand = new Random();
 
     /**
-     * @param center
-     * @param r
-     * @param color
+     * @param center the center of the ball
+     * @param r      the radius of the ball
+     * @param color  the color of the ball
      *               taken from the exercise description.
      */
     public Ball(Point center, int r, java.awt.Color color) {
@@ -34,31 +34,31 @@ public class Ball {
     }
 
     /**
-     * @param x1
-     * @param x2
-     * @param r
-     * @param color
+     * @param x1    the x position of the center of the ball
+     * @param y1    the y position of the center of the ball
+     * @param r     the radius of the ball
+     * @param color the color of the ball
      */
-    public Ball(int x1, int x2, int r, java.awt.Color color) {
-        this((double) x1, (double) x2, r, color);
+    public Ball(int x1, int y1, int r, java.awt.Color color) {
+        this((double) x1, (double) y1, r, color);
     }
 
     /**
-     * @param x1
-     * @param x2
-     * @param r
-     * @param color
+     * @param x1    the x position of the center of the ball
+     * @param y1    the y position of the center of the ball
+     * @param r     the radius of the ball
+     * @param color the color of the ball
      */
-    public Ball(double x1, double x2, int r, java.awt.Color color) {
+    public Ball(double x1, double y1, int r, java.awt.Color color) {
         this.minHeight = 0;
         this.minWidth = 0;
-        this.center = new Point(x1, x2);
+        this.center = new Point(x1, y1);
         this.r = r;
         this.color = color;
     }
 
     /**
-     * @param r         the ball radius
+     * @param r         the radius of the ball
      * @param minHeight the minimum height our ball is allowed to be in
      * @param maxHeight the maximum height our ball is allowed to be in
      * @param minWidth  the minimum width our ball is allowed to be in
@@ -79,8 +79,8 @@ public class Ball {
     }
 
     /**
-     * @param center
-     * @param r
+     * @param center the center of the ball
+     * @param r      the ball radius
      */
     public Ball(Point center, int r) {
         this.center = new Point(center.getX(), center.getY());
@@ -90,6 +90,9 @@ public class Ball {
         this.velocity = new Velocity(SPEED_MODIFIER / r, SPEED_MODIFIER / r);
     }
 
+    /**
+     * @return a randomly generated color
+     */
     private java.awt.Color generateRandomColor() {
         // generate a random color
         int blue = rand.nextInt(256);
@@ -144,7 +147,7 @@ public class Ball {
     }
 
     /**
-     * @param surface
+     * @param surface the surface we draw the ball on
      *                Draw our ball on a surface
      *                taken from the exercise description.
      */
@@ -163,8 +166,8 @@ public class Ball {
     }
 
     /**
-     * @param dx
-     * @param dy
+     * @param dx the dx we need to set
+     * @param dy the dy we need to set
      *           taken from the exercise description.
      */
     public void setVelocity(double dx, double dy) {
@@ -208,28 +211,28 @@ public class Ball {
     }
 
     /**
-     * @return the height of the gui.
+     * @return the maximum allowed height for the ball
      */
     public int getMaxHeight() {
         return maxHeight;
     }
 
     /**
-     * @param height
+     * @param height the new maximum allowed height
      */
     public void setMaxHeight(int height) {
         this.maxHeight = height;
     }
 
     /**
-     * @return the width of the gui.
+     * @return the width of the gui
      */
     public int getMaxWidth() {
         return maxWidth;
     }
 
     /**
-     * @param width
+     * @param width the new maximum allowed width
      */
     public void setMaxWidth(int width) {
         this.maxWidth = width;
