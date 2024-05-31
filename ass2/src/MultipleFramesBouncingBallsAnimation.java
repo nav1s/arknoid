@@ -116,35 +116,30 @@ public class MultipleFramesBouncingBallsAnimation {
                 int x = ball.getX();
                 int y = ball.getY();
                 int radius = ball.getSize();
-                Line projection = new Line(x, y, x + ball.getSize(), y + ball.getSize());
-                if (y >= GRAY_RECTANGLE_LEFT_UP_POINT.getY() && y <= GRAY_RECTANGLE_RIGHT_DOWN_POINT.getY()) {
-                    if (x >= GRAY_RECTANGLE_RIGHT_DOWN_POINT.getX()) {
-                        ball.setMaxWidth(GUI_WIDTH);
-                        ball.setMinWidth((int) GRAY_RECTANGLE_RIGHT_DOWN_POINT.getX());
-                    } else {
-                        ball.setMaxWidth((int) GRAY_RECTANGLE_LEFT_UP_POINT.getX());
-                        ball.setMinWidth(0);
-
-                    }
+                Line projection = new Line(x, y, x + radius, y + radius);
+                if (projection.isIntersecting(GRAY_RECTANGLE_RIGHT_EDGE)) {
+                    ball.setMaxWidth(GUI_WIDTH);
+                    ball.setMinWidth((int) GRAY_RECTANGLE_RIGHT_DOWN_POINT.getX());
+                } else if (projection.isIntersecting(GRAY_RECTANGLE_LEFT_EDGE)) {
+                    ball.setMaxWidth((int) GRAY_RECTANGLE_LEFT_DOWN_POINT.getX());
+                    ball.setMinWidth(0);
                 } else {
                     ball.setMaxWidth(GUI_WIDTH);
                     ball.setMinWidth(0);
                 }
 
-                if (x >= GRAY_RECTANGLE_LEFT_UP_POINT.getX() && x <= GRAY_RECTANGLE_RIGHT_DOWN_POINT.getX()) {
-                    if (y >= GRAY_RECTANGLE_RIGHT_DOWN_POINT.getY()) {
-                        ball.setMaxHeight(GUI_HEIGHT);
-                        ball.setMinHeight((int) GRAY_RECTANGLE_RIGHT_DOWN_POINT.getY());
-                    } else {
-                        ball.setMaxHeight((int) GRAY_RECTANGLE_LEFT_UP_POINT.getY());
-                        ball.setMinHeight(0);
-                    }
+                if (projection.isIntersecting(GRAY_RECTANGLE_UP_EDGE)) {
+                    ball.setMaxHeight((int) GRAY_RECTANGLE_LEFT_UP_POINT.getY());
+                    ball.setMinHeight(0);
+                } else if (projection.isIntersecting(GRAY_RECTANGLE_DOWN_EDGE)) {
+                    ball.setMaxHeight(GUI_HEIGHT);
+                    ball.setMinHeight((int) GRAY_RECTANGLE_LEFT_DOWN_POINT.getY());
 
                 } else {
-                    ball.setMinHeight(0);
                     ball.setMaxHeight(GUI_HEIGHT);
-                }
+                    ball.setMinHeight(0);
 
+                }
                 ball.moveOneStep();
                 ball.drawOn(surface);
             }
