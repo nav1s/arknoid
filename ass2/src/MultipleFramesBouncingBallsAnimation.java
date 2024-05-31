@@ -65,15 +65,16 @@ public class MultipleFramesBouncingBallsAnimation {
         GUI gui = new GUI(GUI_TITLE, GUI_WIDTH, GUI_HEIGHT);
         Ball[] balls = new Ball[sizes.length];
 
-        // create the first half of the balls inside th gray rectangle
-        for (int i = 0; i < sizes.length / 2; i++) {
-            balls[i] = new Ball(sizes[i], (int) GRAY_RECTANGLE_START.getY(), (int) GRAY_RECTANGLE_END.getY(),
-                    (int) GRAY_RECTANGLE_START.getX(),
-                    (int) GRAY_RECTANGLE_END.getX());
-        }
+        // // create the first half of the balls inside th gray rectangle
+        // for (int i = 0; i < sizes.length / 2; i++) {
+        // balls[i] = new Ball(sizes[i], (int) GRAY_RECTANGLE_START.getY(), (int)
+        // GRAY_RECTANGLE_END.getY(),
+        // (int) GRAY_RECTANGLE_START.getX(),
+        // (int) GRAY_RECTANGLE_END.getX());
+        // }
 
         // create the second half of the balls inside th gray rectangle
-        for (int i = sizes.length / 2; i < sizes.length; i++) {
+        for (int i = 0; i < sizes.length; i++) {
             Point start = generateRandomOutsideOfRectangle(sizes[i], GRAY_RECTANGLE_START, GRAY_RECTANGLE_END);
             balls[i] = new Ball(start, sizes[i]);
             balls[i].setMaxHeight(GUI_HEIGHT);
@@ -91,25 +92,54 @@ public class MultipleFramesBouncingBallsAnimation {
                     GRAY_RECTANGLE_HEIGHT);
 
             // move our balls
-            for (int i = 0; i < balls.length; i++) {
-                if (balls[i] == null) {
-                    System.out.println("found null balls");
+            for (Ball ball : balls) {
+                if (ball == null) {
+                    System.out.println("found null ball");
                     continue;
                 }
+                int x = ball.getX();
+                int y = ball.getY();
+                if (y >= GRAY_RECTANGLE_START.getY() && y <= GRAY_RECTANGLE_END.getY()) {
+                    if (x >= GRAY_RECTANGLE_END.getX()) {
+                        ball.setMaxWidth(GUI_WIDTH);
+                        ball.setMinWidth((int) GRAY_RECTANGLE_END.getX());
+                    } else {
+                        ball.setMaxWidth((int) GRAY_RECTANGLE_START.getX());
+                        ball.setMinWidth(0);
 
-                balls[i].moveOneStep();
-                balls[i].drawOn(surface);
+                    }
+                } else {
+                    ball.setMaxWidth(GUI_WIDTH);
+                    ball.setMinWidth(0);
+                }
+
+                if (x >= GRAY_RECTANGLE_START.getX() && x <= GRAY_RECTANGLE_END.getX()) {
+                    if (y >= GRAY_RECTANGLE_END.getY()) {
+                        ball.setMaxHeight(GUI_HEIGHT);
+                        ball.setMinHeight((int) GRAY_RECTANGLE_END.getY());
+                    } else {
+                        ball.setMaxHeight((int) GRAY_RECTANGLE_START.getY());
+                        ball.setMinHeight(0);
+                    }
+
+                } else {
+                    ball.setMinHeight(0);
+                    ball.setMaxHeight(GUI_HEIGHT);
+                }
+
+                ball.moveOneStep();
+                ball.drawOn(surface);
             }
 
-            // create the yellow rectangle
-            surface.setColor(java.awt.Color.YELLOW);
-            surface.fillRectangle((int) YELLOW_RECTANGLE_START.getX(), (int) YELLOW_RECTANGLE_START.getY(),
-                    YELLOW_RECTANGLE_WIDTH,
-                    YELLOW_RECTANGLE_HEIGHT);
+            // // create the yellow rectangle
+            // surface.setColor(java.awt.Color.YELLOW);
+            // surface.fillRectangle((int) YELLOW_RECTANGLE_START.getX(), (int)
+            // YELLOW_RECTANGLE_START.getY(),
+            // YELLOW_RECTANGLE_WIDTH,
+            // YELLOW_RECTANGLE_HEIGHT);
 
             gui.show(surface);
             sleeper.sleepFor(NUMBER_OF_MILLISECONDS_TO_WAIT);
-            break;
         }
     }
 
