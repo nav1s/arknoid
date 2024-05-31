@@ -46,8 +46,8 @@ public class MultipleFramesBouncingBallsAnimation {
             int y = rand.nextInt(GUI_HEIGHT) + 1;
 
             // continue if our point is inside the rectangle
-            if (x >= rectStart.getX() && x <= rectEnd.getX() && y >= rectStart.getY()
-                    && y <= rectEnd.getY()) {
+            if (x + radius >= rectStart.getX() && x - radius <= rectEnd.getX() && y + radius >= rectStart.getY()
+                    && y - radius <= rectEnd.getY()) {
                 continue;
             }
             // return the point if it isn't inside the rectangle
