@@ -9,7 +9,7 @@ import biuoop.Sleeper;
  * This class creates a gui with multiple bouncing balls.
  */
 public class MultipleBouncingBallsAnimation {
-    private static final int SPEED_MODIFIER = 60;
+    private static final int SPEED_MODIFIER = 100;
     private static final int GUI_HEIGHT = 500;
     private static final int GUI_WIDTH = 500;
     private static final String GUI_TITLE = "Multiple Bouncing Balls";

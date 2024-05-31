@@ -7,10 +7,14 @@ import biuoop.Sleeper;
  * This class creates a gui with a bouncing ball.
  */
 public class BouncingBallAnimation {
+    private static final int NUMBER_OF_ARGUMENTS_REQUIRED = 4;
+
+    // gui related finals
     private static final String GUI_TITLE = "Bouncing Ball Animation";
     private static final int GUI_HEIGHT = 200;
     private static final int GUI_WIDTH = 200;
     private static final int RADIUS = 30;
+    private static final int NUMBER_OF_MILLISECONDS_TO_WAIT = 50;
 
     /**
      * @param start the starting point of our ball
@@ -30,7 +34,7 @@ public class BouncingBallAnimation {
             DrawSurface d = gui.getDrawSurface();
             ball.drawOn(d);
             gui.show(d);
-            sleeper.sleepFor(50); // wait for 50 milliseconds.
+            sleeper.sleepFor(NUMBER_OF_MILLISECONDS_TO_WAIT); // wait for 50 milliseconds.
         }
     }
 
@@ -39,7 +43,7 @@ public class BouncingBallAnimation {
      */
     public static void main(String[] args) {
         // check we got a correct number of variables
-        if (args.length != 4) {
+        if (args.length != NUMBER_OF_ARGUMENTS_REQUIRED) {
             System.out.println("Invalid input");
             System.exit(0);
         }
