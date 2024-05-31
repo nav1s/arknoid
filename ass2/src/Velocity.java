@@ -8,18 +8,16 @@ public class Velocity {
     private double dy;
 
     /**
-     * @param dx
-     * @param dy
+     * @param dx the dx we want to set
+     * @param dy the dy we want to set
      */
     public Velocity(double dx, double dy) {
         this.dx = dx;
         this.dy = dy;
     }
 
-    // Take a point with position (x,y) and return a new point
-    // with position (x+dx, y+dy)
     /**
-     * @param p
+     * @param p the point we apply the velocity to
      * @return A point with the velocity
      */
     public Point applyToPoint(Point p) {
@@ -41,21 +39,23 @@ public class Velocity {
     }
 
     /**
+     * reverse the current dx.
      */
     public void reverseDx() {
         this.dx = -this.dx;
     }
 
     /**
+     * reverse the current dy.
      */
     public void reverseDy() {
         this.dy = -this.dy;
     }
 
     /**
-     * @param angle
-     * @param speed
-     * @return the value of dx
+     * @param angle the angle we want to convert
+     * @param speed the speed we want to convert
+     * @return new object of velocity
      */
     public static Velocity fromAngleAndSpeed(double angle, double speed) {
         double angleInRadians = angle / 180 * Math.PI;
@@ -70,14 +70,14 @@ public class Velocity {
     }
 
     /**
-     * @param dy
+     * @param dy the new dy we want to set
      */
     public void setDy(double dy) {
         this.dy = dy;
     }
 
     /**
-     * @param dx
+     * @param dx the new dx we want to set
      */
     public void setDx(double dx) {
         this.dx = dx;
