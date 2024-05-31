@@ -16,25 +16,10 @@ public class MultipleFramesBouncingBallsAnimation {
     private static final String GUI_TITLE = "Multiple Frames Bouncing Balls";
 
     // gray rectangle related finals
-    private static final Point GRAY_RECTANGLE_LEFT_UP_POINT = new Point(50, 50);
-    private static final Point GRAY_RECTANGLE_LEFT_DOWN_POINT = new Point(50, 500);
-
-    private static final Point GRAY_RECTANGLE_RIGHT_UP_POINT = new Point(500, 50);
-    private static final Point GRAY_RECTANGLE_RIGHT_DOWN_POINT = new Point(500, 500);
-
-    private static final int GRAY_RECTANGLE_HEIGHT = (int) (GRAY_RECTANGLE_RIGHT_DOWN_POINT.getX()
-            - GRAY_RECTANGLE_LEFT_UP_POINT.getX());
-    private static final int GRAY_RECTANGLE_WIDTH = (int) (GRAY_RECTANGLE_RIGHT_DOWN_POINT.getY()
-            - GRAY_RECTANGLE_LEFT_UP_POINT.getY());
-
-    private static final Line GRAY_RECTANGLE_LEFT_EDGE = new Line(GRAY_RECTANGLE_LEFT_UP_POINT,
-            GRAY_RECTANGLE_LEFT_DOWN_POINT);
-    private static final Line GRAY_RECTANGLE_UP_EDGE = new Line(GRAY_RECTANGLE_LEFT_UP_POINT,
-            GRAY_RECTANGLE_RIGHT_UP_POINT);
-    private static final Line GRAY_RECTANGLE_DOWN_EDGE = new Line(GRAY_RECTANGLE_LEFT_DOWN_POINT,
-            GRAY_RECTANGLE_RIGHT_DOWN_POINT);
-    private static final Line GRAY_RECTANGLE_RIGHT_EDGE = new Line(GRAY_RECTANGLE_RIGHT_UP_POINT,
-            GRAY_RECTANGLE_RIGHT_DOWN_POINT);
+    private static final Point GRAY_RECTANGLE_START = new Point(50, 50);
+    private static final Point GRAY_RECTANGLE_END = new Point(500, 500);
+    private static final int GRAY_RECTANGLE_HEIGHT = (int) (GRAY_RECTANGLE_END.getX() - GRAY_RECTANGLE_START.getX());
+    private static final int GRAY_RECTANGLE_WIDTH = (int) (GRAY_RECTANGLE_END.getY() - GRAY_RECTANGLE_START.getY());
 
     // yellow rectangle related finals
     private static final Point YELLOW_RECTANGLE_START = new Point(450, 450);
@@ -45,9 +30,9 @@ public class MultipleFramesBouncingBallsAnimation {
             - YELLOW_RECTANGLE_START.getY());
 
     /**
-     * @param radius
-     * @param rectStart
-     * @param rectEnd
+     * @param radius the radius of the balls we want to create
+     * @param rectStart the start point of the rectangle
+     * @param rectEnd the end point of the rectangle
      * @return a randomly generated point outside of the rectangle
      */
     public Point generateRandomOutsideOfRectangle(int radius, Point rectStart, Point rectEnd) {
@@ -72,6 +57,45 @@ public class MultipleFramesBouncingBallsAnimation {
     }
 
     /**
+     * @param ball the ball we want to handle
+     */
+    private void handleBallsOutsideOfGrayRectangle(Ball ball) {
+        int x = ball.getX();
+        int y = ball.getY();
+        // handle ball getting stuck in the top left corner
+        if (x >= 0 && x <= GRAY_RECTANGLE_START.getX() && y >= 0 && y <= GRAY_RECTANGLE_START.getY()) {
+            ball.setCenter(new Point(x + 3, y));
+        }
+        if (y >= GRAY_RECTANGLE_START.getY() && y <= GRAY_RECTANGLE_END.getY()) {
+            if (x >= GRAY_RECTANGLE_END.getX()) {
+                ball.setMaxWidth(GUI_WIDTH);
+                ball.setMinWidth((int) GRAY_RECTANGLE_END.getX());
+            } else {
+                ball.setMaxWidth((int) GRAY_RECTANGLE_START.getX());
+                ball.setMinWidth(0);
+
+            }
+        } else {
+            ball.setMaxWidth(GUI_WIDTH);
+            ball.setMinWidth(0);
+        }
+
+        if (x >= GRAY_RECTANGLE_START.getX() && x <= GRAY_RECTANGLE_END.getX()) {
+            if (y >= GRAY_RECTANGLE_END.getY()) {
+                ball.setMaxHeight(GUI_HEIGHT);
+                ball.setMinHeight((int) GRAY_RECTANGLE_END.getY());
+            } else {
+                ball.setMaxHeight((int) GRAY_RECTANGLE_START.getY());
+                ball.setMinHeight(0);
+            }
+
+        } else {
+            ball.setMinHeight(0);
+            ball.setMaxHeight(GUI_HEIGHT);
+        }
+    }
+
+    /**
      * @param sizes an array containing the size of our radiuses
      */
     private void drawAnimation(int[] sizes) {
@@ -80,18 +104,16 @@ public class MultipleFramesBouncingBallsAnimation {
         GUI gui = new GUI(GUI_TITLE, GUI_WIDTH, GUI_HEIGHT);
         Ball[] balls = new Ball[sizes.length];
 
-        // // create the first half of the balls inside th gray rectangle
-        // for (int i = 0; i < sizes.length / 2; i++) {
-        // balls[i] = new Ball(sizes[i], (int) GRAY_RECTANGLE_START.getY(), (int)
-        // GRAY_RECTANGLE_END.getY(),
-        // (int) GRAY_RECTANGLE_START.getX(),
-        // (int) GRAY_RECTANGLE_END.getX());
-        // }
+        // create the first half of the balls inside th gray rectangle
+        for (int i = 0; i < sizes.length / 2; i++) {
+            balls[i] = new Ball(sizes[i], (int) GRAY_RECTANGLE_START.getY(), (int) GRAY_RECTANGLE_END.getY(),
+                    (int) GRAY_RECTANGLE_START.getX(),
+                    (int) GRAY_RECTANGLE_END.getX());
+        }
 
         // create the second half of the balls inside th gray rectangle
-        for (int i = 0; i < sizes.length; i++) {
-            Point start = generateRandomOutsideOfRectangle(sizes[i], GRAY_RECTANGLE_LEFT_UP_POINT,
-                    GRAY_RECTANGLE_RIGHT_DOWN_POINT);
+        for (int i = sizes.length / 2 + 1; i < sizes.length; i++) {
+            Point start = generateRandomOutsideOfRectangle(sizes[i], GRAY_RECTANGLE_START, GRAY_RECTANGLE_END);
             balls[i] = new Ball(start, sizes[i]);
             balls[i].setMaxHeight(GUI_HEIGHT);
             balls[i].setMaxWidth(GUI_WIDTH);
@@ -103,53 +125,28 @@ public class MultipleFramesBouncingBallsAnimation {
 
             // create the gray rectangle
             surface.setColor(java.awt.Color.GRAY);
-            surface.fillRectangle((int) GRAY_RECTANGLE_LEFT_UP_POINT.getX(), (int) GRAY_RECTANGLE_LEFT_UP_POINT.getY(),
+            surface.fillRectangle((int) GRAY_RECTANGLE_START.getX(), (int) GRAY_RECTANGLE_START.getY(),
                     GRAY_RECTANGLE_WIDTH,
                     GRAY_RECTANGLE_HEIGHT);
 
-            // move our balls
-            for (Ball ball : balls) {
-                if (ball == null) {
-                    System.out.println("found null ball");
-                    continue;
-                }
-                int x = ball.getX();
-                int y = ball.getY();
-                int radius = ball.getSize();
-                Line projection = new Line(x, y, x + radius, y + radius);
-                if (projection.isIntersecting(GRAY_RECTANGLE_RIGHT_EDGE)) {
-                    ball.setMaxWidth(GUI_WIDTH);
-                    ball.setMinWidth((int) GRAY_RECTANGLE_RIGHT_DOWN_POINT.getX());
-                } else if (projection.isIntersecting(GRAY_RECTANGLE_LEFT_EDGE)) {
-                    ball.setMaxWidth((int) GRAY_RECTANGLE_LEFT_DOWN_POINT.getX());
-                    ball.setMinWidth(0);
-                } else {
-                    ball.setMaxWidth(GUI_WIDTH);
-                    ball.setMinWidth(0);
-                }
-
-                if (projection.isIntersecting(GRAY_RECTANGLE_UP_EDGE)) {
-                    ball.setMaxHeight((int) GRAY_RECTANGLE_LEFT_UP_POINT.getY());
-                    ball.setMinHeight(0);
-                } else if (projection.isIntersecting(GRAY_RECTANGLE_DOWN_EDGE)) {
-                    ball.setMaxHeight(GUI_HEIGHT);
-                    ball.setMinHeight((int) GRAY_RECTANGLE_LEFT_DOWN_POINT.getY());
-
-                } else {
-                    ball.setMaxHeight(GUI_HEIGHT);
-                    ball.setMinHeight(0);
-
-                }
-                ball.moveOneStep();
-                ball.drawOn(surface);
+            // move the balls in gray rectangle
+            for (int i = 0; i < sizes.length / 2; i++) {
+                balls[i].moveOneStep();
+                balls[i].drawOn(surface);
             }
 
-            // // create the yellow rectangle
-            // surface.setColor(java.awt.Color.YELLOW);
-            // surface.fillRectangle((int) YELLOW_RECTANGLE_START.getX(), (int)
-            // YELLOW_RECTANGLE_START.getY(),
-            // YELLOW_RECTANGLE_WIDTH,
-            // YELLOW_RECTANGLE_HEIGHT);
+            for (int i = sizes.length / 2 + 1; i < sizes.length; i++) {
+                handleBallsOutsideOfGrayRectangle(balls[i]);
+                balls[i].moveOneStep();
+                balls[i].drawOn(surface);
+            }
+
+            // create the yellow rectangle
+            surface.setColor(java.awt.Color.YELLOW);
+            surface.fillRectangle((int) YELLOW_RECTANGLE_START.getX(), (int)
+            YELLOW_RECTANGLE_START.getY(),
+            YELLOW_RECTANGLE_WIDTH,
+            YELLOW_RECTANGLE_HEIGHT);
 
             gui.show(surface);
             sleeper.sleepFor(NUMBER_OF_MILLISECONDS_TO_WAIT);
