@@ -15,6 +15,7 @@ public class Ball {
     private int maxHeight = 0;
 
     private int minWidth;
+
     private int maxWidth;
     private static final int SPEED_MODIFIER = 60;
 
@@ -84,7 +85,7 @@ public class Ball {
     public Ball(Point center, int r) {
         this.center = new Point(center.getX(), center.getY());
         this.r = r;
-        this.color = java.awt.Color.CYAN;
+        this.color = generateRandomColor();
 
         this.velocity = new Velocity(SPEED_MODIFIER / r, SPEED_MODIFIER / r);
     }
@@ -192,8 +193,8 @@ public class Ball {
             this.velocity.reverseDy();
             this.center.setY(this.r + this.minHeight);
         }
-        double maximumHeight = this.maxHeight - this.r;
-        double maximumWidth = this.maxWidth - this.r;
+        int maximumHeight = this.maxHeight - this.r;
+        int maximumWidth = this.maxWidth - this.r;
 
         if (this.center.getY() > maximumHeight) {
             this.velocity.reverseDy();
@@ -239,5 +240,33 @@ public class Ball {
         return "Ball [center=" + center + ", r=" + r + ", color=" + color + ", minHeight=" + minHeight + ", maxHeight="
                 + maxHeight + ", minWidth=" + minWidth + ", maxWidth=" + maxWidth + ", velocity=" + velocity + "]";
     }
+
+    /**
+     * @return the minimum height
+     */
+    public int getMinHeight() {
+        return minHeight;
+    }
+
+    /**
+     * @param minHeight
+     */
+    public void setMinHeight(int minHeight) {
+        this.minHeight = minHeight;
+    }
+    /**
+     * @return the minimum width
+     */
+    public int getMinWidth() {
+        return minWidth;
+    }
+
+    /**
+     * @param minWidth
+     */
+    public void setMinWidth(int minWidth) {
+        this.minWidth = minWidth;
+    }
+
 
 }
