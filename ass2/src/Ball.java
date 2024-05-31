@@ -17,7 +17,7 @@ public class Ball {
     private int minWidth;
 
     private int maxWidth;
-    private static final int SPEED_MODIFIER = 60;
+    private static final int SPEED_MODIFIER = 100;
 
     private Velocity velocity = new Velocity(0, 0);
     // create a random-number generator
@@ -254,6 +254,7 @@ public class Ball {
     public void setMinHeight(int minHeight) {
         this.minHeight = minHeight;
     }
+
     /**
      * @return the minimum width
      */
@@ -268,5 +269,18 @@ public class Ball {
         this.minWidth = minWidth;
     }
 
+    /**
+     * @return the center
+     */
+    public Point getCenter() {
+        return center;
+    }
+
+    /**
+     * @param center
+     */
+    public void setCenter(Point center) {
+        this.center = center;
+    }
 
 }
