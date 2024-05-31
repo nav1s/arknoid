@@ -1,6 +1,7 @@
 
 /**
- * This class represents a change in a position of an object on a two dimensional cartesian plane.
+ * This class represents a change in a position of an object on a two
+ * dimensional cartesian plane.
  */
 public class Velocity {
     private double dx;
@@ -68,4 +69,17 @@ public class Velocity {
         return "Velocity [dx=" + dx + ", dy=" + dy + "]";
     }
 
+    /**
+     * @param dy
+     */
+    public void setDy(double dy) {
+        this.dy = dy;
+    }
+
+    /**
+     * @param dx
+     */
+    public void setDx(double dx) {
+        this.dx = dx;
+    }
 }
