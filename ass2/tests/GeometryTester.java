@@ -1,17 +1,18 @@
- * This class does some simple tessting of the Point and Line classes.
+/**
+ * This class does some simple testing of the Point and Line classes.
  */
 public class GeometryTester {
 
-    static final double COMPARISONTHRESHOLD = 0.00001;
+    final static double Comparison_threshold = 0.00001;
 
     /**
      *
      * @param a
      * @param b
-     * @return true if doubles are equals otherwise false.
+     * @return
      */
     public static boolean doubleEquals(double a, double b) {
-        return Math.abs(a - b) < GeometryTester.COMPARISONTHRESHOLD;
+        return  Math.abs(a - b) < GeometryTester.Comparison_threshold;
     }
 
     /**
@@ -28,7 +29,7 @@ public class GeometryTester {
             System.out.println("Test p1.getX() failed.");
             mistake = true;
         }
-        if (!doubleEquals(p1.getY(), 2)) {
+        if (!doubleEquals(p1.getY(),2)) {
             System.out.println("Test p1.getY() failed.");
             mistake = true;
         }
@@ -40,7 +41,7 @@ public class GeometryTester {
             System.out.println("Test distance symmetry failed.");
             mistake = true;
         }
-        if (!doubleEquals(p1.distance(p2), 5)) {
+        if (!doubleEquals(p1.distance(p2),5)) {
             System.out.println("Test distance failed.");
             mistake = true;
         }
@@ -69,7 +70,7 @@ public class GeometryTester {
         boolean mistakes = false;
         Line l1 = new Line(12, 2, 9, -2);
         Line l2 = new Line(0, 0, 20, 0);
-        // Line l3 = new Line(9, 2, 12, -2);
+        Line l3 = new Line(9, 2, 12, -2);
 
         if (!l1.isIntersecting(l2)) {
             System.out.println("Test isIntersecting failed (1).");
@@ -94,10 +95,9 @@ public class GeometryTester {
      */
     public static void main(String[] args) {
         GeometryTester tester = new GeometryTester();
-        if (tester.testPoint() && tester.testLine()) {
+        if (tester.testPoint() && tester.testLine())
             System.out.println("Test Completed Successfully!");
-        } else {
+        else
             System.out.println("Found failing tests.");
-        }
     }
 }
