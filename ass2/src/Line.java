@@ -68,37 +68,8 @@ public class Line {
      *         taken from the exercise description
      */
     public boolean isIntersecting(Line other) {
-        double x1 = this.start.getX();
-        double y1 = this.start.getY();
-
-        double x2 = this.end.getX();
-        double y2 = this.end.getY();
-
-        double x3 = other.start.getX();
-        double y3 = other.start.getY();
-
-        double x4 = other.end.getX();
-        double y4 = other.end.getY();
-
-        double a = ((x4 - x3) * (y3 - y1) - (y4 - y3) * (x3 - x1));
-        double b = ((x4 - x3) * (y2 - y1) - (y4 - y3) * (x2 - x1));
-        double c = ((x2 - x1) * (y3 - y1) - (y2 - y1) * (x3 - x1));
-        if (b == 0) {
-            // the lines are colinear
-            if (a == 0) {
-                return true;
-            }
-            // the lines don't intersect
-            return false;
-        }
-        double alpha = a / b;
-        double beta = c / b;
-        // check if the lines intersect
-        if (alpha >= 0 && alpha <= 1 && beta >= 0 && beta <= 1) {
-            return true;
-        }
-
-        return false;
+        IntersectionChecker intersectionChecker = new IntersectionChecker(this, other);
+        return intersectionChecker.isIntersecting();
     }
 
     /**
@@ -118,35 +89,8 @@ public class Line {
      *         taken from the exercise description.
      */
     public Point intersectionWith(Line other) {
-        double x1 = this.start.getX();
-        double y1 = this.start.getY();
-
-        double x2 = this.end.getX();
-        double y2 = this.end.getY();
-
-        double x3 = other.start.getX();
-        double y3 = other.start.getY();
-
-        double x4 = other.end.getX();
-        double y4 = other.end.getY();
-
-        double a = ((x4 - x3) * (y3 - y1) - (y4 - y3) * (x3 - x1));
-        double b = ((x4 - x3) * (y2 - y1) - (y4 - y3) * (x2 - x1));
-        double c = ((x2 - x1) * (y3 - y1) - (y2 - y1) * (x3 - x1));
-
-        if (b == 0) {
-            return null;
-        }
-
-        double alpha = a / b;
-        double beta = c / b;
-        if (alpha >= 0 && alpha <= 1 && beta >= 0 && beta <= 1) {
-            double x0 = x1 + alpha * (x2 - x1);
-            double y0 = y1 + alpha * (y2 - y1);
-            return new Point(x0, y0);
-        }
-
-        return null;
+        IntersectionChecker intersectionChecker = new IntersectionChecker(this, other);
+        return intersectionChecker.getIntersectionPoint();
     }
 
     /**
@@ -170,5 +114,20 @@ public class Line {
     public String toString() {
         return "Line [start=" + start + ", end=" + end + "]";
     }
+
+    /**
+     * @return the start point of the line
+     */
+    public Point getStart() {
+        return start;
+    }
+
+    /**
+     * @return the end point of the line
+     */
+    public Point getEnd() {
+        return end;
+    }
+
 
 }
