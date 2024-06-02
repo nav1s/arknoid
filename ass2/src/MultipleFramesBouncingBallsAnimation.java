@@ -112,7 +112,7 @@ public class MultipleFramesBouncingBallsAnimation {
         }
 
         // create the second half of the balls inside th gray rectangle
-        for (int i = sizes.length / 2 + 1; i < sizes.length; i++) {
+        for (int i = sizes.length / 2; i < sizes.length; i++) {
             Point start = generateRandomOutsideOfRectangle(sizes[i], GRAY_RECTANGLE_START, GRAY_RECTANGLE_END);
             balls[i] = new Ball(start, sizes[i]);
             balls[i].setMaxHeight(GUI_HEIGHT);
@@ -136,7 +136,7 @@ public class MultipleFramesBouncingBallsAnimation {
             }
 
             // move the balls outside of the gray rectangle
-            for (int i = sizes.length / 2 + 1; i < sizes.length; i++) {
+            for (int i = sizes.length / 2; i < sizes.length; i++) {
                 handleBallsOutsideOfGrayRectangle(balls[i]);
                 balls[i].moveOneStep();
                 balls[i].drawOn(surface);
