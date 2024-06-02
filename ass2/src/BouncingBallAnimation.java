@@ -58,7 +58,7 @@ public class BouncingBallAnimation {
                 System.out.println("Invalid input");
                 System.exit(0);
             }
-            if (argsButInteger[i] <= 0 || argsButInteger[i] >= 120) {
+            if (argsButInteger[i] <= 0) {
                 // exit if one of our arguments is 0 or below
                 System.out.println("Invalid input");
                 System.exit(0);
