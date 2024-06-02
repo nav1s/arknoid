@@ -168,8 +168,8 @@ public class MultipleFramesBouncingBallsAnimation {
                 System.out.println("Invalid input");
                 System.exit(0);
             }
-            if (argsButInteger[i] <= 0) {
-                // exit if one of our arguments is 0 or below
+            if (argsButInteger[i] <= 0 || argsButInteger[i] >= 120) {
+                // exit if one of our arguments is below 0 or above 12
                 System.out.println("Invalid input");
                 System.exit(0);
             }
