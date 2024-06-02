@@ -30,9 +30,9 @@ public class MultipleFramesBouncingBallsAnimation {
             - YELLOW_RECTANGLE_START.getY());
 
     /**
-     * @param radius the radius of the balls we want to create
+     * @param radius    the radius of the balls we want to create
      * @param rectStart the start point of the rectangle
-     * @param rectEnd the end point of the rectangle
+     * @param rectEnd   the end point of the rectangle
      * @return a randomly generated point outside of the rectangle
      */
     public Point generateRandomOutsideOfRectangle(int radius, Point rectStart, Point rectEnd) {
@@ -62,10 +62,12 @@ public class MultipleFramesBouncingBallsAnimation {
     private void handleBallsOutsideOfGrayRectangle(Ball ball) {
         int x = ball.getX();
         int y = ball.getY();
-        // handle ball getting stuck in the top left corner
+
+        // handle edge case
         if (x >= 0 && x <= GRAY_RECTANGLE_START.getX() && y >= 0 && y <= GRAY_RECTANGLE_START.getY()) {
             ball.setCenter(new Point(x + 3, y));
         }
+        // check if the ball center's current position is in the same height as the rectangle
         if (y >= GRAY_RECTANGLE_START.getY() && y <= GRAY_RECTANGLE_END.getY()) {
             if (x >= GRAY_RECTANGLE_END.getX()) {
                 ball.setMaxWidth(GUI_WIDTH);
@@ -144,10 +146,9 @@ public class MultipleFramesBouncingBallsAnimation {
 
             // create the yellow rectangle
             surface.setColor(java.awt.Color.YELLOW);
-            surface.fillRectangle((int) YELLOW_RECTANGLE_START.getX(), (int)
-            YELLOW_RECTANGLE_START.getY(),
-            YELLOW_RECTANGLE_WIDTH,
-            YELLOW_RECTANGLE_HEIGHT);
+            surface.fillRectangle((int) YELLOW_RECTANGLE_START.getX(), (int) YELLOW_RECTANGLE_START.getY(),
+                    YELLOW_RECTANGLE_WIDTH,
+                    YELLOW_RECTANGLE_HEIGHT);
 
             gui.show(surface);
             sleeper.sleepFor(NUMBER_OF_MILLISECONDS_TO_WAIT);
