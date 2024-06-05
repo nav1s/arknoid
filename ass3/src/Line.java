@@ -110,6 +110,15 @@ public class Line {
         return false;
     }
 
+    /**
+     * @param rect
+     * @return null if this line doesn't intersect with the rectangle, otherwise the
+     *         closest intersection point to the start of the line
+     */
+    public Point closestIntersectionToStartOfLine(Rectangle rect) {
+        return new Point(0, 0);
+    }
+
     @Override
     public String toString() {
         return "Line [start=" + start + ", end=" + end + "]";
@@ -128,6 +137,5 @@ public class Line {
     public Point getEnd() {
         return end;
     }
-
 
 }
