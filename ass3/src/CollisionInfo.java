@@ -1,12 +1,12 @@
-*/
 
+/**
+*/
 public class CollisionInfo {
     /**
      * @return the point at which the collision occurs.
      */
     public Point collisionPoint() {
         return new Point(0, 0);
-
     }
 
     /**

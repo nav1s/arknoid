@@ -1,3 +1,4 @@
+
 /**
 */
 public class GameEnvironment {
@@ -10,11 +11,11 @@ public class GameEnvironment {
         return;
     }
 
-    // Assume an object moving from line.start() to line.end().
-    // If this object will not collide with any of the collidables
-    // in this collection, return null. Else, return the information
-    // about the closest collision that is going to occur.
     /**
+    * Assume an object moving from line.start() to line.end().
+    * If this object will not collide with any of the collidables
+    * in this collection, return null. Else, return the information
+    * about the closest collision that is going to occur.
      * @param trajectory
      * @return a
      */
