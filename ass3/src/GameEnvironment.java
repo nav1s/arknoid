@@ -1,25 +1,67 @@
 
+import java.util.List;
+
 /**
 */
 public class GameEnvironment {
+    private List<Collidable> collidables;
 
     /**
-     * add the given collidable to the environment.
-     * @param c
+     * @param collidables
      */
-    public void addCollidable(Collidable c) {
-        return;
+    public GameEnvironment(List<Collidable> collidables) {
+        this.collidables = collidables;
     }
 
     /**
-    * Assume an object moving from line.start() to line.end().
-    * If this object will not collide with any of the collidables
-    * in this collection, return null. Else, return the information
-    * about the closest collision that is going to occur.
+     * add the given collidable to the environment.
+     * @param c the collidable we want to add
+     */
+    public void addCollidable(Collidable c) {
+        this.collidables.add(c);
+    }
+
+    /**
+     * Assume an object moving from line.start() to line.end().
+     * If this object will not collide with any of the collidables
+     * in this collection, return null. Else, return the information
+     * about the closest collision that is going to occur.
      * @param trajectory
      * @return a
      */
     public CollisionInfo getClosestCollision(Line trajectory) {
-        return new CollisionInfo();
+        Point closestCollision = null;
+        double d1 = 0;
+        double d2 = 0;
+        Point start = trajectory.getStart();
+
+        // loop over all of our collidables
+        for (Collidable collidable : collidables) {
+            // get a list of the current intersection points with the current collidables.
+            List<Point> intersectionPoints = collidable.getCollisionRectangle().intersectionPoints(trajectory);
+            if (intersectionPoints == null) {
+                continue;
+            }
+            Point closestCollisionWithCurrentCollidable = intersectionPoints.get(0);
+            if (closestCollision == null) {
+                closestCollision = closestCollisionWithCurrentCollidable;
+                d1 = start.distance(closestCollision);
+                continue;
+            }
+
+            d2 = start.distance(closestCollisionWithCurrentCollidable);
+
+            if (d1 < d2) {
+                d1 = d2;
+                closestCollision = closestCollisionWithCurrentCollidable;
+            }
+
+        }
+        if (closestCollision == null) {
+            return null;
+        }
+
+        return new CollisionInfo(new Point(0, 0), new Block(new Rectangle(null, 0, 0)));
+
     }
 }
