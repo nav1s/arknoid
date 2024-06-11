@@ -20,7 +20,16 @@ public class Block implements Collidable {
     public Velocity hit(Point collisionPoint, Velocity currentVelocity) {
         double dx = currentVelocity.getDx();
         double dy = currentVelocity.getDy();
-        return new Velocity(-dx, -dy);
+
+        if (this.rect.isVerticalHit()) {
+            dx = -dx;
+        }
+
+        if (this.rect.isHorizontalHit()) {
+            dy = -dy;
+        }
+
+        return new Velocity(dx, dy);
     }
 
 }

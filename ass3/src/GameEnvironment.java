@@ -30,8 +30,7 @@ public class GameEnvironment {
      * @return a
      */
     public CollisionInfo getClosestCollision(Line trajectory) {
-        Point closestCollisionPoint = null;
-        Collidable closestCollisionCollidable = null;
+        CollisionInfo closestCollision = null;
 
         double d1 = 0;
         double d2 = 0;
@@ -47,28 +46,28 @@ public class GameEnvironment {
             if (intersectionPoints.isEmpty()) {
                 continue;
             }
-            Point closestCollisionWithCurrentCollidable = intersectionPoints.get(0);
-            if (closestCollisionPoint == null) {
-                closestCollisionPoint = closestCollisionWithCurrentCollidable;
-                closestCollisionCollidable = collidable;
+            Point closestCollisionPoint = intersectionPoints.get(0);
+            if (closestCollision == null) {
+                closestCollision = new CollisionInfo(closestCollisionPoint, collidable);
                 d1 = start.distance(closestCollisionPoint);
                 continue;
             }
 
-            d2 = start.distance(closestCollisionWithCurrentCollidable);
+            d2 = start.distance(closestCollisionPoint);
 
+            // ! todo check if works
             if (d1 < d2) {
                 d1 = d2;
-                closestCollisionPoint = closestCollisionWithCurrentCollidable;
-                closestCollisionCollidable = collidable;
+                closestCollision = new CollisionInfo(closestCollisionPoint, collidable);
             }
 
         }
-        if (closestCollisionPoint == null) {
+        if (closestCollision == null) {
             return null;
         }
 
-        return new CollisionInfo(closestCollisionPoint, closestCollisionCollidable);
+        return closestCollision;
+
 
     }
 }

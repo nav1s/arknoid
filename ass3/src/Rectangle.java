@@ -1,5 +1,7 @@
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * This class represents a rectangle in a two dimensional cartesian plane.
@@ -18,7 +20,10 @@ public class Rectangle {
     private Line downerEdge;
     private Line leftEdge;
     private Line rightEdge;
-    private Line[] edges;
+    private List<Line> edges;
+
+    private boolean horizontalHit = false;
+    private boolean verticalHit = false;
 
     /**
      * @param upperLeft the upper left corner of the rectangle
@@ -47,7 +52,7 @@ public class Rectangle {
         this.leftEdge = new Line(this.upperLeft, downerLeft);
         this.rightEdge = new Line(upperRight, downerRight);
         // setup an array with all of our edges
-        this.edges = new Line[] {this.upperEdge, this.downerEdge, this.leftEdge, this.rightEdge };
+        this.edges = Arrays.asList(this.upperEdge, this.downerEdge, this.leftEdge, this.rightEdge);
 
     }
 
@@ -58,6 +63,7 @@ public class Rectangle {
     public java.util.List<Point> intersectionPoints(Line line) {
         ArrayList<Point> lst = new ArrayList<>();
         Point closestIntersectionPoint = null;
+        int lineIndex = 100;
 
         // loop over of all the edges
         for (Line edge : this.edges) {
@@ -67,6 +73,7 @@ public class Rectangle {
                 continue;
             }
             if (closestIntersectionPoint == null) {
+                lineIndex = this.edges.indexOf(edge);
                 closestIntersectionPoint = intersectionPoint;
                 continue;
             }
@@ -76,6 +83,7 @@ public class Rectangle {
             if (dst1 > dst2) {
                 lst.add(closestIntersectionPoint);
                 closestIntersectionPoint = intersectionPoint;
+                lineIndex = this.edges.indexOf(edge);
                 continue;
             }
             lst.add(intersectionPoint);
@@ -83,6 +91,14 @@ public class Rectangle {
 
         if (closestIntersectionPoint != null) {
             lst.add(0, closestIntersectionPoint);
+
+            if (lineIndex == 0 || lineIndex == 1) {
+                this.horizontalHit = true;
+            }
+
+            if (lineIndex == 2 || lineIndex == 3) {
+                this.verticalHit = true;
+            }
         }
 
         return lst;
@@ -108,4 +124,21 @@ public class Rectangle {
     public Point getUpperLeft() {
         return this.upperLeft;
     }
+
+    /**
+     * @return true if we got a vertical hit, otherwise false
+     */
+    public boolean isVerticalHit() {
+        return verticalHit;
+    }
+
+    /**
+     * @return true if we got a horizontal hit, otherwise false
+     */
+    public boolean isHorizontalHit() {
+        return horizontalHit;
+    }
+
+
+
 }

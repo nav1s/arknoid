@@ -215,7 +215,6 @@ public class Ball {
         }
 
         Point collisionPoint = collisionInfo.collisionPoint();
-        System.out.println(collisionPoint);
         this.center = new Point(collisionPoint.getX() - this.r, collisionPoint.getY());
         this.velocity = collisionInfo.collisionObject().hit(collisionPoint, this.velocity);
     }
