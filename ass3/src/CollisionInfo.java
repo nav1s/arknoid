@@ -15,6 +15,11 @@ public class CollisionInfo {
     }
 
     /**
+     */
+    public CollisionInfo() {
+    }
+
+    /**
      * @return the point at which the collision occurs.
      */
     public Point collisionPoint() {

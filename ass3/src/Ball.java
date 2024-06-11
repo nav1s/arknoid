@@ -103,6 +103,8 @@ public class Ball {
         this.center = new Point(x1, y1);
         this.r = r;
         this.gameEnvironment = gameEnvironment;
+        this.color = generateRandomColor();
+        this.velocity = new Velocity(10, 0);
     }
 
     /**
@@ -211,8 +213,10 @@ public class Ball {
             this.center = endOfTrajectory;
             return;
         }
+
         Point collisionPoint = collisionInfo.collisionPoint();
-        this.center = new Point(collisionPoint.getX() - this.r, collisionPoint.getY() - r);
+        System.out.println(collisionPoint);
+        this.center = new Point(collisionPoint.getX() - this.r, collisionPoint.getY());
         this.velocity = collisionInfo.collisionObject().hit(collisionPoint, this.velocity);
     }
 

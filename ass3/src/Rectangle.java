@@ -8,7 +8,17 @@ public class Rectangle {
     private Point upperLeft;
     private double width;
     private double height;
-    private java.awt.Color color;
+
+    private Point downerLeft;
+    private Point downerRight;
+    private Point upperRight;
+
+    // setup all of the rectangles edges
+    private Line upperEdge;
+    private Line downerEdge;
+    private Line leftEdge;
+    private Line rightEdge;
+    private Line[] edges;
 
     /**
      * @param upperLeft the upper left corner of the rectangle
@@ -20,7 +30,25 @@ public class Rectangle {
         this.upperLeft = upperLeft;
         this.width = width;
         this.height = height;
-        this.color = Ball.generateRandomColor();
+        calculateRectangleProperties();
+    }
+
+    /**
+     */
+    private void calculateRectangleProperties() {
+        // setup all of the rectangles points
+        this.downerLeft = new Point(this.upperLeft.getX(), this.upperLeft.getY() + this.height);
+        this.downerRight = new Point(this.upperLeft.getX() + this.width, this.upperLeft.getY() + this.height);
+        this.upperRight = new Point(this.upperLeft.getX() + this.width, this.upperLeft.getY());
+
+        // setup all of the rectangles edges
+        this.upperEdge = new Line(this.upperLeft, upperRight);
+        this.downerEdge = new Line(downerLeft, downerRight);
+        this.leftEdge = new Line(this.upperLeft, downerLeft);
+        this.rightEdge = new Line(upperRight, downerRight);
+        // setup an array with all of our edges
+        this.edges = new Line[] {this.upperEdge, this.downerEdge, this.leftEdge, this.rightEdge };
+
     }
 
     /**
@@ -29,25 +57,32 @@ public class Rectangle {
      */
     public java.util.List<Point> intersectionPoints(Line line) {
         ArrayList<Point> lst = new ArrayList<>();
-        // setup all of the rectangles points
-        Point downerLeft = new Point(this.upperLeft.getX(), this.upperLeft.getY() + this.height);
-        Point downerRight = new Point(this.upperLeft.getX() + this.width, this.upperLeft.getY() + this.height);
-        Point upperRight = new Point(this.upperLeft.getX() + this.width, this.upperLeft.getY());
+        Point closestIntersectionPoint = null;
 
-        // setup all of the rectangles edges
-        Line upperEdge = new Line(this.upperLeft, upperRight);
-        Line downerEdge = new Line(downerLeft, downerRight);
-        Line leftEdge = new Line(this.upperLeft, downerLeft);
-        Line rightEdge = new Line(upperRight, downerRight);
-
-        // setup an array with all of our edges
-        Line[] edges = new Line[] {upperEdge, downerEdge, leftEdge, rightEdge};
-
-        for (Line edge : edges) {
+        // loop over of all the edges
+        for (Line edge : this.edges) {
             Point intersectionPoint = line.intersectionWith(edge);
-            if (intersectionPoint != null) {
-                lst.add(intersectionPoint);
+            // continue the loop if there isn't any intersection
+            if (intersectionPoint == null) {
+                continue;
             }
+            if (closestIntersectionPoint == null) {
+                closestIntersectionPoint = intersectionPoint;
+                continue;
+            }
+            Point start = line.getStart();
+            double dst1 = start.distance(closestIntersectionPoint);
+            double dst2 = start.distance(intersectionPoint);
+            if (dst1 > dst2) {
+                lst.add(closestIntersectionPoint);
+                closestIntersectionPoint = intersectionPoint;
+                continue;
+            }
+            lst.add(intersectionPoint);
+        }
+
+        if (closestIntersectionPoint != null) {
+            lst.add(0, closestIntersectionPoint);
         }
 
         return lst;
