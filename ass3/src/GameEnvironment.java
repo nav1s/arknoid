@@ -38,8 +38,11 @@ public class GameEnvironment {
         // loop over all of our collidables
         for (Collidable collidable : collidables) {
             // get a list of the current intersection points with the current collidables.
-            List<Point> intersectionPoints = collidable.getCollisionRectangle().intersectionPoints(trajectory);
-            if (intersectionPoints == null) {
+            Rectangle collisionRectangle = collidable.getCollisionRectangle();
+            List<Point> intersectionPoints = collisionRectangle.intersectionPoints(trajectory);
+
+            // if we don't intersect with anything we can move to the next collidable
+            if (intersectionPoints.isEmpty()) {
                 continue;
             }
             Point closestCollisionWithCurrentCollidable = intersectionPoints.get(0);

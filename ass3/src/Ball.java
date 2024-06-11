@@ -22,6 +22,7 @@ public class Ball {
     private Velocity velocity = new Velocity(0, 0);
     // create a random-number generator
     private Random rand = new Random();
+    private GameEnvironment gameEnvironment;
 
     /**
      * @param center the center of the ball
@@ -91,9 +92,24 @@ public class Ball {
     }
 
     /**
+     * @param x1              the x position of the center of the ball
+     * @param y1              the y position of the center of the ball
+     * @param r               the radius of the ball
+     * @param gameEnvironment
+     */
+    public Ball(double x1, double y1, int r, GameEnvironment gameEnvironment) {
+        this.minHeight = 0;
+        this.minWidth = 0;
+        this.center = new Point(x1, y1);
+        this.r = r;
+        this.gameEnvironment = gameEnvironment;
+    }
+
+    /**
      * @return a randomly generated color
      */
-    private java.awt.Color generateRandomColor() {
+    public static java.awt.Color generateRandomColor() {
+        Random rand = new Random();
         // generate a random color
         int blue = rand.nextInt(256);
         int green = rand.nextInt(256);
@@ -187,27 +203,17 @@ public class Ball {
      * taken from the exercise description.
      */
     public void moveOneStep() {
-        this.center = this.getVelocity().applyToPoint(this.center);
-        if (this.center.getX() < this.r + this.minWidth) {
-            this.velocity.reverseDx();
-            this.center.setX(this.r + this.minWidth);
-        }
-        if (this.center.getY() < this.r + this.minHeight) {
-            this.velocity.reverseDy();
-            this.center.setY(this.r + this.minHeight);
-        }
-        int maximumHeight = this.maxHeight - this.r;
-        int maximumWidth = this.maxWidth - this.r;
+        Point endOfTrajectory = this.velocity.applyToPoint(this.center);
+        Line trajectory = new Line(this.center, endOfTrajectory);
 
-        if (this.center.getY() > maximumHeight) {
-            this.velocity.reverseDy();
-            this.center.setY(maximumHeight);
+        CollisionInfo collisionInfo = gameEnvironment.getClosestCollision(trajectory);
+        if (collisionInfo == null) {
+            this.center = endOfTrajectory;
+            return;
         }
-
-        if (this.center.getX() > maximumWidth) {
-            this.velocity.reverseDx();
-            this.center.setX(maximumWidth);
-        }
+        Point collisionPoint = collisionInfo.collisionPoint();
+        this.center = new Point(collisionPoint.getX() - this.r, collisionPoint.getY() - r);
+        this.velocity = collisionInfo.collisionObject().hit(collisionPoint, this.velocity);
     }
 
     /**

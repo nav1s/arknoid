@@ -1,3 +1,4 @@
+import biuoop.DrawSurface;
 import biuoop.GUI;
 import biuoop.Sleeper;
 
@@ -41,23 +42,23 @@ public class Main {
 
         while (true) {
             sleeper.sleepFor(20);
-            DrawSurface d = gui.getDrawSurface();
+            DrawSurface drawer = gui.getDrawSurface();
             for (int i = 0; i < numberOfRectangles; i++) {
                 for (int j = 0; j < numberOfRectangles; j++) {
-                    d.setColor(Color.black);
-                    d.drawRectangle(
+                    drawer.setColor(Color.black);
+                    drawer.fillRectangle(
                             (int) blocks.get(j + i * numberOfRectangles).getCollisionRectangle().getUpperLeft().getX(),
                             (int) blocks.get(j + i * numberOfRectangles).getCollisionRectangle().getUpperLeft().getY(),
                             (int) blocks.get(j + i * numberOfRectangles).getCollisionRectangle().getWidth(),
                             (int) blocks.get(j + i * numberOfRectangles).getCollisionRectangle().getHeight());
-                    d.setColor(Color.red);
-                    d.fillCircle((int) balls[j + i * numberOfRectangles].getCenter().getX(),
+                    drawer.setColor(Color.red);
+                    drawer.fillCircle((int) balls[j + i * numberOfRectangles].getCenter().getX(),
                             (int) balls[j + i * numberOfRectangles].getCenter().getY(),
                             balls[j + i * numberOfRectangles].getSize());
                     balls[j + i * numberOfRectangles].moveOneStep();
                 }
             }
-            gui.show(d);
+            gui.show(drawer);
 
         }
 

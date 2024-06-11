@@ -1,4 +1,6 @@
 
+import java.util.List;
+
 /**
  * This class represents a line in a two dimensional cartesian plane.
  *
@@ -111,12 +113,17 @@ public class Line {
     }
 
     /**
-     * @param rect
+     * @param rect the rectangle we want to check if the line intersects with
      * @return null if this line doesn't intersect with the rectangle, otherwise the
      *         closest intersection point to the start of the line
      */
     public Point closestIntersectionToStartOfLine(Rectangle rect) {
-        return new Point(0, 0);
+        List<Point> intersectionPoints = rect.intersectionPoints(this);
+        if (intersectionPoints != null) {
+            return intersectionPoints.get(0);
+        }
+        return null;
+
     }
 
     @Override

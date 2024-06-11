@@ -2,24 +2,25 @@
 /**
 */
 public class Block implements Collidable {
+    private Rectangle rect;
 
     /**
-     * @return the "collision shape" of the object.
+     * @param rect
      */
+    public Block(Rectangle rect) {
+        this.rect = rect;
+    }
+
+    @Override
     public Rectangle getCollisionRectangle() {
-        return new Rectangle(null, 0, 0);
+        return this.rect;
     }
 
-    /**
-     * Notify the object that we collided with it at collisionPoint with a given
-     * velocity.
-     * @param collisionPoint
-     * @param currentVelocity
-     * @return the new velocity expected after the hit (based on the force the
-     *         object inflicted on us).
-     */
+    @Override
     public Velocity hit(Point collisionPoint, Velocity currentVelocity) {
-        return new Velocity(0, 0);
-
+        double dx = currentVelocity.getDx();
+        double dy = currentVelocity.getDy();
+        return new Velocity(-dx, -dy);
     }
+
 }
