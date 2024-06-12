@@ -4,7 +4,12 @@ import biuoop.Sleeper;
 
 import java.util.ArrayList;
 
+/**
+ */
 public class SimpleMain {
+    /**
+     * @param args
+     */
     public static void main(String[] args) {
         Sleeper sleeper = new Sleeper();
         GUI gui = new GUI("title", 400, 400);

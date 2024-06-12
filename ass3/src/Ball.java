@@ -26,18 +26,17 @@ public class Ball {
 
     /**
      * @param center the center of the ball
-     * @param r      the radius of the ball
-     * @param color  the color of the ball
-     *               taken from the exercise description.
+     * @param r the radius of the ball
+     * @param color the color of the ball taken from the exercise description.
      */
     public Ball(Point center, int r, java.awt.Color color) {
         this(center.getX(), center.getY(), r, color);
     }
 
     /**
-     * @param x1    the x position of the center of the ball
-     * @param y1    the y position of the center of the ball
-     * @param r     the radius of the ball
+     * @param x1 the x position of the center of the ball
+     * @param y1 the y position of the center of the ball
+     * @param r the radius of the ball
      * @param color the color of the ball
      */
     public Ball(int x1, int y1, int r, java.awt.Color color) {
@@ -45,9 +44,9 @@ public class Ball {
     }
 
     /**
-     * @param x1    the x position of the center of the ball
-     * @param y1    the y position of the center of the ball
-     * @param r     the radius of the ball
+     * @param x1 the x position of the center of the ball
+     * @param y1 the y position of the center of the ball
+     * @param r the radius of the ball
      * @param color the color of the ball
      */
     public Ball(double x1, double y1, int r, java.awt.Color color) {
@@ -59,11 +58,11 @@ public class Ball {
     }
 
     /**
-     * @param r         the radius of the ball
+     * @param r the radius of the ball
      * @param minHeight the minimum height our ball is allowed to be in
      * @param maxHeight the maximum height our ball is allowed to be in
-     * @param minWidth  the minimum width our ball is allowed to be in
-     * @param maxWidth  the maximum width our ball is allowed to be in
+     * @param minWidth the minimum width our ball is allowed to be in
+     * @param maxWidth the maximum width our ball is allowed to be in
      */
     public Ball(int r, int minHeight, int maxHeight, int minWidth, int maxWidth) {
         this.r = r;
@@ -81,7 +80,7 @@ public class Ball {
 
     /**
      * @param center the center of the ball
-     * @param r      the ball radius
+     * @param r the ball radius
      */
     public Ball(Point center, int r) {
         this.center = new Point(center.getX(), center.getY());
@@ -92,9 +91,9 @@ public class Ball {
     }
 
     /**
-     * @param x1              the x position of the center of the ball
-     * @param y1              the y position of the center of the ball
-     * @param r               the radius of the ball
+     * @param x1 the x position of the center of the ball
+     * @param y1 the y position of the center of the ball
+     * @param r the radius of the ball
      * @param gameEnvironment
      */
     public Ball(double x1, double y1, int r, GameEnvironment gameEnvironment) {
@@ -132,8 +131,7 @@ public class Ball {
     }
 
     /**
-     * @return the value of x
-     *         taken from the exercise description.
+     * @return the value of x taken from the exercise description.
      */
     public int getX() {
         return (int) this.center.getX();
@@ -141,33 +139,30 @@ public class Ball {
     }
 
     /**
-     * @return the value of y (taken from the exercise description).
-     *         taken from the exercise description.
+     * @return the value of y (taken from the exercise description). taken from the exercise
+     *         description.
      */
     public int getY() {
         return (int) this.center.getY();
     }
 
     /**
-     * @return the value of r
-     *         taken from the exercise description.
+     * @return the value of r taken from the exercise description.
      */
     public int getSize() {
         return this.r;
     }
 
     /**
-     * @return the value of color
-     *         taken from the exercise description.
+     * @return the value of color taken from the exercise description.
      */
     public java.awt.Color getColor() {
         return this.color;
     }
 
     /**
-     * @param surface the surface we draw the ball on
-     *                Draw our ball on a surface
-     *                taken from the exercise description.
+     * @param surface the surface we draw the ball on Draw our ball on a surface taken from the
+     *        exercise description.
      */
     public void drawOn(DrawSurface surface) {
         surface.setColor(this.color);
@@ -175,8 +170,7 @@ public class Ball {
     }
 
     /**
-     * @param v the velocity we want to set
-     *          taken from the exercise description.
+     * @param v the velocity we want to set taken from the exercise description.
      */
     public void setVelocity(Velocity v) {
         this.velocity = new Velocity(v.getDx(), v.getDy());
@@ -185,8 +179,7 @@ public class Ball {
 
     /**
      * @param dx the dx we need to set
-     * @param dy the dy we need to set
-     *           taken from the exercise description.
+     * @param dy the dy we need to set taken from the exercise description.
      */
     public void setVelocity(double dx, double dy) {
         this.velocity = new Velocity(dx, dy);
@@ -194,8 +187,7 @@ public class Ball {
     }
 
     /**
-     * @return current velocity
-     *         taken from the exercise description.
+     * @return current velocity taken from the exercise description.
      */
     public Velocity getVelocity() {
         return this.velocity;
@@ -206,7 +198,22 @@ public class Ball {
      */
     public void moveOneStep() {
         Point endOfTrajectory = this.velocity.applyToPoint(this.center);
-        Line trajectory = new Line(this.center, endOfTrajectory);
+        int deltaRx = 0;
+        int deltaRy = 0;
+        if (this.velocity.getDx() >= 0) {
+            deltaRx = r;
+        } else {
+            deltaRx = -r;
+        }
+
+        if (this.velocity.getDy() >= 0) {
+            deltaRy = r;
+        } else {
+            deltaRy = -r;
+        }
+        Point endOfTrajectoryWithRadius =
+                new Point(endOfTrajectory.getX() + deltaRx, endOfTrajectory.getY() + deltaRy);
+        Line trajectory = new Line(this.center, endOfTrajectoryWithRadius);
 
         CollisionInfo collisionInfo = gameEnvironment.getClosestCollision(trajectory);
         if (collisionInfo == null) {
@@ -215,8 +222,12 @@ public class Ball {
         }
 
         Point collisionPoint = collisionInfo.collisionPoint();
-        this.center = new Point(collisionPoint.getX() - this.r, collisionPoint.getY());
+        this.center = new Point(endOfTrajectory.getX(), endOfTrajectory.getY());
         this.velocity = collisionInfo.collisionObject().hit(collisionPoint, this.velocity);
+        // while (true) {
+        // assert true;
+        // }
+
     }
 
     /**
@@ -249,8 +260,9 @@ public class Ball {
 
     @Override
     public String toString() {
-        return "Ball [center=" + center + ", r=" + r + ", color=" + color + ", minHeight=" + minHeight + ", maxHeight="
-                + maxHeight + ", minWidth=" + minWidth + ", maxWidth=" + maxWidth + ", velocity=" + velocity + "]";
+        return "Ball [center=" + center + ", r=" + r + ", color=" + color + ", minHeight="
+                + minHeight + ", maxHeight=" + maxHeight + ", minWidth=" + minWidth + ", maxWidth="
+                + maxWidth + ", velocity=" + velocity + "]";
     }
 
     /**

@@ -22,9 +22,6 @@ public class Rectangle {
     private Line rightEdge;
     private List<Line> edges;
 
-    private boolean horizontalHit = false;
-    private boolean verticalHit = false;
-
     /**
      * @param upperLeft the upper left corner of the rectangle
      * @param width     the width of the rectangle
@@ -63,7 +60,6 @@ public class Rectangle {
     public java.util.List<Point> intersectionPoints(Line line) {
         ArrayList<Point> lst = new ArrayList<>();
         Point closestIntersectionPoint = null;
-        int lineIndex = 100;
 
         // loop over of all the edges
         for (Line edge : this.edges) {
@@ -73,7 +69,6 @@ public class Rectangle {
                 continue;
             }
             if (closestIntersectionPoint == null) {
-                lineIndex = this.edges.indexOf(edge);
                 closestIntersectionPoint = intersectionPoint;
                 continue;
             }
@@ -83,7 +78,6 @@ public class Rectangle {
             if (dst1 > dst2) {
                 lst.add(closestIntersectionPoint);
                 closestIntersectionPoint = intersectionPoint;
-                lineIndex = this.edges.indexOf(edge);
                 continue;
             }
             lst.add(intersectionPoint);
@@ -91,14 +85,6 @@ public class Rectangle {
 
         if (closestIntersectionPoint != null) {
             lst.add(0, closestIntersectionPoint);
-
-            if (lineIndex == 0 || lineIndex == 1) {
-                this.horizontalHit = true;
-            }
-
-            if (lineIndex == 2 || lineIndex == 3) {
-                this.verticalHit = true;
-            }
         }
 
         return lst;
@@ -126,19 +112,39 @@ public class Rectangle {
     }
 
     /**
-     * @return true if we got a vertical hit, otherwise false
+     * @param line
+     * @return true
      */
-    public boolean isVerticalHit() {
-        return verticalHit;
+    public boolean checkHorizontalHit(Line line) {
+        if (line.isIntersecting(downerEdge) || line.isIntersecting(upperEdge)) {
+            return true;
+        }
+        return false;
+
     }
 
     /**
-     * @return true if we got a horizontal hit, otherwise false
+     * @param line
+     * @return true
      */
-    public boolean isHorizontalHit() {
-        return horizontalHit;
+    public boolean checkVerticalHit(Line line) {
+        if (line.isIntersecting(leftEdge) || line.isIntersecting(rightEdge)) {
+            return true;
+        }
+        return false;
+
     }
 
+    /**
+     * @param p
+     * @return true
+     */
+    public boolean checkCornerHit(Point p) {
+        if (p.equals(upperLeft) || p.equals(downerLeft) || p.equals(upperRight) || p.equals(downerRight)) {
+            return true;
+        }
+        return false;
 
+    }
 
 }
