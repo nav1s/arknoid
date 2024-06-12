@@ -1,14 +1,22 @@
 
+import java.awt.Color;
+
 import biuoop.DrawSurface;
 import biuoop.GUI;
+import biuoop.KeyboardSensor;
 import biuoop.Sleeper;
 
 /**
 */
 public class Game {
+    private static final int BLOCK_ROW_START_Y = 100;
+    private static final int BLOCK_ROW_START_X = 200;
+    private static final int DEFAULT_BLOCK_HEIGHT = 30;
+    private static final int DEFAULT_BLOCK_WIDTH = 75;
     private SpriteCollection spriteCollection;
     private GameEnvironment gameEnvironment;
     private GUI gui;
+    private KeyboardSensor keyboard;
 
     /**
      */
@@ -16,6 +24,7 @@ public class Game {
         this.spriteCollection = new SpriteCollection();
         this.gameEnvironment = new GameEnvironment();
         this.gui = new GUI("title", 800, 600);
+        this.keyboard = this.gui.getKeyboardSensor();
     }
 
     /**
@@ -41,10 +50,22 @@ public class Game {
     public void initialize() {
         Ball ball = new Ball(400, 500, 10, gameEnvironment);
         ball.addToGame(this);
-        // for (...) {
+
+        ball = new Ball(500, 500, 10, gameEnvironment);
+        ball.addToGame(this);
+
+        Color color = Ball.generateRandomColor();
+        for (int j = 1; j < 12; j++) {
+            Rectangle rect = new Rectangle(
+                    new Point(10 + BLOCK_ROW_START_X + DEFAULT_BLOCK_WIDTH * j, BLOCK_ROW_START_Y),
+                    DEFAULT_BLOCK_WIDTH,
+                    DEFAULT_BLOCK_HEIGHT);
+            Block block = new Block(rect, color);
+            block.addToGame(this);
+        }
 
         Rectangle paddleRectangle = new Rectangle(new Point(350, 525), 100, 50);
-        Block paddle = new Block(paddleRectangle);
+        Paddle paddle = new Paddle(keyboard, paddleRectangle, java.awt.Color.YELLOW);
         paddle.addToGame(this);
 
         Rectangle screenRectangle = new Rectangle(new Point(0, 0), 800, 600);
@@ -76,12 +97,4 @@ public class Game {
         }
     }
 
-    /**
-     * @param args
-     */
-    public static void main(String[] args) {
-        Game game = new Game();
-        game.initialize();
-        game.run();
-    }
 }

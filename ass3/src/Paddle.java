@@ -2,34 +2,36 @@
 import java.awt.Color;
 
 import biuoop.DrawSurface;
+import biuoop.KeyboardSensor;
 
 /**
-*/
-public class Block implements Collidable, Sprite {
+ */
+public class Paddle implements Sprite, Collidable {
+    private KeyboardSensor keyboard;
     private Rectangle rect;
     private java.awt.Color color;
 
     /**
-     * @param rect
-     */
-    public Block(Rectangle rect) {
-        this.rect = rect;
-        this.color = Ball.generateRandomColor();
-    }
-
-    /**
+     * @param keyboard
      * @param rect
      * @param color
      */
-    public Block(Rectangle rect, Color color) {
+    public Paddle(KeyboardSensor keyboard, Rectangle rect, Color color) {
+        this.keyboard = keyboard;
         this.rect = rect;
         this.color = color;
     }
 
+    /**
+     */
+    public void moveLeft() {
 
-    @Override
-    public Rectangle getCollisionRectangle() {
-        return this.rect;
+    }
+
+    /**
+     */
+    public void moveRight() {
+
     }
 
     @Override
@@ -57,6 +59,11 @@ public class Block implements Collidable, Sprite {
     }
 
     @Override
+    public Rectangle getCollisionRectangle() {
+        return this.rect;
+    }
+
+    @Override
     public void drawOn(DrawSurface surface) {
         surface.setColor(this.color);
         Point upperLeft = this.rect.getUpperLeft();
@@ -66,6 +73,12 @@ public class Block implements Collidable, Sprite {
 
     @Override
     public void timePassed() {
+        if (keyboard.isPressed(KeyboardSensor.LEFT_KEY)) {
+            System.out.println("the 'left arrow' key is pressed");
+        }
+        if (keyboard.isPressed(KeyboardSensor.RIGHT_KEY)) {
+            System.out.println("the 'right arrow' key is pressed");
+        }
     }
 
     /**
@@ -75,5 +88,4 @@ public class Block implements Collidable, Sprite {
         g.addSprite(this);
         g.addCollidable(this);
     }
-
 }
