@@ -26,7 +26,6 @@ public class Block implements Collidable, Sprite {
         this.color = color;
     }
 
-
     @Override
     public Rectangle getCollisionRectangle() {
         return this.rect;
@@ -61,6 +60,9 @@ public class Block implements Collidable, Sprite {
         surface.setColor(this.color);
         Point upperLeft = this.rect.getUpperLeft();
         surface.fillRectangle((int) upperLeft.getX(), (int) upperLeft.getY(), (int) this.rect.getWidth(),
+                (int) this.rect.getHeight());
+        surface.setColor(java.awt.Color.BLACK);
+        surface.drawRectangle((int) upperLeft.getX(), (int) upperLeft.getY(), (int) this.rect.getWidth(),
                 (int) this.rect.getHeight());
     }
 

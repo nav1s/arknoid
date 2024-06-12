@@ -9,7 +9,7 @@ import biuoop.KeyboardSensor;
 public class Paddle implements Sprite, Collidable {
     private KeyboardSensor keyboard;
     private Rectangle rect;
-    private java.awt.Color color;
+    private java.awt.Color color = java.awt.Color.CYAN;
 
     /**
      * @param keyboard
@@ -25,12 +25,17 @@ public class Paddle implements Sprite, Collidable {
     /**
      */
     public void moveLeft() {
-
+        Point upperLeft = this.rect.getUpperLeft();
+        upperLeft.setX(upperLeft.getX() - 5);
+        this.rect = new Rectangle(upperLeft, this.rect.getWidth(), this.rect.getHeight());
     }
 
     /**
      */
     public void moveRight() {
+        Point upperLeft = this.rect.getUpperLeft();
+        upperLeft.setX(upperLeft.getX() + 5);
+        this.rect = new Rectangle(upperLeft, this.rect.getWidth(), this.rect.getHeight());
 
     }
 
@@ -74,10 +79,10 @@ public class Paddle implements Sprite, Collidable {
     @Override
     public void timePassed() {
         if (keyboard.isPressed(KeyboardSensor.LEFT_KEY)) {
-            System.out.println("the 'left arrow' key is pressed");
+            this.moveLeft();
         }
         if (keyboard.isPressed(KeyboardSensor.RIGHT_KEY)) {
-            System.out.println("the 'right arrow' key is pressed");
+            this.moveRight();
         }
     }
 

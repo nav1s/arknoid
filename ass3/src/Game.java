@@ -9,10 +9,11 @@ import biuoop.Sleeper;
 /**
 */
 public class Game {
-    private static final int BLOCK_ROW_START_Y = 100;
-    private static final int BLOCK_ROW_START_X = 200;
-    private static final int DEFAULT_BLOCK_HEIGHT = 30;
-    private static final int DEFAULT_BLOCK_WIDTH = 75;
+    private static final int BLOCK_ROW_START_X = 9;
+    private static final int BLOCK_ROW_START_Y = 50;
+
+    private static final int DEFAULT_BLOCK_HEIGHT = 20;
+    private static final int DEFAULT_BLOCK_WIDTH = 60;
     private SpriteCollection spriteCollection;
     private GameEnvironment gameEnvironment;
     private GUI gui;
@@ -54,17 +55,21 @@ public class Game {
         ball = new Ball(500, 500, 10, gameEnvironment);
         ball.addToGame(this);
 
-        Color color = Ball.generateRandomColor();
-        for (int j = 1; j < 12; j++) {
-            Rectangle rect = new Rectangle(
-                    new Point(10 + BLOCK_ROW_START_X + DEFAULT_BLOCK_WIDTH * j, BLOCK_ROW_START_Y),
-                    DEFAULT_BLOCK_WIDTH,
-                    DEFAULT_BLOCK_HEIGHT);
-            Block block = new Block(rect, color);
-            block.addToGame(this);
+        for (int i = 1; i <= 6; i++) {
+            Color color = Ball.generateRandomColor();
+            for (int j = i + 1; j <= 12; j++) {
+                Rectangle rect = new Rectangle(
+                        new Point(10 + BLOCK_ROW_START_X + DEFAULT_BLOCK_WIDTH * j,
+                                BLOCK_ROW_START_Y + DEFAULT_BLOCK_HEIGHT * i),
+                        DEFAULT_BLOCK_WIDTH,
+                        DEFAULT_BLOCK_HEIGHT);
+                Block block = new Block(rect, color);
+                block.addToGame(this);
+            }
+
         }
 
-        Rectangle paddleRectangle = new Rectangle(new Point(350, 525), 100, 50);
+        Rectangle paddleRectangle = new Rectangle(new Point(350, 525), 100, 20);
         Paddle paddle = new Paddle(keyboard, paddleRectangle, java.awt.Color.YELLOW);
         paddle.addToGame(this);
 
