@@ -7,7 +7,7 @@ import biuoop.DrawSurface;
  * This class represents a ball in a two dimensional cartesian plane.
  *
  */
-public class Ball {
+public class Ball implements Sprite {
     private Point center;
     private int r;
     private java.awt.Color color;
@@ -118,8 +118,6 @@ public class Ball {
      * @param gameEnvironment
      */
     public Ball(double x1, double y1, int r, GameEnvironment gameEnvironment) {
-        this.minHeight = 0;
-        this.minWidth = 0;
         this.center = new Point(x1, y1);
         this.r = r;
         this.gameEnvironment = gameEnvironment;
@@ -329,6 +327,18 @@ public class Ball {
      */
     public void setCenter(Point center) {
         this.center = center;
+    }
+
+    @Override
+    public void timePassed() {
+        this.moveOneStep();
+    }
+
+    /**
+     * @param g
+     */
+    public void addToGame(Game g) {
+        g.addSprite(this);
     }
 
 }

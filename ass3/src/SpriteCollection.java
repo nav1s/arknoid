@@ -1,4 +1,5 @@
 
+import java.util.ArrayList;
 import java.util.List;
 
 import biuoop.DrawSurface;
@@ -7,6 +8,12 @@ import biuoop.DrawSurface;
 */
 public class SpriteCollection {
     private List<Sprite> sprites;
+
+    /**
+     */
+    public SpriteCollection() {
+        this.sprites = new ArrayList<>();
+    }
 
     /**
      * @param s

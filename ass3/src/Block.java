@@ -1,14 +1,18 @@
 
+import biuoop.DrawSurface;
+
 /**
 */
-public class Block implements Collidable {
+public class Block implements Collidable, Sprite {
     private Rectangle rect;
+    private java.awt.Color color;
 
     /**
      * @param rect
      */
     public Block(Rectangle rect) {
         this.rect = rect;
+        this.color = java.awt.Color.YELLOW;
     }
 
     @Override
@@ -38,6 +42,26 @@ public class Block implements Collidable {
         }
 
         return new Velocity(dx, dy);
+    }
+
+    @Override
+    public void drawOn(DrawSurface surface) {
+        surface.setColor(this.color);
+        Point upperLeft = this.rect.getUpperLeft();
+        surface.fillRectangle((int) upperLeft.getX(), (int) upperLeft.getY(), (int) this.rect.getWidth(),
+                (int) this.rect.getHeight());
+    }
+
+    @Override
+    public void timePassed() {
+    }
+
+    /**
+     * @param g
+     */
+    public void addToGame(Game g) {
+        g.addSprite(this);
+        g.addCollidable(this);
     }
 
 }

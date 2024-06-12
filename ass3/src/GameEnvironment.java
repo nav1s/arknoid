@@ -1,4 +1,5 @@
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -11,6 +12,12 @@ public class GameEnvironment {
      */
     public GameEnvironment(List<Collidable> collidables) {
         this.collidables = collidables;
+    }
+
+    /**
+     */
+    public GameEnvironment() {
+        this.collidables = new ArrayList<>();
     }
 
     /**
