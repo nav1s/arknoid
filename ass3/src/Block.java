@@ -22,19 +22,19 @@ public class Block implements Collidable {
         double dy = currentVelocity.getDy();
 
         Point beforeCollision = new Point(collisionPoint.getX() - 1, collisionPoint.getY() - 1);
-        Line line = new Line(collisionPoint, beforeCollision);
+        Line line = new Line(beforeCollision, collisionPoint);
 
         if (this.rect.checkVerticalHit(line)) {
             dx = -dx;
         }
 
-        if (this.rect.checkVerticalHit(line)) {
+        if (this.rect.checkHorizontalHit(line)) {
             dy = -dy;
         }
 
         if (this.rect.checkCornerHit(collisionPoint)) {
-            System.out.println(1);
             dx += 1;
+            dy += 1;
         }
 
         return new Velocity(dx, dy);

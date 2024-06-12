@@ -75,7 +75,7 @@ public class Rectangle {
             Point start = line.getStart();
             double dst1 = start.distance(closestIntersectionPoint);
             double dst2 = start.distance(intersectionPoint);
-            if (dst1 > dst2) {
+            if (Double.compare(dst1, dst2) > 0) {
                 lst.add(closestIntersectionPoint);
                 closestIntersectionPoint = intersectionPoint;
                 continue;
@@ -131,6 +131,7 @@ public class Rectangle {
         if (line.isIntersecting(leftEdge) || line.isIntersecting(rightEdge)) {
             return true;
         }
+
         return false;
 
     }
