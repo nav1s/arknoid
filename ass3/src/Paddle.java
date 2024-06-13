@@ -7,50 +7,47 @@ import biuoop.KeyboardSensor;
 /**
  */
 public class Paddle implements Sprite, Collidable {
+    private static final int SPEED = 8;
     private KeyboardSensor keyboard;
     private Rectangle rect;
     private java.awt.Color color = java.awt.Color.CYAN;
-    private GameEnvironment gameEnvironment;
+
+    private static final int GUI_WIDTH = 800;
 
     /**
      * @param keyboard
      * @param rect
      * @param color
-     * @param gameEnvironment
      */
-    public Paddle(KeyboardSensor keyboard, Rectangle rect, Color color, GameEnvironment gameEnvironment) {
+    public Paddle(KeyboardSensor keyboard, Rectangle rect, Color color) {
         this.keyboard = keyboard;
         this.rect = rect;
         this.color = color;
-        this.gameEnvironment = gameEnvironment;
     }
 
     /**
      */
     public void moveLeft() {
         Point upperLeft = this.rect.getUpperLeft();
-        Point upperRight = this.rect.getUpperRight();
-        Velocity velocity = new Velocity(-5, 0);
-        Point endOfTrajectory = velocity.applyToPoint(upperLeft);
-
-        Point endOfTrajectoryWithWidthAndHeight = velocity.applyToPoint(upperRight);
-        Line trajectory = new Line(endOfTrajectory, endOfTrajectoryWithWidthAndHeight);
-
-        CollisionInfo collisionInfo = gameEnvironment.getClosestCollision(trajectory);
-        if (collisionInfo != null) {
-            System.out.println(trajectory);
-            System.out.println(collisionInfo.collisionPoint());
-            System.out.println(collisionInfo.collisionObject());
+        double newX = upperLeft.getX() - SPEED;
+        if (newX <= 0) {
+            newX = GUI_WIDTH;
         }
 
-        this.rect = new Rectangle(endOfTrajectory, this.rect.getWidth(), this.rect.getHeight());
+        upperLeft.setX(newX);
+        this.rect = new Rectangle(upperLeft, this.rect.getWidth(), this.rect.getHeight());
     }
 
     /**
      */
     public void moveRight() {
         Point upperLeft = this.rect.getUpperLeft();
-        upperLeft.setX(upperLeft.getX() + 5);
+        double newX = upperLeft.getX() + SPEED;
+        if (newX >= GUI_WIDTH) {
+            newX = 0;
+        }
+
+        upperLeft.setX(newX);
         this.rect = new Rectangle(upperLeft, this.rect.getWidth(), this.rect.getHeight());
 
     }

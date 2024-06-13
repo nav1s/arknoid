@@ -77,7 +77,7 @@ public class Game {
         }
 
         Rectangle paddleRectangle = new Rectangle(new Point(350, 525), 100, 20);
-        Paddle paddle = new Paddle(keyboard, paddleRectangle, java.awt.Color.YELLOW, this.gameEnvironment);
+        Paddle paddle = new Paddle(keyboard, paddleRectangle, java.awt.Color.YELLOW);
         paddle.addToGame(this);
 
         Rectangle screenRectangle = new Rectangle(new Point(0, 0), 800, 600);
