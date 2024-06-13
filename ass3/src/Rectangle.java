@@ -137,9 +137,9 @@ public class Rectangle {
      */
     public boolean checkVerticalHit(Line line) {
         if (line.isIntersecting(leftEdge) || line.isIntersecting(rightEdge)) {
+            System.out.println(1);
             return true;
         }
-
         return false;
 
     }

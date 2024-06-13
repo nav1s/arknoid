@@ -56,7 +56,7 @@ public class Game {
      * to the game.
      */
     public void initialize() {
-        Ball ball = new Ball(400, 500, 10, gameEnvironment);
+        Ball ball = new Ball(380, 500, 10, gameEnvironment);
         ball.addToGame(this);
 
         ball = new Ball(500, 500, 10, gameEnvironment);
@@ -92,6 +92,7 @@ public class Game {
         if (!this.keyboard.isPressed(KeyboardSensor.SPACE_KEY)) {
             return;
         }
+        System.out.println("Paused");
 
         while (true) {
             if (this.keyboard.isPressed(KeyboardSensor.ENTER_KEY)) {

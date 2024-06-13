@@ -76,7 +76,7 @@ public class Velocity {
             Game.pause();
         }
 
-        this.angle = Math.tanh(dy / dx);
+        this.angle = Math.atan2(dy, dx);
         this.speed = Math.sqrt(this.dx * this.dx + this.dy * this.dy);
     }
 

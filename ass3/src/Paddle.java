@@ -41,41 +41,36 @@ public class Paddle implements Sprite, Collidable {
 
     @Override
     public Velocity hit(Point collisionPoint, Velocity currentVelocity) {
-        double dx = currentVelocity.getDx();
-        double dy = currentVelocity.getDy();
-
-        Point beforeCollision = new Point(collisionPoint.getX() - 1, collisionPoint.getY() - 1);
-        Line line = new Line(beforeCollision, collisionPoint);
-
         double leftX = this.rect.getUpperLeft().getX();
         double position = collisionPoint.getX() - leftX;
 
         currentVelocity.calculateAngleAndSpeed();
-
-        System.out.println(currentVelocity);
-        System.out.println(this.rect);
-        System.out.println(collisionPoint);
-        System.out.println(position);
-        while (true) {
-            if (this.keyboard.isPressed(KeyboardSensor.ENTER_KEY)) {
-                break;
-            }
+        double angle = currentVelocity.getAngle();
+        double speed = currentVelocity.getSpeed();
+        if (position <= 20 && position >= 0) {
+            angle += 300 / 180 * Math.PI;
+        } else if (position <= 40 && position >= 20) {
+            angle += 330 / 180 * Math.PI;
+        } else if (position <= 60 && position >= 40) {
+            angle += 180 * Math.PI;
+        } else if (position <= 80 && position >= 60) {
+            angle += 30 / 180 * Math.PI;
+        } else if (position <= 100 && position >= 80) {
+            angle += 60 / 180 * Math.PI;
         }
 
-        if (this.rect.checkVerticalHit(line)) {
-            dx = -dx;
-        }
+        // System.out.println(position);
+        // System.out.println(currentVelocity);
+        // System.out.println(rect);
+        // System.out.println(collisionPoint);
+        // while (true) {
+        // if (this.keyboard.isPressed(KeyboardSensor.ENTER_KEY)) {
+        // break;
+        // }
+        // }
 
-        if (this.rect.checkHorizontalHit(line)) {
-            dy = -dy;
-        }
-
-        if (this.rect.checkCornerHit(collisionPoint)) {
-            dx += 1;
-            dy += 1;
-        }
-
-        return new Velocity(dx, dy);
+        // return new Velocity(dx, dy);
+        return Velocity.fromAngleAndSpeed(angle, speed);
 
     }
 
