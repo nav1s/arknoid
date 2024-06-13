@@ -7,7 +7,7 @@ import biuoop.KeyboardSensor;
 /**
  */
 public class Paddle implements Sprite, Collidable {
-    private static final int SPEED = 8;
+    private static final int SPEED = 10;
     private KeyboardSensor keyboard;
     private Rectangle rect;
     private java.awt.Color color = java.awt.Color.CYAN;
@@ -61,15 +61,20 @@ public class Paddle implements Sprite, Collidable {
         double angle = currentVelocity.getAngle();
         double speed = currentVelocity.getSpeed();
         if (position <= 20 && position >= 0) {
+            System.out.println(1);
             angle = 300 / 180 * Math.PI;
         } else if (position <= 40 && position >= 20) {
-            angle = 330 / 180 * Math.PI;
+
+            System.out.println(2);
+            angle = 330;
         } else if (position <= 60 && position >= 40) {
-            angle = 180 * Math.PI;
+            System.out.println(3);
+            angle = 180;
         } else if (position <= 80 && position >= 60) {
-            angle = 30 / 180 * Math.PI;
+            System.out.println(4);
+            angle = 30;
         } else if (position <= 100 && position >= 80) {
-            angle = 60 / 180 * Math.PI;
+            angle = 60;
         }
 
         // System.out.println(position);
