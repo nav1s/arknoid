@@ -10,24 +10,40 @@ public class Paddle implements Sprite, Collidable {
     private KeyboardSensor keyboard;
     private Rectangle rect;
     private java.awt.Color color = java.awt.Color.CYAN;
+    private GameEnvironment gameEnvironment;
 
     /**
      * @param keyboard
      * @param rect
      * @param color
+     * @param gameEnvironment
      */
-    public Paddle(KeyboardSensor keyboard, Rectangle rect, Color color) {
+    public Paddle(KeyboardSensor keyboard, Rectangle rect, Color color, GameEnvironment gameEnvironment) {
         this.keyboard = keyboard;
         this.rect = rect;
         this.color = color;
+        this.gameEnvironment = gameEnvironment;
     }
 
     /**
      */
     public void moveLeft() {
         Point upperLeft = this.rect.getUpperLeft();
-        upperLeft.setX(upperLeft.getX() - 5);
-        this.rect = new Rectangle(upperLeft, this.rect.getWidth(), this.rect.getHeight());
+        Point upperRight = this.rect.getUpperRight();
+        Velocity velocity = new Velocity(-5, 0);
+        Point endOfTrajectory = velocity.applyToPoint(upperLeft);
+
+        Point endOfTrajectoryWithWidthAndHeight = velocity.applyToPoint(upperRight);
+        Line trajectory = new Line(endOfTrajectory, endOfTrajectoryWithWidthAndHeight);
+
+        CollisionInfo collisionInfo = gameEnvironment.getClosestCollision(trajectory);
+        if (collisionInfo != null) {
+            System.out.println(trajectory);
+            System.out.println(collisionInfo.collisionPoint());
+            System.out.println(collisionInfo.collisionObject());
+        }
+
+        this.rect = new Rectangle(endOfTrajectory, this.rect.getWidth(), this.rect.getHeight());
     }
 
     /**
@@ -48,15 +64,15 @@ public class Paddle implements Sprite, Collidable {
         double angle = currentVelocity.getAngle();
         double speed = currentVelocity.getSpeed();
         if (position <= 20 && position >= 0) {
-            angle += 300 / 180 * Math.PI;
+            angle = 300 / 180 * Math.PI;
         } else if (position <= 40 && position >= 20) {
-            angle += 330 / 180 * Math.PI;
+            angle = 330 / 180 * Math.PI;
         } else if (position <= 60 && position >= 40) {
-            angle += 180 * Math.PI;
+            angle = 180 * Math.PI;
         } else if (position <= 80 && position >= 60) {
-            angle += 30 / 180 * Math.PI;
+            angle = 30 / 180 * Math.PI;
         } else if (position <= 100 && position >= 80) {
-            angle += 60 / 180 * Math.PI;
+            angle = 60 / 180 * Math.PI;
         }
 
         // System.out.println(position);
@@ -95,6 +111,7 @@ public class Paddle implements Sprite, Collidable {
         if (keyboard.isPressed(KeyboardSensor.RIGHT_KEY)) {
             this.moveRight();
         }
+
     }
 
     /**
