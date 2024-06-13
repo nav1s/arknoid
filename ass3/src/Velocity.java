@@ -7,6 +7,9 @@ public class Velocity {
     private double dx;
     private double dy;
 
+    private double angle;
+    private double speed;
+
     /**
      * @param dx the dx we want to set
      * @param dy the dy we want to set
@@ -64,9 +67,17 @@ public class Velocity {
         return new Velocity(dx, dy);
     }
 
-    @Override
-    public String toString() {
-        return "Velocity [dx=" + dx + ", dy=" + dy + "]";
+    /**
+     */
+    public void calculateAngleAndSpeed() {
+        if (this.dx == 0) {
+            System.out.println("invalid velocity detected");
+            System.out.println(this);
+            Game.pause();
+        }
+
+        this.angle = Math.tanh(dy / dx);
+        this.speed = Math.sqrt(this.dx * this.dx + this.dy * this.dy);
     }
 
     /**
@@ -82,4 +93,24 @@ public class Velocity {
     public void setDx(double dx) {
         this.dx = dx;
     }
+
+    /**
+     * @return the current velocity angle
+     */
+    public double getAngle() {
+        return angle;
+    }
+
+    /**
+     * @return the current velocity speed
+     */
+    public double getSpeed() {
+        return speed;
+    }
+
+    @Override
+    public String toString() {
+        return "Velocity [dx=" + dx + ", dy=" + dy + ", angle=" + angle + ", speed=" + speed + "]";
+    }
+
 }

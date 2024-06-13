@@ -47,6 +47,21 @@ public class Paddle implements Sprite, Collidable {
         Point beforeCollision = new Point(collisionPoint.getX() - 1, collisionPoint.getY() - 1);
         Line line = new Line(beforeCollision, collisionPoint);
 
+        double leftX = this.rect.getUpperLeft().getX();
+        double position = collisionPoint.getX() - leftX;
+
+        currentVelocity.calculateAngleAndSpeed();
+
+        System.out.println(currentVelocity);
+        System.out.println(this.rect);
+        System.out.println(collisionPoint);
+        System.out.println(position);
+        while (true) {
+            if (this.keyboard.isPressed(KeyboardSensor.ENTER_KEY)) {
+                break;
+            }
+        }
+
         if (this.rect.checkVerticalHit(line)) {
             dx = -dx;
         }
@@ -61,6 +76,7 @@ public class Paddle implements Sprite, Collidable {
         }
 
         return new Velocity(dx, dy);
+
     }
 
     @Override

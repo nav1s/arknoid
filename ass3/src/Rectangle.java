@@ -68,6 +68,7 @@ public class Rectangle {
             if (intersectionPoint == null) {
                 continue;
             }
+            // if this is the first intersection we found save it for later use
             if (closestIntersectionPoint == null) {
                 closestIntersectionPoint = intersectionPoint;
                 continue;
@@ -112,6 +113,13 @@ public class Rectangle {
     }
 
     /**
+     * @return the upper-right point of the rectangle
+     */
+    public Point getUpperRight() {
+        return this.upperRight;
+    }
+
+    /**
      * @param line
      * @return true
      */
@@ -146,6 +154,12 @@ public class Rectangle {
         }
         return false;
 
+    }
+
+    @Override
+    public String toString() {
+        return "Rectangle [upperLeft=" + upperLeft + ", width=" + width + ", height=" + height + ", upperRight="
+                + upperRight + "]";
     }
 
 }

@@ -9,22 +9,29 @@ import biuoop.Sleeper;
 /**
 */
 public class Game {
-    private static final int BLOCK_ROW_START_X = 9;
-    private static final int BLOCK_ROW_START_Y = 50;
+    // GUI properties
+    private static final String GUI_TITLE = "title";
+    private static final int GUI_HEIGHT = 600;
+    private static final int GUI_WIDTH = 800;
 
+    // Blocks properties
+    private static final int BLOCK_ROW_START_X = 10;
+    private static final int BLOCK_ROW_START_Y = 50;
     private static final int DEFAULT_BLOCK_HEIGHT = 20;
     private static final int DEFAULT_BLOCK_WIDTH = 60;
+
     private SpriteCollection spriteCollection;
     private GameEnvironment gameEnvironment;
     private GUI gui;
     private KeyboardSensor keyboard;
+    private Sleeper sleeper = new Sleeper();
 
     /**
      */
     public Game() {
         this.spriteCollection = new SpriteCollection();
         this.gameEnvironment = new GameEnvironment();
-        this.gui = new GUI("title", 800, 600);
+        this.gui = new GUI(GUI_TITLE, GUI_WIDTH, GUI_HEIGHT);
         this.keyboard = this.gui.getKeyboardSensor();
     }
 
@@ -79,10 +86,35 @@ public class Game {
     }
 
     /**
+     */
+    private void debugger() {
+
+        if (!this.keyboard.isPressed(KeyboardSensor.SPACE_KEY)) {
+            return;
+        }
+
+        while (true) {
+            if (this.keyboard.isPressed(KeyboardSensor.ENTER_KEY)) {
+                return;
+            }
+            assert true;
+        }
+
+    }
+
+    /**
+     * pause the game in case of a bug.
+     */
+    public static void pause() {
+        while (true) {
+            assert true;
+        }
+    }
+
+    /**
      * Run the game -- start the animation loop.
      */
     public void run() {
-        Sleeper sleeper = new Sleeper();
 
         int framesPerSecond = 60;
         int millisecondsPerFrame = 1000 / framesPerSecond;
@@ -93,6 +125,7 @@ public class Game {
             this.spriteCollection.drawAllOn(drawer);
             gui.show(drawer);
             this.spriteCollection.notifyAllTimePassed();
+            this.debugger();
             // timing
             long usedTime = System.currentTimeMillis() - startTime;
             long milliSecondLeftToSleep = millisecondsPerFrame - usedTime;
