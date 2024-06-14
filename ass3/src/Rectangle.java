@@ -120,11 +120,11 @@ public class Rectangle {
     }
 
     /**
-     * @param line
+     * @param x
      * @return true
      */
-    public boolean checkHorizontalHit(Line line) {
-        if (line.isIntersecting(downerEdge) || line.isIntersecting(upperEdge)) {
+    public boolean checkVerticalHit(double x) {
+        if (Double.compare(x, this.upperRight.getX()) == 0 || Double.compare(x, this.upperLeft.getX()) == 0) {
             return true;
         }
         return false;
@@ -132,11 +132,11 @@ public class Rectangle {
     }
 
     /**
-     * @param line
+     * @param y
      * @return true
      */
-    public boolean checkVerticalHit(Line line) {
-        if (line.isIntersecting(leftEdge) || line.isIntersecting(rightEdge)) {
+    public boolean checkHorizontalHit(double y) {
+        if (Double.compare(y, this.upperRight.getY()) == 0 || Double.compare(y, this.downerRight.getY()) == 0) {
             return true;
         }
         return false;

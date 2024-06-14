@@ -36,14 +36,11 @@ public class Block implements Collidable, Sprite {
         double dx = currentVelocity.getDx();
         double dy = currentVelocity.getDy();
 
-        Point afterCollision = new Point(collisionPoint.getX() - dx, collisionPoint.getY() - dy);
-        Line line = new Line(collisionPoint, afterCollision);
-
-        if (this.rect.checkVerticalHit(line)) {
+        if (this.rect.checkVerticalHit(collisionPoint.getX())) {
             dx = -dx;
         }
 
-        if (this.rect.checkHorizontalHit(line)) {
+        if (this.rect.checkHorizontalHit(collisionPoint.getY())) {
             dy = -dy;
         }
 

@@ -57,34 +57,39 @@ public class Paddle implements Sprite, Collidable {
         double leftX = this.rect.getUpperLeft().getX();
         double position = collisionPoint.getX() - leftX;
 
-        currentVelocity.calculateAngleAndSpeed();
-        double angle = currentVelocity.getAngle();
-        double speed = currentVelocity.getSpeed();
+        double angle = 0;
+        double speed = currentVelocity.calculateSpeed();
         if (position <= 20 && position >= 0) {
             System.out.println(1);
-            angle = 300 / 180 * Math.PI;
+            angle = -60;
         } else if (position <= 40 && position >= 20) {
-
             System.out.println(2);
             angle = 330;
         } else if (position <= 60 && position >= 40) {
             System.out.println(3);
-            angle = 180;
+            angle = 0;
         } else if (position <= 80 && position >= 60) {
+
             System.out.println(4);
             angle = 30;
         } else if (position <= 100 && position >= 80) {
+            System.out.println(5);
             angle = 60;
+        } else {
+            angle = 0;
+            System.out.println("paddle hit out of bounds");
         }
 
         // System.out.println(position);
         // System.out.println(currentVelocity);
         // System.out.println(rect);
         // System.out.println(collisionPoint);
-        // while (true) {
-        // if (this.keyboard.isPressed(KeyboardSensor.ENTER_KEY)) {
-        // break;
-        // }
+        System.out.println(currentVelocity);
+        while (true) {
+            if (this.keyboard.isPressed(KeyboardSensor.ENTER_KEY)) {
+                break;
+            }
+        }
         // }
 
         // return new Velocity(dx, dy);

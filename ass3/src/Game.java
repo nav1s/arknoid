@@ -80,7 +80,7 @@ public class Game {
         Paddle paddle = new Paddle(keyboard, paddleRectangle, java.awt.Color.YELLOW);
         paddle.addToGame(this);
 
-        Rectangle screenRectangle = new Rectangle(new Point(0, 0), 800, 600);
+        Rectangle screenRectangle = new Rectangle(new Point(0, 0), GUI_WIDTH, GUI_HEIGHT);
         Block screen = new Block(screenRectangle);
         this.addCollidable(screen);
     }
