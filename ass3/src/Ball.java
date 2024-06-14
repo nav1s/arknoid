@@ -122,7 +122,7 @@ public class Ball implements Sprite {
         this.r = r;
         this.gameEnvironment = gameEnvironment;
         this.color = generateRandomColor();
-        this.velocity = new Velocity(1, 5);
+        this.velocity = Velocity.fromAngleAndSpeed(0, 5);
     }
 
     /**

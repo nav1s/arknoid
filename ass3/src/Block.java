@@ -44,11 +44,6 @@ public class Block implements Collidable, Sprite {
             dy = -dy;
         }
 
-        if (this.rect.checkCornerHit(collisionPoint)) {
-            dx += 1;
-            dy += 1;
-        }
-
         return new Velocity(dx, dy);
     }
 

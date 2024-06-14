@@ -59,8 +59,8 @@ public class Velocity {
      */
     public static Velocity fromAngleAndSpeed(double angle, double speed) {
         double angleInRadians = angle / 180 * Math.PI;
-        double dx = speed * Math.cos(angleInRadians);
-        double dy = speed * Math.sin(angleInRadians);
+        double dy = -speed * Math.cos(angleInRadians);
+        double dx = speed * Math.sin(angleInRadians);
         return new Velocity(dx, dy);
     }
 
@@ -69,6 +69,13 @@ public class Velocity {
      */
     public double calculateSpeed() {
         return Math.sqrt(this.dx * this.dx + this.dy * this.dy);
+    }
+
+    /**
+     * @return the current angle
+     */
+    public double calculateAngle() {
+        return Math.atan2(dy, dx);
     }
 
     /**

@@ -57,7 +57,7 @@ public class Paddle implements Sprite, Collidable {
         double leftX = this.rect.getUpperLeft().getX();
         double position = collisionPoint.getX() - leftX;
 
-        double angle = 0;
+        double angle = currentVelocity.calculateAngle();
         double speed = currentVelocity.calculateSpeed();
         if (position <= 20 && position >= 0) {
             System.out.println(1);
