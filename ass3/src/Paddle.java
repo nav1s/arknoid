@@ -5,6 +5,8 @@ import biuoop.DrawSurface;
 import biuoop.KeyboardSensor;
 
 /**
+ * This class represents a paddle in a two dimensional cartesian plane.
+ *
  */
 public class Paddle implements Sprite, Collidable {
     private static final int SPEED = 10;
@@ -26,6 +28,7 @@ public class Paddle implements Sprite, Collidable {
     }
 
     /**
+     * Move our paddle to the left.
      */
     public void moveLeft() {
         Point upperLeft = this.rect.getUpperLeft();
@@ -39,6 +42,7 @@ public class Paddle implements Sprite, Collidable {
     }
 
     /**
+     * Move our paddle to the right.
      */
     public void moveRight() {
         Point upperLeft = this.rect.getUpperLeft();
@@ -60,39 +64,17 @@ public class Paddle implements Sprite, Collidable {
         double angle = currentVelocity.calculateAngle();
         double speed = currentVelocity.calculateSpeed();
         if (position <= 20 && position >= 0) {
-            System.out.println(1);
             angle = -60;
         } else if (position <= 40 && position >= 20) {
-            System.out.println(2);
             angle = 330;
         } else if (position <= 60 && position >= 40) {
-            System.out.println(3);
-            angle = 0;
+            assert true;
         } else if (position <= 80 && position >= 60) {
-
-            System.out.println(4);
             angle = 30;
         } else if (position <= 100 && position >= 80) {
-            System.out.println(5);
             angle = 60;
-        } else {
-            angle = 0;
-            System.out.println("paddle hit out of bounds");
         }
 
-        // System.out.println(position);
-        // System.out.println(currentVelocity);
-        // System.out.println(rect);
-        // System.out.println(collisionPoint);
-        System.out.println(currentVelocity);
-        while (true) {
-            if (this.keyboard.isPressed(KeyboardSensor.ENTER_KEY)) {
-                break;
-            }
-        }
-        // }
-
-        // return new Velocity(dx, dy);
         return Velocity.fromAngleAndSpeed(angle, speed);
 
     }

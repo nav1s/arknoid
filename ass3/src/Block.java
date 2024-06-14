@@ -4,7 +4,9 @@ import java.awt.Color;
 import biuoop.DrawSurface;
 
 /**
-*/
+ * This class represents a block in a two dimensional cartesian plane.
+ *
+ */
 public class Block implements Collidable, Sprite {
     private Rectangle rect;
     private java.awt.Color color;

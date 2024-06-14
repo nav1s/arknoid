@@ -63,8 +63,6 @@ public class GameEnvironment {
             d2 = start.distance(closestCollisionPoint);
 
             if (Double.compare(d1, d2) > 0) {
-                System.out.println(d1);
-                System.out.println(d2);
                 d1 = d2;
                 closestCollision = new CollisionInfo(closestCollisionPoint, collidable);
             }
