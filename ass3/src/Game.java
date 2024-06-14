@@ -10,15 +10,23 @@ import biuoop.Sleeper;
 */
 public class Game {
     // GUI properties
-    private static final String GUI_TITLE = "title";
+    private static final String GUI_TITLE = "Arknoid (exclusive beta)";
     private static final int GUI_HEIGHT = 600;
     private static final int GUI_WIDTH = 800;
+    private static final Color BACKGROUND_COLOR = java.awt.Color.decode("#000088");
+    private static final Color BORDER_BACKGROUND_COLOR = java.awt.Color.decode("#808080");
+    private static final int BORDER_BLOCK_SIZE = 20;
 
     // Blocks properties
-    private static final int BLOCK_ROW_START_X = 10;
+    private static final int BLOCK_ROW_START_X = 0;
     private static final int BLOCK_ROW_START_Y = 50;
     private static final int DEFAULT_BLOCK_HEIGHT = 20;
     private static final int DEFAULT_BLOCK_WIDTH = 60;
+
+    private static final int MAXIMUM_NUMBER_OF_BLOCKS_PER_ROW = 12;
+    private static final int NUMBER_OF_ROWS_OF_BLOCKS = 6;
+
+    private static final int DEFAULT_BALL_RADIUS = 10;
 
     private SpriteCollection spriteCollection;
     private GameEnvironment gameEnvironment;
@@ -36,7 +44,7 @@ public class Game {
     }
 
     /**
-     * @param c
+     * @param c the collidable we want to add
      */
     public void addCollidable(Collidable c) {
         gameEnvironment.addCollidable(c);
@@ -44,7 +52,7 @@ public class Game {
     }
 
     /**
-     * @param s
+     * @param s the sprite we want to add
      */
     public void addSprite(Sprite s) {
         spriteCollection.addSprite(s);
@@ -56,21 +64,45 @@ public class Game {
      * to the game.
      */
     public void initialize() {
-        Ball ball = new Ball(380, 500, 10, gameEnvironment);
+        // add two balls to the game
+        Ball ball = new Ball(380, 500, DEFAULT_BALL_RADIUS, gameEnvironment);
         ball.addToGame(this);
 
-        ball = new Ball(500, 500, 10, gameEnvironment);
+        ball = new Ball(500, 500, DEFAULT_BALL_RADIUS, gameEnvironment);
         ball.addToGame(this);
 
-        for (int i = 1; i <= 6; i++) {
+        Rectangle upperRectangle = new Rectangle(new Point(0, 0), GUI_WIDTH, BORDER_BLOCK_SIZE);
+        Rectangle downRectangle = new Rectangle(new Point(BORDER_BLOCK_SIZE, GUI_HEIGHT - BORDER_BLOCK_SIZE),
+                GUI_WIDTH - BORDER_BLOCK_SIZE,
+                DEFAULT_BLOCK_HEIGHT);
+
+        Rectangle leftRectangle = new Rectangle(new Point(0, BORDER_BLOCK_SIZE),
+                BORDER_BLOCK_SIZE, GUI_HEIGHT - BORDER_BLOCK_SIZE);
+        Rectangle rightRectangle = new Rectangle(new Point(GUI_WIDTH - BORDER_BLOCK_SIZE, BORDER_BLOCK_SIZE),
+                BORDER_BLOCK_SIZE, GUI_HEIGHT - BORDER_BLOCK_SIZE);
+
+        Block block = new Block(upperRectangle, BORDER_BACKGROUND_COLOR);
+        block.addToGame(this);
+
+        block = new Block(downRectangle, BORDER_BACKGROUND_COLOR);
+        block.addToGame(this);
+
+        block = new Block(leftRectangle, BORDER_BACKGROUND_COLOR);
+        block.addToGame(this);
+
+        block = new Block(rightRectangle, BORDER_BACKGROUND_COLOR);
+        block.addToGame(this);
+
+        // add blocks to the game
+        for (int i = 1; i <= NUMBER_OF_ROWS_OF_BLOCKS; i++) {
             Color color = Ball.generateRandomColor();
-            for (int j = i + 1; j <= 12; j++) {
+            for (int j = i + 1; j <= MAXIMUM_NUMBER_OF_BLOCKS_PER_ROW; j++) {
                 Rectangle rect = new Rectangle(
-                        new Point(10 + BLOCK_ROW_START_X + DEFAULT_BLOCK_WIDTH * j,
+                        new Point(BLOCK_ROW_START_X + DEFAULT_BLOCK_WIDTH * j,
                                 BLOCK_ROW_START_Y + DEFAULT_BLOCK_HEIGHT * i),
                         DEFAULT_BLOCK_WIDTH,
                         DEFAULT_BLOCK_HEIGHT);
-                Block block = new Block(rect, color);
+                block = new Block(rect, color);
                 block.addToGame(this);
             }
 
@@ -80,9 +112,6 @@ public class Game {
         Paddle paddle = new Paddle(keyboard, paddleRectangle, java.awt.Color.YELLOW);
         paddle.addToGame(this);
 
-        Rectangle screenRectangle = new Rectangle(new Point(0, 0), GUI_WIDTH, GUI_HEIGHT);
-        Block screen = new Block(screenRectangle);
-        this.addCollidable(screen);
     }
 
     /**
@@ -123,6 +152,10 @@ public class Game {
         while (true) {
             long startTime = System.currentTimeMillis(); // timing
             DrawSurface drawer = gui.getDrawSurface();
+
+            drawer.setColor(BACKGROUND_COLOR);
+            drawer.fillRectangle(20, 20, GUI_WIDTH - 40, GUI_HEIGHT - 40);
+
             this.spriteCollection.drawAllOn(drawer);
             gui.show(drawer);
             this.spriteCollection.notifyAllTimePassed();
