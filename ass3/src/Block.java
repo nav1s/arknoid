@@ -1,5 +1,6 @@
 
 import java.awt.Color;
+import java.util.Random;
 
 import biuoop.DrawSurface;
 
@@ -37,6 +38,7 @@ public class Block implements Collidable, Sprite {
     public Velocity hit(Point collisionPoint, Velocity currentVelocity) {
         double dx = currentVelocity.getDx();
         double dy = currentVelocity.getDy();
+        Random rand = new Random();
 
         if (this.rect.checkVerticalHit(collisionPoint.getX())) {
             dx = -dx;
@@ -44,6 +46,12 @@ public class Block implements Collidable, Sprite {
 
         if (this.rect.checkHorizontalHit(collisionPoint.getY())) {
             dy = -dy;
+        }
+
+        if (this.rect.checkCornerHit(collisionPoint)) {
+            double tmp = dx + rand.nextDouble(0, 2);
+            dx = dy + rand.nextDouble(0, 2);
+            dy = tmp;
         }
 
         return new Velocity(dx, dy);
