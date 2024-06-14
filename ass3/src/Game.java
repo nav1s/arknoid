@@ -115,24 +115,6 @@ public class Game {
     }
 
     /**
-     */
-    private void debugger() {
-
-        if (!this.keyboard.isPressed(KeyboardSensor.SPACE_KEY)) {
-            return;
-        }
-        System.out.println("Paused");
-
-        while (true) {
-            if (this.keyboard.isPressed(KeyboardSensor.ENTER_KEY)) {
-                return;
-            }
-            assert true;
-        }
-
-    }
-
-    /**
      * pause the game in case of a bug.
      */
     public static void pause() {
@@ -159,7 +141,6 @@ public class Game {
             this.spriteCollection.drawAllOn(drawer);
             gui.show(drawer);
             this.spriteCollection.notifyAllTimePassed();
-            this.debugger();
             // timing
             long usedTime = System.currentTimeMillis() - startTime;
             long milliSecondLeftToSleep = millisecondsPerFrame - usedTime;

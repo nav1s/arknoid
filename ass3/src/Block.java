@@ -34,11 +34,22 @@ public class Block implements Collidable, Sprite {
         return this.rect;
     }
 
+    /**
+     * @param num1
+     * @param num2
+     * @return a random double between num1 and num2
+     */
+    public static double randomDoubleBounded(double num1, double num2) {
+        Random rand = new Random();
+        double randomDouble = rand.nextDouble();
+        return num1 + (randomDouble * (num2 - num1));
+
+    }
+
     @Override
     public Velocity hit(Point collisionPoint, Velocity currentVelocity) {
         double dx = currentVelocity.getDx();
         double dy = currentVelocity.getDy();
-        Random rand = new Random();
 
         if (this.rect.checkVerticalHit(collisionPoint.getX())) {
             dx = -dx;
@@ -49,8 +60,8 @@ public class Block implements Collidable, Sprite {
         }
 
         if (this.rect.checkCornerHit(collisionPoint)) {
-            double tmp = dx + rand.nextDouble(0, 2);
-            dx = dy + rand.nextDouble(0, 2);
+            double tmp = dx + randomDoubleBounded(0, 2);
+            dx = dy + randomDoubleBounded(0, 2);
             dy = tmp;
         }
 
