@@ -36,6 +36,7 @@ public class Rectangle {
     }
 
     /**
+     * calculate all of the rectangles points and edges.
      */
     private void calculateRectangleProperties() {
         // setup all of the rectangles points
@@ -54,7 +55,7 @@ public class Rectangle {
     }
 
     /**
-     * @param line
+     * @param line the line to find intersection points for
      * @return a list of intersection points if any exist otherwise an empty list
      */
     public java.util.List<Point> intersectionPoints(Line line) {
@@ -76,6 +77,7 @@ public class Rectangle {
             Point start = line.getStart();
             double dst1 = start.distance(closestIntersectionPoint);
             double dst2 = start.distance(intersectionPoint);
+            // check if the new intersection point is closer than the previous one
             if (Double.compare(dst1, dst2) > 0) {
                 lst.add(closestIntersectionPoint);
                 closestIntersectionPoint = intersectionPoint;
@@ -84,6 +86,7 @@ public class Rectangle {
             lst.add(intersectionPoint);
         }
 
+        // add the closest intersection point to the beginning of the list
         if (closestIntersectionPoint != null) {
             lst.add(0, closestIntersectionPoint);
         }
@@ -120,11 +123,11 @@ public class Rectangle {
     }
 
     /**
-     * @param x
-     * @return true
+     * @param x the x value of the collision point
+     * @return true if we got a vertical hit, otherwise false
      */
     public boolean checkVerticalHit(double x) {
-        if (Double.compare(x, this.upperRight.getX()) == 0 || Double.compare(x, this.upperLeft.getX()) == 0) {
+        if (Double.compare(x, this.upperRight.getX()) <= 0 || Double.compare(x, this.upperLeft.getX()) >= 0) {
             return true;
         }
         return false;
@@ -132,11 +135,11 @@ public class Rectangle {
     }
 
     /**
-     * @param y
-     * @return true
+     * @param y the y value of the collision point
+     * @return true if we got a horizontal hit, otherwise false
      */
     public boolean checkHorizontalHit(double y) {
-        if (Double.compare(y, this.upperRight.getY()) == 0 || Double.compare(y, this.downerRight.getY()) == 0) {
+        if (Double.compare(y, this.upperRight.getY()) <= 0 || Double.compare(y, this.downerRight.getY()) >= 0) {
             return true;
         }
         return false;
@@ -152,7 +155,6 @@ public class Rectangle {
             return true;
         }
         return false;
-
     }
 
     @Override
