@@ -73,7 +73,7 @@ public class Block implements Collidable, Sprite {
     }
 
     /**
-     * @param g
+     * @param g the game object
      */
     public void addToGame(Game g) {
         g.addSprite(this);

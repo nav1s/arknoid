@@ -8,7 +8,7 @@ public class GameEnvironment {
     private List<Collidable> collidables;
 
     /**
-     * @param collidables
+     * @param collidables an initial collidables list
      */
     public GameEnvironment(List<Collidable> collidables) {
         this.collidables = collidables;
