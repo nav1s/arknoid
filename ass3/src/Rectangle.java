@@ -147,7 +147,7 @@ public class Rectangle {
     }
 
     /**
-     * @param p
+     * @param p the point we want to check
      * @return true
      */
     public boolean checkCornerHit(Point p) {

@@ -7,6 +7,7 @@ import biuoop.KeyboardSensor;
 import biuoop.Sleeper;
 
 /**
+ * This class initializes and runs our game.
 */
 public class Game {
     // GUI properties
@@ -35,6 +36,7 @@ public class Game {
     private Sleeper sleeper = new Sleeper();
 
     /**
+     * The default constructor.
      */
     public Game() {
         this.spriteCollection = new SpriteCollection();

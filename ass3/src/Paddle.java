@@ -17,9 +17,9 @@ public class Paddle implements Sprite, Collidable {
     private static final int GUI_WIDTH = 800;
 
     /**
-     * @param keyboard
-     * @param rect
-     * @param color
+     * @param keyboard an object representing the keyboard
+     * @param rect the rectangle of our paddle
+     * @param color the color of our paddle
      */
     public Paddle(KeyboardSensor keyboard, Rectangle rect, Color color) {
         this.keyboard = keyboard;
@@ -104,7 +104,7 @@ public class Paddle implements Sprite, Collidable {
     }
 
     /**
-     * @param g
+     * @param g the game object
      */
     public void addToGame(Game g) {
         g.addSprite(this);

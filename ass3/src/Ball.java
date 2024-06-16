@@ -193,7 +193,8 @@ public class Ball implements Sprite {
 
     /**
      * @param v
-     *            the velocity we want to set taken from the exercise description.
+     *            the velocity we want to set
+     * taken from the exercise description.
      */
     public void setVelocity(Velocity v) {
         this.velocity = new Velocity(v.getDx(), v.getDy());
@@ -296,7 +297,7 @@ public class Ball implements Sprite {
     }
 
     /**
-     * @param minHeight
+     * @param minHeight the new minimum height
      */
     public void setMinHeight(int minHeight) {
         this.minHeight = minHeight;
@@ -310,7 +311,7 @@ public class Ball implements Sprite {
     }
 
     /**
-     * @param minWidth
+     * @param minWidth the new minimum width
      */
     public void setMinWidth(int minWidth) {
         this.minWidth = minWidth;
@@ -324,7 +325,7 @@ public class Ball implements Sprite {
     }
 
     /**
-     * @param center
+     * @param center the new center
      */
     public void setCenter(Point center) {
         this.center = center;
@@ -336,7 +337,7 @@ public class Ball implements Sprite {
     }
 
     /**
-     * @param g
+     * @param g the game object
      */
     public void addToGame(Game g) {
         g.addSprite(this);

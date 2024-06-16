@@ -13,7 +13,7 @@ public class Block implements Collidable, Sprite {
     private java.awt.Color color;
 
     /**
-     * @param rect
+     * @param rect the rectangle of our block
      */
     public Block(Rectangle rect) {
         this.rect = rect;
@@ -21,8 +21,8 @@ public class Block implements Collidable, Sprite {
     }
 
     /**
-     * @param rect
-     * @param color
+     * @param rect the rectangle of our block
+     * @param color the color of the block
      */
     public Block(Rectangle rect, Color color) {
         this.rect = rect;
@@ -35,8 +35,8 @@ public class Block implements Collidable, Sprite {
     }
 
     /**
-     * @param num1
-     * @param num2
+     * @param num1 the first number we want to check
+     * @param num2 the second number we want to check
      * @return a random double between num1 and num2
      */
     public static double randomDoubleBounded(double num1, double num2) {

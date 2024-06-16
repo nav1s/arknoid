@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * This class holds the environment of our game.
 */
 public class GameEnvironment {
     private List<Collidable> collidables;
@@ -15,6 +16,7 @@ public class GameEnvironment {
     }
 
     /**
+     * The default constructor.
      */
     public GameEnvironment() {
         this.collidables = new ArrayList<>();

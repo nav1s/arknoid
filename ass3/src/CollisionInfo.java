@@ -1,13 +1,14 @@
 
 /**
+ * This class represents an info about collision occurring in a two dimensional cartesian plane.
 */
 public class CollisionInfo {
     private Point pointOfCollision;
     private Collidable objectCollision;
 
     /**
-     * @param pointOfCollision
-     * @param objectCollision
+     * @param pointOfCollision the point the collision has occurred
+     * @param objectCollision the object the collision has occurred with
      */
     public CollisionInfo(Point pointOfCollision, Collidable objectCollision) {
         this.pointOfCollision = pointOfCollision;
@@ -15,6 +16,7 @@ public class CollisionInfo {
     }
 
     /**
+     * An empty constructor for collision info.
      */
     public CollisionInfo() {
     }

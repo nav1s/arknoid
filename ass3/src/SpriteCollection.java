@@ -5,18 +5,20 @@ import java.util.List;
 import biuoop.DrawSurface;
 
 /**
+ * This class holds a collection of sprites.
 */
 public class SpriteCollection {
     private List<Sprite> sprites;
 
     /**
+     * The main constructor for sprite collection.
      */
     public SpriteCollection() {
         this.sprites = new ArrayList<>();
     }
 
     /**
-     * @param s
+     * @param s the sprite we want to add
      */
     public void addSprite(Sprite s) {
         this.sprites.add(s);
