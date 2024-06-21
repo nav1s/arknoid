@@ -20,8 +20,7 @@ public class Or implements Expression {
 
     @Override
     public Boolean evaluate(Map<String, Boolean> assignment) throws Exception {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'evaluate'");
+        return e1.evaluate(assignment) | e2.evaluate(assignment);
     }
 
     @Override
@@ -54,6 +53,18 @@ public class Or implements Expression {
     @Override
     public String toString() {
         return "(" + e1 + " ∨ " + e2 + ")";
+    }
+
+    @Override
+    public Expression nandify() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'nandify'");
+    }
+
+    @Override
+    public Expression norify() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'norify'");
     }
 
 }

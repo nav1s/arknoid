@@ -22,8 +22,7 @@ public class Val implements Expression {
 
     @Override
     public Boolean evaluate() throws Exception {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'evaluate'");
+        return this.bool;
     }
 
     @Override

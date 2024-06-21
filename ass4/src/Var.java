@@ -17,8 +17,14 @@ public class Var implements Expression {
 
     @Override
     public Boolean evaluate(Map<String, Boolean> assignment) throws Exception {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'evaluate'");
+        for (var entry : assignment.entrySet()) {
+            String key = entry.getKey();
+            if (key.equals(this.string)) {
+                return entry.getValue();
+            }
+        }
+
+        throw new Exception("Unable to find variable");
     }
 
     @Override
@@ -50,5 +56,16 @@ public class Var implements Expression {
         return string;
     }
 
-}
+    @Override
+    public Expression nandify() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'nandify'");
+    }
 
+    @Override
+    public Expression norify() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'norify'");
+    }
+
+}
