@@ -5,7 +5,7 @@ import java.util.Map;
 
 /**
  */
-public class And implements Expression {
+public class Xor implements Expression {
     private Expression e1;
     private Expression e2;
 
@@ -13,7 +13,7 @@ public class And implements Expression {
      * @param e1
      * @param e2
      */
-    public And(Expression e1, Expression e2) {
+    public Xor(Expression e1, Expression e2) {
         this.e1 = e1;
         this.e2 = e2;
     }
@@ -47,13 +47,12 @@ public class And implements Expression {
         return new Xor(newE1, newE2);
     }
 
-
     /**
     * @return a nice string representation of the expression.
     */
     @Override
     public String toString() {
-        return "(" + e1 + " ^ " + e2 + ")";
+        return "(" + e1 + " ⊕ " + e2 + ")";
     }
 
 }

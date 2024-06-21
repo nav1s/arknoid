@@ -1,15 +1,23 @@
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 /**
  */
 public class Val implements Expression {
+    private Boolean bool;
+
+    /**
+     * @param bool
+     */
+    public Val(boolean bool) {
+        this.bool = bool;
+    }
 
     @Override
     public Boolean evaluate(Map<String, Boolean> assignment) throws Exception {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'evaluate'");
+        return this.bool;
     }
 
     @Override
@@ -20,14 +28,22 @@ public class Val implements Expression {
 
     @Override
     public List<String> getVariables() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getVariables'");
+        return new ArrayList<String>();
     }
 
     @Override
     public Expression assign(String var, Expression expression) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'assign'");
+        return new Val(this.bool);
+    }
+
+    @Override
+    public String toString() {
+        if (bool.equals(true)) {
+            return "T";
+        }
+
+        return "F";
+
     }
 
 }

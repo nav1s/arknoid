@@ -1,4 +1,5 @@
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -28,14 +29,19 @@ public class Var implements Expression {
 
     @Override
     public List<String> getVariables() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getVariables'");
+        ArrayList<String> lst = new ArrayList<>();
+        lst.add(string);
+
+        return lst;
     }
 
     @Override
     public Expression assign(String var, Expression expression) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'assign'");
+        if (!this.string.equals(var)) {
+            return new Var(this.string);
+        }
+
+        return expression;
     }
 
     @Override
