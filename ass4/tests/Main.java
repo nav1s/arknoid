@@ -1,3 +1,5 @@
+import java.util.Map;
+import java.util.TreeMap;
 
 /**
  */
@@ -6,6 +8,15 @@ public class Main {
      * @param args
      */
     public static void main(String[] args) {
+        Expression e = new Not(
+                new Xor(
+                        new And(
+                                new Val(true),
+                                new Or(
+                                        new Var("x"),
+                                        new Var("y"))),
+                        new Var("x")));
+
         Expression e2 = new Xor(new And(new Var("x"), new Var("y")), new Val(true));
 
         String s = e2.toString();
@@ -21,11 +32,18 @@ public class Main {
 
         Expression e3 = e2.assign("y", e2);
         System.out.println(e3);
-        System.out.println("Should print: ((x ^ ((x ^ y) ⊕ T)) ⊕ T)");
+        System.out.println("Should print: ((x ^ ((x ^ y)⊕ T))⊕ T)");
 
         e3 = e3.assign("x", new Val(false));
         System.out.println(e3);
-        System.out.println("Should print: ((F ^ ((F ^ y) ⊕ T)) ⊕ T)");
+        System.out.println("Should print: ((F ^ ((F ^ y)⊕ T))⊕ T)");
+
+        Map<String, Boolean> assignment = new TreeMap<>();
+        assignment.put("x", true);
+        assignment.put("y", false);
+        // Boolean value = e2.evaluate(assignment);
+        // System.out.println("The result is: " + value);
+        System.out.println("Should print `The result is: true`");
 
         // Expression and = new And(new Var("x"), new Var("y"));
         // System.out.println("and: " + and);

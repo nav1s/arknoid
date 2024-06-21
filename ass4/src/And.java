@@ -44,7 +44,7 @@ public class And implements Expression {
         Expression newE1 = e1.assign(var, expression);
         Expression newE2 = e2.assign(var, expression);
 
-        return new Xor(newE1, newE2);
+        return new And(newE1, newE2);
     }
 
 
@@ -53,7 +53,8 @@ public class And implements Expression {
     */
     @Override
     public String toString() {
-        return "(" + e1 + " ^ " + e2 + ")";
+        return "(" + e1 + " ∧ " + e2 + ")";
+
     }
 
 }

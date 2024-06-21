@@ -5,17 +5,14 @@ import java.util.Map;
 
 /**
  */
-public class Xor implements Expression {
+public class Not implements Expression {
     private Expression e1;
-    private Expression e2;
 
     /**
      * @param e1
-     * @param e2
      */
-    public Xor(Expression e1, Expression e2) {
+    public Not(Expression e1) {
         this.e1 = e1;
-        this.e2 = e2;
     }
 
     @Override
@@ -34,7 +31,6 @@ public class Xor implements Expression {
     public List<String> getVariables() {
         ArrayList<String> lst = new ArrayList<>();
         lst.addAll(e1.getVariables());
-        lst.addAll(e2.getVariables());
 
         return lst;
     }
@@ -42,9 +38,8 @@ public class Xor implements Expression {
     @Override
     public Expression assign(String var, Expression expression) {
         Expression newE1 = e1.assign(var, expression);
-        Expression newE2 = e2.assign(var, expression);
 
-        return new Xor(newE1, newE2);
+        return new Not(newE1);
     }
 
     /**
@@ -52,7 +47,7 @@ public class Xor implements Expression {
     */
     @Override
     public String toString() {
-        return "(" + e1 + " ⊕ " + e2 + ")";
+        return "~(" + this.e1 + ")";
     }
 
 }

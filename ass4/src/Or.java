@@ -5,14 +5,17 @@ import java.util.Map;
 
 /**
  */
-public class Var implements Expression {
-    private String string;
+public class Or implements Expression {
+    private Expression e1;
+    private Expression e2;
 
     /**
-     * @param string
+     * @param e1
+     * @param e2
      */
-    public Var(String string) {
-        this.string = string;
+    public Or(Expression e1, Expression e2) {
+        this.e1 = e1;
+        this.e2 = e2;
     }
 
     @Override
@@ -30,25 +33,27 @@ public class Var implements Expression {
     @Override
     public List<String> getVariables() {
         ArrayList<String> lst = new ArrayList<>();
-        lst.add(string);
+        lst.addAll(e1.getVariables());
+        lst.addAll(e2.getVariables());
 
         return lst;
     }
 
     @Override
     public Expression assign(String var, Expression expression) {
-        // todo add copy constructor
-        if (!this.string.equals(var)) {
-            return new Var(this.string);
-        }
+        Expression newE1 = e1.assign(var, expression);
+        Expression newE2 = e2.assign(var, expression);
 
-        return expression;
+        return new Or(newE1, newE2);
     }
 
+
+    /**
+    * @return a nice string representation of the expression.
+    */
     @Override
     public String toString() {
-        return string;
+        return "(" + e1 + " ∨ " + e2 + ")";
     }
 
 }
-
