@@ -19,7 +19,7 @@ public class Nor implements Expression {
 
     @Override
     public Boolean evaluate(Map<String, Boolean> assignment) throws Exception {
-        return e1.evaluate(assignment) | e2.evaluate(assignment);
+        return !(e1.evaluate(assignment) | e2.evaluate(assignment));
     }
 
     @Override
@@ -45,7 +45,6 @@ public class Nor implements Expression {
         return new Or(newE1, newE2);
     }
 
-
     /**
     * @return a nice string representation of the expression.
     */
@@ -62,8 +61,7 @@ public class Nor implements Expression {
 
     @Override
     public Expression norify() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'norify'");
+        return new Nor(e1, e2);
     }
 
 }

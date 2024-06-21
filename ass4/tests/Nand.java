@@ -20,7 +20,7 @@ public class Nand implements Expression {
 
     @Override
     public Boolean evaluate(Map<String, Boolean> assignment) throws Exception {
-        return e1.evaluate(assignment) & e2.evaluate(assignment);
+        return !(e1.evaluate(assignment) & e2.evaluate(assignment));
     }
 
     @Override
@@ -46,7 +46,6 @@ public class Nand implements Expression {
         return new Nand(newE1, newE2);
     }
 
-
     /**
     * @return a nice string representation of the expression.
     */
@@ -58,14 +57,14 @@ public class Nand implements Expression {
 
     @Override
     public Expression nandify() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'nandify'");
+        return new Nand(this.e1, this.e2);
     }
 
     @Override
     public Expression norify() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'norify'");
+        Expression newExpression = new Nor(new Nor(e1, e1), new Nor(e2, e2));
+
+        return new Nor(newExpression, newExpression);
     }
 
 }

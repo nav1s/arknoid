@@ -4,26 +4,25 @@ public class Main {
     /**
      * @param args
      */
+    @SuppressWarnings("unlikely-arg-type")
     public static void main(String[] args) {
         Expression and = new And(new Var("x"), new Var("y"));
-        System.out.println("and: " + and);
-        System.out.println("and nortify: " + and.norify());
-        System.out.println("Should print: ((x V x) V (y V y))\n");
+        assert and.norify().equals("((x V x) V (y V y))");
 
+        assert and.nandify().equals("((x A y) A (x A y))");
+
+        Expression nand = new Nand(new Var("x"), new Var("y"));
+        assert nand.norify().equals("(((x V x) V (y V y)) V ((x V x) V (y V y)))");
+
+        assert nand.nandify().equals("Should print: (x A y)");
+
+        Expression nor = new Nor(new Var("x"), new Var("y"));
+        // System.out.println("nor: " + nor);
+        assert nor.norify().equals("x V y)");
+
+        System.out.println(1);
         System.exit(0);
 
-        System.out.println("and nandify: " + and.nandify());
-        System.out.println("Should print: ((x A y) A (x A y))\n");
-        Expression nand = new Nand(new Var("x"), new Var("y"));
-        System.out.println("nand: " + nand);
-        System.out.println("nand nortify: " + nand.norify());
-        System.out.println("Should print: (((x V x) V (y V y)) V ((x V x) V (y Vy)))\n");
-        System.out.println("nand nandtify: " + nand.nandify());
-        System.out.println("Should print: (x A y)\n");
-        Expression nor = new Nor(new Var("x"), new Var("y"));
-        System.out.println("nor: " + nor);
-        System.out.println("nor nortify: " + nor.norify());
-        System.out.println("Should print: (x V y)\n");
         System.out.println("nor nandtify: " + nor.nandify());
         System.out.println("Should print: (((x A x) A (y A y)) A ((x A x) A (y Ay)))\n");
         Expression not = new Not(new Var("x"));
@@ -53,8 +52,8 @@ public class Main {
         System.out.println("Should print: ((x A (x A y)) A (y A (x A y)))");
         System.out.println("Alternately: ((y A (x A x)) A (x A (y A y)))\n");
         Expression e = new Xnor(new Nand(new Var("x"), new Val(false)),
-        new Not(new And(new Or(new Var("x"), new Var("y")),
-        new Xor(new Val(true), new Var("z")))));
+                new Not(new And(new Or(new Var("x"), new Var("y")),
+                        new Xor(new Val(true), new Var("z")))));
         System.out.println(e);
         System.out.println("Should print: ((x A F) # ~((x v y) ^ (T ⊕ z)))\n");
 

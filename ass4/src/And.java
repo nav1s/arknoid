@@ -58,14 +58,18 @@ public class And implements Expression {
 
     @Override
     public Expression nandify() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'nandify'");
+        Expression firstExpression = new Nand(e1, e2);
+        Expression secondExpression = new Nand(e1, e2);
+
+        return new Nand(firstExpression, secondExpression);
     }
 
     @Override
     public Expression norify() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'norify'");
+        Expression firstExpression = new Nor(e1, e1);
+        Expression secondExpression = new Nor(e2, e2);
+
+        return new Nor(firstExpression, secondExpression);
     }
 
 }
