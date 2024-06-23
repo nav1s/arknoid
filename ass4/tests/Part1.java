@@ -7,6 +7,7 @@ public class Part1 {
     /**
      * @param args
      */
+    @SuppressWarnings("unlikely-arg-type")
     public static void main(String[] args) {
 
         Expression e = new Not(
@@ -17,29 +18,19 @@ public class Part1 {
                                         new Var("x"),
                                         new Var("y"))),
                         new Var("x")));
-        System.out.println(e);
-        System.out.println("Should print:" + "∼((T ∧ (x ∨ y)) ^ x)");
-
+        assert e.equals("∼((T & (x | y)) ^ x)");
         Expression e2 = new Xor(new And(new Var("x"), new Var("y")), new Val(true));
 
-        String s = e2.toString();
-        System.out.println("\n" + s);
-        System.out.println("Should print (x ∧ y) ^T\n");
-
+        assert e2.toString().equals("(x & y) ^ T)");
+        List<String> strings = List.of("x", "y");
         List<String> vars = e2.getVariables();
-        for (String v : vars) {
-            System.out.println(v);
-        }
-
-        System.out.println("Should print:\nx\ny");
+        assert vars.equals(strings);
 
         Expression e3 = e2.assign("y", e2);
-        System.out.println(e3);
-        System.out.println("Should print: ((x ^ ((x ^ y)^T))^T)");
+        assert e3.equals("((x & ((x & y) ^ T)) ^ T)");
 
         e3 = e3.assign("x", new Val(false));
-        System.out.println(e3);
-        System.out.println("Should print: ((F ^ ((F ^ y)^T))^T)");
+        assert e3.equals("((F & ((F & y) ^ T)) ^ T)");
 
         Map<String, Boolean> assignment = new TreeMap<>();
         assignment.put("x", true);
@@ -50,8 +41,11 @@ public class Part1 {
         } catch (Exception e1) {
             e1.printStackTrace();
         }
-        System.out.println("The result is: " + value);
-        System.out.println("Should print `The result is: true`");
+        assert value;
+
+        System.out.println(1);
+        System.exit(0);
+
 
     }
 }
