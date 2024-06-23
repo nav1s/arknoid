@@ -7,7 +7,6 @@ public class Part1 {
     /**
      * @param args
      */
-    @SuppressWarnings("unlikely-arg-type")
     public static void main(String[] args) {
 
         Expression e = new Not(
@@ -18,19 +17,26 @@ public class Part1 {
                                         new Var("x"),
                                         new Var("y"))),
                         new Var("x")));
-        assert e.equals("∼((T & (x | y)) ^ x)");
+        String expectedOutput = "~(((T & (x | y)) ^ x))";
+        assert expectedOutput.equals(e.toString());
+
         Expression e2 = new Xor(new And(new Var("x"), new Var("y")), new Val(true));
 
-        assert e2.toString().equals("(x & y) ^ T)");
+        expectedOutput = "((x & y) ^ T)";
+        assert expectedOutput.equals(e2.toString());
+
         List<String> strings = List.of("x", "y");
         List<String> vars = e2.getVariables();
         assert vars.equals(strings);
 
         Expression e3 = e2.assign("y", e2);
-        assert e3.equals("((x & ((x & y) ^ T)) ^ T)");
+        expectedOutput = "((x & ((x & y) ^ T)) ^ T)";
+        assert expectedOutput.equals(e3.toString());
 
         e3 = e3.assign("x", new Val(false));
-        assert e3.equals("((F & ((F & y) ^ T)) ^ T)");
+        expectedOutput = "((F & ((F & y) ^ T)) ^ T)";
+        assert expectedOutput.equals(e3.toString());
+
 
         Map<String, Boolean> assignment = new TreeMap<>();
         assignment.put("x", true);
@@ -45,7 +51,6 @@ public class Part1 {
 
         System.out.println(1);
         System.exit(0);
-
 
     }
 }
