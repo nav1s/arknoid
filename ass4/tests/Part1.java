@@ -1,8 +1,13 @@
 import java.util.Map;
 import java.util.TreeMap;
 
+/**
+ */
 public class Part1 {
-    public static void main() {
+    /**
+     * @param args
+     */
+    public static void main(String[] args) {
 
         Expression e = new Not(
                 new Xor(
@@ -13,13 +18,13 @@ public class Part1 {
                                         new Var("y"))),
                         new Var("x")));
         System.out.println(e);
-        System.out.println("Should print:" + "∼ ((T ∧ (x ∨ y)) ⊕ x)");
+        System.out.println("Should print:" + "∼((T ∧ (x ∨ y)) ^ x)");
 
         Expression e2 = new Xor(new And(new Var("x"), new Var("y")), new Val(true));
 
         String s = e2.toString();
         System.out.println("\n" + s);
-        System.out.println("Should print (x ∧ y) ⊕ T\n");
+        System.out.println("Should print (x ∧ y) ^T\n");
 
         List<String> vars = e2.getVariables();
         for (String v : vars) {
@@ -30,11 +35,11 @@ public class Part1 {
 
         Expression e3 = e2.assign("y", e2);
         System.out.println(e3);
-        System.out.println("Should print: ((x ^ ((x ^ y)⊕ T))⊕ T)");
+        System.out.println("Should print: ((x ^ ((x ^ y)^T))^T)");
 
         e3 = e3.assign("x", new Val(false));
         System.out.println(e3);
-        System.out.println("Should print: ((F ^ ((F ^ y)⊕ T))⊕ T)");
+        System.out.println("Should print: ((F ^ ((F ^ y)^T))^T)");
 
         Map<String, Boolean> assignment = new TreeMap<>();
         assignment.put("x", true);

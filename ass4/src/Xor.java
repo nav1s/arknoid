@@ -51,7 +51,7 @@ public class Xor implements Expression {
     */
     @Override
     public String toString() {
-        return "(" + e1 + "⊕ " + e2 + ")";
+        return "(" + e1 + " ^ " + e2 + ")";
     }
 
     @Override
