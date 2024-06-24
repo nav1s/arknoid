@@ -35,22 +35,33 @@ public class Main {
         expectedOutput = "(((x A x) A (y A y)) A ((x A x) A (y A y)))";
         assert expectedOutput.equals(output);
 
+        // not norify and nandify
         Expression not = new Not(new Var("x"));
-        System.out.println("not: " + not);
-        System.out.println("not nortify: " + not.norify());
-        System.out.println("Should print: (x V x)\n");
-        System.out.println("not nandtify: " + not.nandify());
-        System.out.println("Should print: (x A x)\n");
+
+        output = not.toString();
+        expectedOutput = "~(x)";
+        assert expectedOutput.equals(output);
+
+        output = not.norify().toString();
+        expectedOutput = "(x V x)";
+        assert expectedOutput.equals(output);
+
+        output = not.nandify().toString();
+        expectedOutput = "(x A x)";
+        assert expectedOutput.equals(output);
 
         System.out.println(1);
         System.exit(0);
 
+        // or norify and nandify
         Expression or = new Or(new Var("x"), new Var("y"));
         System.out.println("or: " + or);
         System.out.println("or nortify: " + or.norify());
         System.out.println("Should print: ((x V y) V (x V y))\n");
         System.out.println("or nandtify: " + or.nandify());
         System.out.println("Should print: ((x A x) A (y A y))\n");
+
+        // xnor norify and nandify
         Expression xnor = new Xnor(new Var("x"), new Var("y"));
         System.out.println("xnor: " + xnor);
         System.out.println("xnor nortify: " + xnor.norify());
@@ -58,6 +69,8 @@ public class Main {
         System.out.println("Alternately: ((y V (x V x)) V (x V (y V y)))\n");
         System.out.println("xnor nandtify: " + xnor.nandify());
         System.out.println("Should print: (((x A x) A (y A y)) A (x A y))\n");
+
+        // xor norify and nandify
         Expression xor = new Xor(new Var("x"), new Var("y"));
         System.out.println("xor: " + xor);
         System.out.println("xor nortify: " + xor.norify());
@@ -65,6 +78,8 @@ public class Main {
         System.out.println("xor nandtify: " + xor.nandify());
         System.out.println("Should print: ((x A (x A y)) A (y A (x A y)))");
         System.out.println("Alternately: ((y A (x A x)) A (x A (y A y)))\n");
+
+        // simplify tests
         Expression e = new Xnor(new Nand(new Var("x"), new Val(false)),
                 new Not(new And(new Or(new Var("x"), new Var("y")),
                         new Xor(new Val(true), new Var("z")))));

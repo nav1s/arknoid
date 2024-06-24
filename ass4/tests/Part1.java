@@ -1,3 +1,4 @@
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -37,7 +38,6 @@ public class Part1 {
         expectedOutput = "((F & ((F & y) ^ T)) ^ T)";
         assert expectedOutput.equals(e3.toString());
 
-
         Map<String, Boolean> assignment = new TreeMap<>();
         assignment.put("x", true);
         assignment.put("y", false);
@@ -49,8 +49,16 @@ public class Part1 {
         }
         assert value;
 
+        e = new Xor(new And(new Var("x"), new Val(false)),
+                new Or(new Var("y"), new Val(false)));
+
+        String output = e.toString();
+        expectedOutput = "((x & F) ^ (y | F))";
+        assert expectedOutput.equals(output);
+
         System.out.println(1);
         System.exit(0);
+
 
     }
 }
