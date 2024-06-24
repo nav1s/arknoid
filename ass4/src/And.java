@@ -65,8 +65,11 @@ public class And implements Expression {
 
     @Override
     public Expression norify() {
-        Expression firstExpression = new Nor(e1, e1);
-        Expression secondExpression = new Nor(e2, e2);
+        Expression nor1 = e1.norify();
+        Expression nor2 = e2.norify();
+
+        Expression firstExpression = new Nor(nor1, nor1);
+        Expression secondExpression = new Nor(nor2, nor2);
 
         return new Nor(firstExpression, secondExpression);
     }

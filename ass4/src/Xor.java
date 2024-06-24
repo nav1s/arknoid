@@ -56,14 +56,19 @@ public class Xor implements Expression {
 
     @Override
     public Expression nandify() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'nandify'");
+        Expression nand1 = e1.nandify();
+        Expression nand2 = e2.nandify();
+
+        return new Nand(new Nand(nand1, new Nand(nand1, nand2)), new Nand(nand2, new Nand(nand1, nand2)));
+
     }
 
     @Override
     public Expression norify() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'norify'");
+        Expression nor1 = e1.norify();
+        Expression nor2 = e2.norify();
+
+        return new Nor(new Nor(new Nor(nor1, nor1), new Nor(nor2, nor2)), new Nor(nor1, nor2));
     }
 
     @Override

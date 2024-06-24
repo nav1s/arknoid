@@ -57,14 +57,20 @@ public class Or implements Expression {
 
     @Override
     public Expression nandify() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'nandify'");
+        Expression nand1 = e1.nandify();
+        Expression nand2 = e2.nandify();
+
+        return new Nand(new Nand(nand1, nand1), new Nand(nand2, nand2));
     }
 
     @Override
     public Expression norify() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'norify'");
+        Expression nor1 = e1.norify();
+        Expression nor2 = e2.norify();
+
+        Expression firstExpression = new Nor(nor1, nor2);
+
+        return new Nor(firstExpression, firstExpression);
     }
 
     @Override
