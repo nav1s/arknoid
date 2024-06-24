@@ -5,6 +5,7 @@ public class Main {
      * @param args
      */
     public static void main(String[] args) {
+        // and norify and nandify
         Expression and = new And(new Var("x"), new Var("y"));
         String expectedOutput = "((x V x) V (y V y))";
         assert expectedOutput.equals(and.norify().toString());
@@ -12,6 +13,7 @@ public class Main {
         expectedOutput = "((x A y) A (x A y))";
         assert expectedOutput.equals(and.nandify().toString());
 
+        // nand norify and nandify
         Expression nand = new Nand(new Var("x"), new Var("y"));
         expectedOutput = "(((x V x) V (y V y)) V ((x V x) V (y V y)))";
         String output = nand.norify().toString();
@@ -21,24 +23,28 @@ public class Main {
         expectedOutput = "(x A y)";
         assert expectedOutput.equals(output);
 
+        // nor norify and nandify
         Expression nor = new Nor(new Var("x"), new Var("y"));
 
         output = nor.norify().toString();
         expectedOutput = "(x V y)";
         assert expectedOutput.equals(output);
 
-        System.out.println(1);
-        System.exit(0);
 
+        output = nor.nandify().toString();
+        expectedOutput = "(((x A x) A (y A y)) A ((x A x) A (y A y)))";
+        assert expectedOutput.equals(output);
 
-        System.out.println("nor nandtify: " + nor.nandify());
-        System.out.println("Should print: (((x A x) A (y A y)) A ((x A x) A (y Ay)))\n");
         Expression not = new Not(new Var("x"));
         System.out.println("not: " + not);
         System.out.println("not nortify: " + not.norify());
         System.out.println("Should print: (x V x)\n");
         System.out.println("not nandtify: " + not.nandify());
         System.out.println("Should print: (x A x)\n");
+
+        System.out.println(1);
+        System.exit(0);
+
         Expression or = new Or(new Var("x"), new Var("y"));
         System.out.println("or: " + or);
         System.out.println("or nortify: " + or.norify());

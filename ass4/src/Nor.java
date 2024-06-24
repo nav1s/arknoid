@@ -25,8 +25,7 @@ public class Nor implements Expression {
 
     @Override
     public Boolean evaluate() throws Exception {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'evaluate'");
+        return !(e1.evaluate() | e2.evaluate());
     }
 
     @Override
@@ -56,13 +55,19 @@ public class Nor implements Expression {
 
     @Override
     public Expression nandify() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'nandify'");
+        Expression nand1 = e1.nandify();
+        Expression nand2 = e2.nandify();
+
+        return new Nand(new Nand(new Nand(nand1, nand1), new Nand(nand2, nand2)),
+                new Nand(new Nand(nand1, nand1), new Nand(nand2, nand2)));
     }
 
     @Override
     public Expression norify() {
-        return new Nor(e1, e2);
+        Expression nor1 = e1.nandify();
+        Expression nor2 = e2.nandify();
+
+        return new Nor(nor1, nor2);
     }
 
     @Override

@@ -46,7 +46,6 @@ public class And implements Expression {
         return new And(newE1, newE2);
     }
 
-
     /**
     * @return a nice string representation of the expression.
     */
@@ -58,10 +57,10 @@ public class And implements Expression {
 
     @Override
     public Expression nandify() {
-        Expression firstExpression = new Nand(e1, e2);
-        Expression secondExpression = new Nand(e1, e2);
+        Expression nand1 = e1.nandify();
+        Expression nand2 = e2.nandify();
 
-        return new Nand(firstExpression, secondExpression);
+        return new Nand(new Nand(nand1, nand2), new Nand(nand1, nand2));
     }
 
     @Override

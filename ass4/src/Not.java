@@ -17,15 +17,14 @@ public class Not implements Expression {
 
     @Override
     public Boolean evaluate(Map<String, Boolean> assignment) throws Exception {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'evaluate'");
+        return !(e1.evaluate(assignment));
     }
 
     @Override
     public Boolean evaluate() throws Exception {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'evaluate'");
+        return !(e1.evaluate());
     }
+
 
     @Override
     public List<String> getVariables() {
@@ -37,9 +36,9 @@ public class Not implements Expression {
 
     @Override
     public Expression assign(String var, Expression expression) {
-        Expression newE1 = e1.assign(var, expression);
+        Expression newExpression = e1.assign(var, expression);
 
-        return new Not(newE1);
+        return new Not(newExpression);
     }
 
     /**
@@ -52,14 +51,18 @@ public class Not implements Expression {
 
     @Override
     public Expression nandify() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'nandify'");
+        Expression nand1 = e1.nandify();
+
+        return new Nand(nand1, nand1);
+
     }
 
     @Override
     public Expression norify() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'norify'");
+        Expression nor1 = e1.nandify();
+
+        return new Nor(nor1, nor1);
+
     }
 
     @Override
