@@ -42,7 +42,7 @@ public interface Expression {
    * current expression).
     * @param var
     * @param expression
-    * @return a new expression with
+    * @return a new expression wit
     */
    Expression assign(String var, Expression expression);
 
@@ -55,5 +55,10 @@ public interface Expression {
     * @return the expression tree resulting from converting all the operations to the logical Nor operation.
     */
    Expression norify();
+
+   /**
+    * @return a cloned version of our expression
+    */
+   Expression duplicate();
 
 }

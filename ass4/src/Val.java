@@ -47,14 +47,17 @@ public class Val implements Expression {
 
     @Override
     public Expression nandify() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'nandify'");
+        return this.duplicate();
     }
 
     @Override
     public Expression norify() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'norify'");
+        return this.duplicate();
+    }
+
+    @Override
+    public Expression duplicate() {
+        return new Val(this.bool);
     }
 
 }

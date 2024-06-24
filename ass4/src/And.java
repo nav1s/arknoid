@@ -72,4 +72,12 @@ public class And implements Expression {
         return new Nor(firstExpression, secondExpression);
     }
 
+    @Override
+    public Expression duplicate() {
+        Expression clonedE1 = this.e1.duplicate();
+        Expression clonedE2 = this.e2.duplicate();
+
+        return new And(clonedE1, clonedE2);
+    }
+
 }

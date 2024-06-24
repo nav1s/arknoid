@@ -29,8 +29,7 @@ public class Var implements Expression {
 
     @Override
     public Boolean evaluate() throws Exception {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'evaluate'");
+        throw new Exception("Unable to find variable");
     }
 
     @Override
@@ -43,12 +42,11 @@ public class Var implements Expression {
 
     @Override
     public Expression assign(String var, Expression expression) {
-        // todo add copy constructor
         if (!this.string.equals(var)) {
             return new Var(this.string);
         }
 
-        return expression;
+        return expression.duplicate();
     }
 
     @Override
@@ -58,14 +56,17 @@ public class Var implements Expression {
 
     @Override
     public Expression nandify() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'nandify'");
+        return this.duplicate();
     }
 
     @Override
     public Expression norify() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'norify'");
+        return this.duplicate();
+    }
+
+    @Override
+    public Expression duplicate() {
+        return new Var(this.string);
     }
 
 }

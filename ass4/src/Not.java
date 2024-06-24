@@ -62,4 +62,12 @@ public class Not implements Expression {
         throw new UnsupportedOperationException("Unimplemented method 'norify'");
     }
 
+    @Override
+    public Expression duplicate() {
+        Expression clonedE1 = this.e1.duplicate();
+
+        return new Not(clonedE1);
+    }
+
+
 }

@@ -4,24 +4,32 @@ public class Main {
     /**
      * @param args
      */
-    @SuppressWarnings("unlikely-arg-type")
     public static void main(String[] args) {
         Expression and = new And(new Var("x"), new Var("y"));
-        assert and.norify().equals("((x V x) V (y V y))");
+        String expectedOutput = "((x V x) V (y V y))";
+        assert expectedOutput.equals(and.norify().toString());
 
-        assert and.nandify().equals("((x A y) A (x A y))");
+        expectedOutput = "((x A y) A (x A y))";
+        assert expectedOutput.equals(and.nandify().toString());
 
         Expression nand = new Nand(new Var("x"), new Var("y"));
-        assert nand.norify().equals("(((x V x) V (y V y)) V ((x V x) V (y V y)))");
+        expectedOutput = "(((x V x) V (y V y)) V ((x V x) V (y V y)))";
+        String output = nand.norify().toString();
+        assert expectedOutput.equals(output);
 
-        assert nand.nandify().equals("Should print: (x A y)");
+        output = nand.nandify().toString();
+        expectedOutput = "(x A y)";
+        assert expectedOutput.equals(output);
 
         Expression nor = new Nor(new Var("x"), new Var("y"));
-        // System.out.println("nor: " + nor);
-        assert nor.norify().equals("x V y)");
+
+        output = nor.norify().toString();
+        expectedOutput = "(x V y)";
+        assert expectedOutput.equals(output);
 
         System.out.println(1);
         System.exit(0);
+
 
         System.out.println("nor nandtify: " + nor.nandify());
         System.out.println("Should print: (((x A x) A (y A y)) A ((x A x) A (y Ay)))\n");

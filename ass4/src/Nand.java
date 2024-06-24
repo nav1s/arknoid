@@ -5,7 +5,7 @@ import java.util.Map;
 
 /**
  */
-public class Nor implements Expression {
+public class Nand implements Expression {
     private Expression e1;
     private Expression e2;
 
@@ -13,14 +13,14 @@ public class Nor implements Expression {
      * @param e1
      * @param e2
      */
-    public Nor(Expression e1, Expression e2) {
+    public Nand(Expression e1, Expression e2) {
         this.e1 = e1;
         this.e2 = e2;
     }
 
     @Override
     public Boolean evaluate(Map<String, Boolean> assignment) throws Exception {
-        return !(e1.evaluate(assignment) | e2.evaluate(assignment));
+        return !(e1.evaluate(assignment) & e2.evaluate(assignment));
     }
 
     @Override
@@ -43,7 +43,7 @@ public class Nor implements Expression {
         Expression newE1 = e1.assign(var, expression);
         Expression newE2 = e2.assign(var, expression);
 
-        return new Or(newE1, newE2);
+        return new Nand(newE1, newE2);
     }
 
     /**
@@ -51,18 +51,31 @@ public class Nor implements Expression {
     */
     @Override
     public String toString() {
-        return "(" + e1 + " V " + e2 + ")";
+        return "(" + e1 + " A " + e2 + ")";
+
     }
 
     @Override
     public Expression nandify() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'nandify'");
+        return this.duplicate();
     }
 
     @Override
     public Expression norify() {
-        return new Nor(e1, e2);
+        Expression n1 = e1.norify();
+        Expression n2 = e2.norify();
+
+        Expression newExpression = new Nor(new Nor(n1, n1), new Nor(n2, n2));
+
+        return new Nor(newExpression, newExpression);
+    }
+
+    @Override
+    public Expression duplicate() {
+        Expression clonedE1 = this.e1.duplicate();
+        Expression clonedE2 = this.e2.duplicate();
+
+        return new Nand(clonedE1, clonedE2);
     }
 
 }

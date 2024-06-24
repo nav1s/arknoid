@@ -66,4 +66,12 @@ public class Xnor implements Expression {
         throw new UnsupportedOperationException("Unimplemented method 'norify'");
     }
 
+    @Override
+    public Expression duplicate() {
+        Expression clonedE1 = this.e1.duplicate();
+        Expression clonedE2 = this.e2.duplicate();
+
+        return new Xnor(clonedE1, clonedE2);
+    }
+
 }
