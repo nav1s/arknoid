@@ -69,4 +69,10 @@ public class Var implements Expression {
         return new Var(this.string);
     }
 
+    @Override
+    public Expression simplify() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'simplify'");
+    }
+
 }

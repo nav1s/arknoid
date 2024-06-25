@@ -4,7 +4,7 @@ import java.util.TreeMap;
 
 /**
  */
-public class Part1 {
+public class testsFromGuide {
     /**
      * @param args
      */

@@ -60,4 +60,10 @@ public class Val implements Expression {
         return new Val(this.bool);
     }
 
+    @Override
+    public Expression simplify() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'simplify'");
+    }
+
 }

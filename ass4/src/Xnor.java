@@ -63,4 +63,10 @@ public class Xnor extends BinaryExpression {
         return new Xnor(clonedE1, clonedE2);
     }
 
+    @Override
+    public Expression simplify() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'simplify'");
+    }
+
 }

@@ -75,4 +75,10 @@ public class Xor extends BinaryExpression {
         return new Xor(clonedE1, clonedE2);
     }
 
+    @Override
+    public Expression simplify() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'simplify'");
+    }
+
 }

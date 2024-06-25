@@ -57,8 +57,14 @@ public interface Expression {
    Expression norify();
 
    /**
+    * @return a simplified version of the current expression.
+    */
+   Expression simplify();
+
+   /**
     * @return a cloned version of our expression
     */
    Expression duplicate();
+
 
 }

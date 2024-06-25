@@ -66,4 +66,10 @@ public class Nand extends BinaryExpression {
         return new Nand(clonedE1, clonedE2);
     }
 
+    @Override
+    public Expression simplify() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'simplify'");
+    }
+
 }
