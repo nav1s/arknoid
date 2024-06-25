@@ -5,9 +5,7 @@ import java.util.Map;
 
 /**
  */
-public class Or implements Expression {
-    private Expression e1;
-    private Expression e2;
+public class Or extends BinaryExpression {
 
     /**
      * @param e1
@@ -25,17 +23,7 @@ public class Or implements Expression {
 
     @Override
     public Boolean evaluate() throws Exception {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'evaluate'");
-    }
-
-    @Override
-    public List<String> getVariables() {
-        ArrayList<String> lst = new ArrayList<>();
-        lst.addAll(e1.getVariables());
-        lst.addAll(e2.getVariables());
-
-        return lst;
+        return e1.evaluate() | e2.evaluate();
     }
 
     @Override
@@ -45,7 +33,6 @@ public class Or implements Expression {
 
         return new Or(newE1, newE2);
     }
-
 
     /**
     * @return a nice string representation of the expression.

@@ -1,14 +1,9 @@
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 /**
  */
-public class Nand implements Expression {
-    private Expression e1;
-    private Expression e2;
-
+public class Nand extends BinaryExpression {
     /**
      * @param e1
      * @param e2
@@ -26,15 +21,6 @@ public class Nand implements Expression {
     @Override
     public Boolean evaluate() throws Exception {
         return !(e1.evaluate() & e2.evaluate());
-    }
-
-    @Override
-    public List<String> getVariables() {
-        ArrayList<String> lst = new ArrayList<>();
-        lst.addAll(e1.getVariables());
-        lst.addAll(e2.getVariables());
-
-        return lst;
     }
 
     @Override

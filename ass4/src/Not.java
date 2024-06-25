@@ -3,7 +3,8 @@ import java.util.Map;
 
 /**
  */
-public class Not extends UnaryExpression{
+public class Not extends UnaryExpression {
+
     /**
      * @param e1
      */
@@ -20,7 +21,6 @@ public class Not extends UnaryExpression{
     public Boolean evaluate() throws Exception {
         return !(e1.evaluate());
     }
-
 
     @Override
     public Expression assign(String var, Expression expression) {

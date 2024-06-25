@@ -5,10 +5,7 @@ import java.util.Map;
 
 /**
  */
-public class Xor implements Expression {
-    private Expression e1;
-    private Expression e2;
-
+public class Xor extends BinaryExpression {
     /**
      * @param e1
      * @param e2
