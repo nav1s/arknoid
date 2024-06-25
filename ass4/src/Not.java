@@ -1,13 +1,9 @@
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 /**
  */
-public class Not implements Expression {
-    private Expression e1;
-
+public class Not extends UnaryExpression{
     /**
      * @param e1
      */
@@ -25,14 +21,6 @@ public class Not implements Expression {
         return !(e1.evaluate());
     }
 
-
-    @Override
-    public List<String> getVariables() {
-        ArrayList<String> lst = new ArrayList<>();
-        lst.addAll(e1.getVariables());
-
-        return lst;
-    }
 
     @Override
     public Expression assign(String var, Expression expression) {
@@ -62,7 +50,6 @@ public class Not implements Expression {
         Expression nor1 = e1.nandify();
 
         return new Nor(nor1, nor1);
-
     }
 
     @Override
@@ -71,6 +58,5 @@ public class Not implements Expression {
 
         return new Not(clonedE1);
     }
-
 
 }

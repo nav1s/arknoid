@@ -20,13 +20,12 @@ public class Xnor implements Expression {
 
     @Override
     public Boolean evaluate(Map<String, Boolean> assignment) throws Exception {
-        return e1.evaluate(assignment) ^ e2.evaluate(assignment);
+        return !(e1.evaluate(assignment) ^ e2.evaluate(assignment));
     }
 
     @Override
     public Boolean evaluate() throws Exception {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'evaluate'");
+        return !(e1.evaluate() ^ e2.evaluate());
     }
 
     @Override

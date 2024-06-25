@@ -25,8 +25,7 @@ public class Xor implements Expression {
 
     @Override
     public Boolean evaluate() throws Exception {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'evaluate'");
+        return e1.evaluate() ^ e2.evaluate();
     }
 
     @Override

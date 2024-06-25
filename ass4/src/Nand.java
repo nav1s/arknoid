@@ -25,8 +25,7 @@ public class Nand implements Expression {
 
     @Override
     public Boolean evaluate() throws Exception {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'evaluate'");
+        return !(e1.evaluate() & e2.evaluate());
     }
 
     @Override
@@ -57,15 +56,18 @@ public class Nand implements Expression {
 
     @Override
     public Expression nandify() {
-        return this.duplicate();
+        Expression nand1 = e1.nandify();
+        Expression nand2 = e2.nandify();
+
+        return new Nand(nand1, nand2);
     }
 
     @Override
     public Expression norify() {
-        Expression n1 = e1.norify();
-        Expression n2 = e2.norify();
+        Expression nor1 = e1.norify();
+        Expression nor2 = e2.norify();
 
-        Expression newExpression = new Nor(new Nor(n1, n1), new Nor(n2, n2));
+        Expression newExpression = new Nor(new Nor(nor1, nor1), new Nor(nor2, nor2));
 
         return new Nor(newExpression, newExpression);
     }
