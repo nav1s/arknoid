@@ -1,6 +1,4 @@
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -12,22 +10,30 @@ public class Or extends BinaryExpression {
      * @param e2
      */
     public Or(Expression e1, Expression e2) {
-        this.e1 = e1;
-        this.e2 = e2;
+        super(e1, e2);
     }
 
     @Override
     public Boolean evaluate(Map<String, Boolean> assignment) throws Exception {
+        Expression e1 = this.getE1();
+        Expression e2 = this.getE2();
+
         return e1.evaluate(assignment) | e2.evaluate(assignment);
     }
 
     @Override
     public Boolean evaluate() throws Exception {
+        Expression e1 = this.getE1();
+        Expression e2 = this.getE2();
+
         return e1.evaluate() | e2.evaluate();
     }
 
     @Override
     public Expression assign(String var, Expression expression) {
+        Expression e1 = this.getE1();
+        Expression e2 = this.getE2();
+
         Expression newE1 = e1.assign(var, expression);
         Expression newE2 = e2.assign(var, expression);
 
@@ -39,11 +45,17 @@ public class Or extends BinaryExpression {
     */
     @Override
     public String toString() {
+        Expression e1 = this.getE1();
+        Expression e2 = this.getE2();
+
         return "(" + e1 + " | " + e2 + ")";
     }
 
     @Override
     public Expression nandify() {
+        Expression e1 = this.getE1();
+        Expression e2 = this.getE2();
+
         Expression nand1 = e1.nandify();
         Expression nand2 = e2.nandify();
 
@@ -52,6 +64,9 @@ public class Or extends BinaryExpression {
 
     @Override
     public Expression norify() {
+        Expression e1 = this.getE1();
+        Expression e2 = this.getE2();
+
         Expression nor1 = e1.norify();
         Expression nor2 = e2.norify();
 
@@ -62,8 +77,11 @@ public class Or extends BinaryExpression {
 
     @Override
     public Expression duplicate() {
-        Expression clonedE1 = this.e1.duplicate();
-        Expression clonedE2 = this.e2.duplicate();
+        Expression e1 = this.getE1();
+        Expression e2 = this.getE2();
+
+        Expression clonedE1 = e1.duplicate();
+        Expression clonedE2 = e2.duplicate();
 
         return new Or(clonedE1, clonedE2);
     }
