@@ -62,6 +62,11 @@ public interface Expression {
    Expression simplify();
 
    /**
+    * @return a simplified version of the current expression.
+    */
+   Expression simplifyNonEmptyExpression();
+
+   /**
     * @return a cloned version of our expression
     */
    Expression duplicate();

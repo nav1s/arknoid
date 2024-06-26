@@ -71,8 +71,20 @@ public class Var implements Expression {
 
     @Override
     public Expression simplify() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'simplify'");
+        if (this.getVariables().size() == 0) {
+            try {
+                return new Val(this.evaluate());
+            } catch (Exception e) {
+                return new Val(false);
+            }
+        }
+
+        return simplifyNonEmptyExpression();
+    }
+
+    @Override
+    public Expression simplifyNonEmptyExpression() {
+        return new Var(this.string);
     }
 
 }

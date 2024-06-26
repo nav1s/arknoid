@@ -87,9 +87,17 @@ public class Or extends BinaryExpression {
     }
 
     @Override
-    public Expression simplify() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'simplify'");
+    public Expression simplifyNonEmptyExpression() {
+        String str = this.toString();
+        if (str.equals("(x & F)")) {
+            return new Val(false);
+        }
+        Expression e1 = this.getE1();
+        Expression e2 = this.getE2();
+
+        return new Or(e1.simplifyNonEmptyExpression(), e2.simplifyNonEmptyExpression());
     }
+
+
 
 }

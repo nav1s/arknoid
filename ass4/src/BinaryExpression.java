@@ -54,5 +54,4 @@ public abstract class BinaryExpression extends BaseExpression {
         this.e2 = e2;
     }
 
-
 }

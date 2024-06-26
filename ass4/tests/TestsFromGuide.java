@@ -56,18 +56,26 @@ public class TestsFromGuide {
         expectedOutput = "((x & F) ^ (y | F))";
         assert expectedOutput.equals(output);
 
-        System.out.println("passed all tests from the guide");
-        System.exit(0);
-
         e = new Xor(new And(new Var("x"), new Val(false)), new Or(new Var("y"), new Val(false)));
+
         output = e.toString();
         expectedOutput = "((x & F) ^ (y | F))";
-
         assert expectedOutput.equals(output);
-        System.out.println(e.simplify());
 
-        // the result is:
-        // y
+        // simplify tests
+        System.out.println(e);
+        System.out.println(e.simplify());
+        System.out.println("should print y\n");
+
+        // extra tests
+        e = new Xor(new And(new Var("x"), new Val(false)), new Or(new Var("y"), new Val(false)));
+
+        output = e.toString();
+        expectedOutput = "((x & F) ^ (y | F))";
+        assert expectedOutput.equals(output);
+
+        System.out.println("passed all tests from the guide");
+        System.exit(0);
 
     }
 }

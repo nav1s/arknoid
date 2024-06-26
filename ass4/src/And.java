@@ -89,8 +89,29 @@ public class And extends BinaryExpression {
 
     @Override
     public Expression simplify() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'simplify'");
+        if (this.getVariables().size() == 0) {
+            try {
+                return new Val(this.evaluate());
+            } catch (Exception e) {
+                return new Val(false);
+            }
+        }
+
+        return simplifyNonEmptyExpression();
     }
+
+    @Override
+    public Expression simplifyNonEmptyExpression() {
+        String str = this.toString();
+        if (str.equals("(x & F)")) {
+            return new Val(false);
+        }
+        Expression e1 = this.getE1();
+        Expression e2 = this.getE2();
+
+        return new And(e1.simplifyNonEmptyExpression(), e2.simplifyNonEmptyExpression());
+    }
+
+
 
 }

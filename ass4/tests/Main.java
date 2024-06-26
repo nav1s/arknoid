@@ -94,9 +94,6 @@ public class Main {
         expectedOutput = "((x A (x A y)) A (y A (x A y)))";
         assert expectedOutput.equals(output);
 
-        System.out.println(1);
-        System.exit(0);
-
         // disable alternative
         // System.out.println("Alternately: ((y A (x A x)) A (x A (y A y)))\n");
 
@@ -104,8 +101,12 @@ public class Main {
         Expression e = new Xnor(new Nand(new Var("x"), new Val(false)),
                 new Not(new And(new Or(new Var("x"), new Var("y")),
                         new Xor(new Val(true), new Var("z")))));
-        System.out.println(e);
-        System.out.println("Should print: ((x A F) # ~((x v y) ^ (T ⊕ z)))\n");
+        output = e.toString();
+        expectedOutput = "((x A F) # ~(((x | y) & (T ^ z))))";
+        assert expectedOutput.equals(output);
+
+        System.out.println("Passed all of the main tests");
+        System.exit(0);
 
         // System.out.println("After simplification: " + e.simplify());
         // System.out.println("Should print: (T # ~(((x v y) ^ ~(z))))\n");
