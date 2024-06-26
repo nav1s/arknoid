@@ -1,4 +1,5 @@
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -86,15 +87,34 @@ public class Xor extends BinaryExpression {
 
     @Override
     public Expression simplifyNonEmptyExpression() {
-        String str = this.toString();
-        if (str.equals("(x & F)")) {
-            return new Val(false);
+        Expression e1 = this.getE1().simplifyNonEmptyExpression();
+        Expression e2 = this.getE2().simplifyNonEmptyExpression();
+
+        Expression newExpression = new Xor(e1, e2);
+
+        String str = newExpression.toString();
+        List<String> variables = newExpression.getVariables();
+
+        for (String var : variables) {
+            String notVar1 = "(" + var + " ^ T)";
+            String notVar2 = "(T ^ " + var + ")";
+            if (str.equals(notVar1) || str.equals(notVar2)) {
+                return new Not(new Var(var));
+            }
+
+            String sameVar1 = "(" + var + " ^ F)";
+            String sameVar2 = "(F ^ " + var + ")";
+            if (str.equals(sameVar1) || str.equals(sameVar2)) {
+                return new Var(var);
+            }
+
+            String falseExpression = "(" + var + " ^ " + var + ")";
+            if (str.equals(falseExpression)) {
+                return new Val(false);
+            }
+
         }
-        Expression e1 = this.getE1();
-        Expression e2 = this.getE2();
-
-        return new Xor(e1.simplifyNonEmptyExpression(), e2.simplifyNonEmptyExpression());
+        return newExpression;
     }
-
 
 }

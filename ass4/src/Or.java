@@ -1,4 +1,5 @@
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -88,15 +89,32 @@ public class Or extends BinaryExpression {
 
     @Override
     public Expression simplifyNonEmptyExpression() {
-        String str = this.toString();
-        if (str.equals("(x & F)")) {
-            return new Val(false);
-        }
-        Expression e1 = this.getE1();
-        Expression e2 = this.getE2();
+        Expression e1 = this.getE1().simplifyNonEmptyExpression();
+        Expression e2 = this.getE2().simplifyNonEmptyExpression();
 
-        return new Or(e1.simplifyNonEmptyExpression(), e2.simplifyNonEmptyExpression());
+        Expression newExpression = new Or(e1, e2);
+
+        String str = newExpression.toString();
+        List<String> variables = newExpression.getVariables();
+
+        for (String var : variables) {
+            String trueExpression1 = "(" + var + " | T)";
+            String trueExpression2 = "(T | " + var + ")";
+            if (str.equals(trueExpression1) || str.equals(trueExpression2)) {
+                return new Val(true);
+            }
+
+            String sameVar1 = "(" + var + " | F)";
+            String sameVar2 = "(F | " + var + ")";
+            String sameVar3 = "(" + var + " | " + var + ")";
+            if (str.equals(sameVar1) || str.equals(sameVar2) || str.equals(sameVar3)) {
+                return new Var(var);
+            }
+
+        }
+        return newExpression;
     }
+
 
 
 

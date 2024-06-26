@@ -63,9 +63,16 @@ public class TestsFromGuide {
         assert expectedOutput.equals(output);
 
         // simplify tests
-        System.out.println(e);
-        System.out.println(e.simplify());
-        System.out.println("should print y\n");
+        output = e.simplify().toString();
+        expectedOutput = "y";
+        assert expectedOutput.equals(output);
+
+        // "((T & T) | F) ^ T
+        e = new Xor(new Or(new And(new Val(true), new Val(true)), new Val(false)), new Val(true));
+
+        output = e.simplify().toString();
+        expectedOutput = "F";
+        assert expectedOutput.equals(output);
 
         // extra tests
         e = new Xor(new And(new Var("x"), new Val(false)), new Or(new Var("y"), new Val(false)));

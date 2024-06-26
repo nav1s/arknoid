@@ -1,4 +1,5 @@
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -88,30 +89,31 @@ public class And extends BinaryExpression {
     }
 
     @Override
-    public Expression simplify() {
-        if (this.getVariables().size() == 0) {
-            try {
-                return new Val(this.evaluate());
-            } catch (Exception e) {
+    public Expression simplifyNonEmptyExpression() {
+        Expression e1 = this.getE1().simplifyNonEmptyExpression();
+        Expression e2 = this.getE2().simplifyNonEmptyExpression();
+
+        Expression newExpression = new And(e1, e2);
+
+        String str = newExpression.toString();
+        List<String> variables = newExpression.getVariables();
+
+        for (String var : variables) {
+            String falseExpression1 = "(" + var + " & F)";
+            String falseExpression2 = "(F & " + var + ")";
+            if (str.equals(falseExpression1) || str.equals(falseExpression2)) {
                 return new Val(false);
             }
+
+            String sameVar1 = "(" + var + " & T)";
+            String sameVar2 = "(T & " + var + ")";
+            String sameVar3 = "(" + var + " & " + var + ")";
+            if (str.equals(sameVar1) || str.equals(sameVar2) || str.equals(sameVar3)) {
+                return new Var(var);
+            }
+
         }
-
-        return simplifyNonEmptyExpression();
+        return newExpression;
     }
-
-    @Override
-    public Expression simplifyNonEmptyExpression() {
-        String str = this.toString();
-        if (str.equals("(x & F)")) {
-            return new Val(false);
-        }
-        Expression e1 = this.getE1();
-        Expression e2 = this.getE2();
-
-        return new And(e1.simplifyNonEmptyExpression(), e2.simplifyNonEmptyExpression());
-    }
-
-
 
 }
