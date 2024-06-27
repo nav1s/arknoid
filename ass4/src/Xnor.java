@@ -1,12 +1,15 @@
 
+import java.util.List;
 import java.util.Map;
 
 /**
+ * This class represents a xnor logic gate.
  */
 public class Xnor extends BinaryExpression {
+
     /**
-     * @param e1
-     * @param e2
+     * @param e1 the first expression
+     * @param e2 the second expression
      */
     public Xnor(Expression e1, Expression e2) {
         super(e1, e2);
@@ -84,22 +87,23 @@ public class Xnor extends BinaryExpression {
     }
 
     @Override
-    public Expression simplify() {
-        if (this.getVariables().size() == 0) {
-            try {
-                return new Val(this.evaluate());
-            } catch (Exception e) {
+    public Expression simplifyNonEmptyExpression() {
+        Expression e1 = this.getE1().simplifyNonEmptyExpression();
+        Expression e2 = this.getE2().simplifyNonEmptyExpression();
+
+        Expression newExpression = new Xnor(e1, e2);
+
+        String str = newExpression.toString();
+        List<String> variables = newExpression.getVariables();
+
+        for (String var : variables) {
+            String sameVar = "(" + var + " # " + var + ")";
+            if (str.equals(sameVar)) {
                 return new Val(false);
             }
+
         }
-
-        return new Val(false);
-    }
-
-    @Override
-    public Expression simplifyNonEmptyExpression() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'simplifyNonEmptyExpression'");
+        return newExpression;
     }
 
 }

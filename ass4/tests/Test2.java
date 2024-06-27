@@ -1,21 +1,14 @@
-
-// import java.util.HashMap;
 // import java.util.Map;
 
-// import static org.junit.jupiter.api.Assertions.assertFalse;
-// import static org.junit.jupiter.api.Assertions.assertEquals;
-// import static org.junit.jupiter.api.Assertions.fail;
-
 // /**
-//  * ExpressionsTest class.
-//  * This class tests the Expression interface and its implementations.
-//  */
+// * ExpressionsTest class.
+// * This class tests the Expression interface and its implementations.
+// */
 // public class Test2 {
 
 //     /**
-//      * Test the evaluate method of the And class.
-//      */
-//     @Test
+//     * Test the evaluate method of the And class.
+//     */
 //     public void testAndEvaluate() {
 //         Expression expr1 = new Var("x");
 //         Expression expr2 = new Var("y");
@@ -32,40 +25,59 @@
 //         }
 //     }
 
+// /**
+// * Test BIU.
+// */
+// public void biuTest() {
+// Expression x = new Var("x");
+// Expression y = new Var("y");
+// Expression z = new Var("z");
+// Expression ex = new Xnor(new Nand(x, new Val(false)),
+// new Not(new And(new Or(x, y),
+// new Xor(new Val(true), z))));
+
+// assertEquals(ex.toString(), "((x A F) # ~(((x | y) & (T ^ z))))");
+
+// HashMap<String, Boolean> map = new HashMap<>();
+// map.put("x", true);
+// map.put("y", false);
+// map.put("z", false);
+
+// try {
+// assertFalse(ex.evaluate(map));
+// } catch (Exception ignored) {
+// }
+
+// assertEquals(ex.nandify().toString(),
+// "((((x A F) A (x A F)) A ((((((x A x) A (y A y)) A ((T A (T A z)) A (z A (T A
+// z)))) A (((x A x) A (y A y)) A ((T A (T A z)) A (z A (T A z))))) A ((((x A x)
+// A (y A y)) A ((T A (T A z)) A (z A (T A z)))) A (((x A x) A (y A y)) A ((T A
+// (T A z)) A (z A (T A z)))))) A (((((x A x) A (y A y)) A ((T A (T A z)) A (z A
+// (T A z)))) A (((x A x) A (y A y)) A ((T A (T A z)) A (z A (T A z))))) A ((((x
+// A x) A (y A y)) A ((T A (T A z)) A (z A (T A z)))) A (((x A x) A (y A y)) A
+// ((T A (T A z)) A (z A (T A z)))))))) A ((x A F) A (((((x A x) A (y A y)) A
+// ((T A (T A z)) A (z A (T A z)))) A (((x A x) A (y A y)) A ((T A (T A z)) A (z
+// A (T A z))))) A ((((x A x) A (y A y)) A ((T A (T A z)) A (z A (T A z)))) A
+// (((x A x) A (y A y)) A ((T A (T A z)) A (z A (T A z))))))))");
+// assertEquals(ex.norify().toString(),
+// "(((((x V x) V (F V F)) V ((x V x) V (F V F))) V ((((x V x) V (F V F)) V ((x
+// V x) V (F V F))) V (((((x V y) V (x V y)) V ((x V y) V (x V y))) V ((((T V T)
+// V (z V z)) V (T V z)) V (((T V T) V (z V z)) V (T V z)))) V ((((x V y) V (x V
+// y)) V ((x V y) V (x V y))) V ((((T V T) V (z V z)) V (T V z)) V (((T V T) V
+// (z V z)) V (T V z))))))) V ((((((x V y) V (x V y)) V ((x V y) V (x V y))) V
+// ((((T V T) V (z V z)) V (T V z)) V (((T V T) V (z V z)) V (T V z)))) V ((((x
+// V y) V (x V y)) V ((x V y) V (x V y))) V ((((T V T) V (z V z)) V (T V z)) V
+// (((T V T) V (z V z)) V (T V z))))) V ((((x V x) V (F V F)) V ((x V x) V (F V
+// F))) V (((((x V y) V (x V y)) V ((x V y) V (x V y))) V ((((T V T) V (z V z))
+// V (T V z)) V (((T V T) V (z V z)) V (T V z)))) V ((((x V y) V (x V y)) V ((x
+// V y) V (x V y))) V ((((T V T) V (z V z)) V (T V z)) V (((T V T) V (z V z)) V
+// (T V z))))))))");
+// assertEquals(ex.simplify().toString(), "(T # ~(((x | y) & ~(z))))");
+// }
+
 //     /**
-//      * Test BIU.
-//      */
-//     @Test
-//     public void biuTest() {
-//         Expression x = new Var("x");
-//         Expression y = new Var("y");
-//         Expression z = new Var("z");
-//         Expression ex = new Xnor(new Nand(x, new Val(false)),
-//                 new Not(new And(new Or(x, y),
-//                         new Xor(new Val(true), z))));
-
-//         assertEquals(ex.toString(), "((x A F) # ~(((x | y) & (T ^ z))))");
-
-//         HashMap<String, Boolean> map = new HashMap<>();
-//         map.put("x", true);
-//         map.put("y", false);
-//         map.put("z", false);
-
-//         try {
-//             assertFalse(ex.evaluate(map));
-//         } catch (Exception ignored) {
-//         }
-
-//         assertEquals(ex.nandify().toString(),
-//                 "((((x A F) A (x A F)) A ((((((x A x) A (y A y)) A ((T A (T A z)) A (z A (T A z)))) A (((x A x) A (y A y)) A ((T A (T A z)) A (z A (T A z))))) A ((((x A x) A (y A y)) A ((T A (T A z)) A (z A (T A z)))) A (((x A x) A (y A y)) A ((T A (T A z)) A (z A (T A z)))))) A (((((x A x) A (y A y)) A ((T A (T A z)) A (z A (T A z)))) A (((x A x) A (y A y)) A ((T A (T A z)) A (z A (T A z))))) A ((((x A x) A (y A y)) A ((T A (T A z)) A (z A (T A z)))) A (((x A x) A (y A y)) A ((T A (T A z)) A (z A (T A z)))))))) A ((x A F) A (((((x A x) A (y A y)) A ((T A (T A z)) A (z A (T A z)))) A (((x A x) A (y A y)) A ((T A (T A z)) A (z A (T A z))))) A ((((x A x) A (y A y)) A ((T A (T A z)) A (z A (T A z)))) A (((x A x) A (y A y)) A ((T A (T A z)) A (z A (T A z))))))))");
-//         assertEquals(ex.norify().toString(),
-//                 "(((((x V x) V (F V F)) V ((x V x) V (F V F))) V ((((x V x) V (F V F)) V ((x V x) V (F V F))) V (((((x V y) V (x V y)) V ((x V y) V (x V y))) V ((((T V T) V (z V z)) V (T V z)) V (((T V T) V (z V z)) V (T V z)))) V ((((x V y) V (x V y)) V ((x V y) V (x V y))) V ((((T V T) V (z V z)) V (T V z)) V (((T V T) V (z V z)) V (T V z))))))) V ((((((x V y) V (x V y)) V ((x V y) V (x V y))) V ((((T V T) V (z V z)) V (T V z)) V (((T V T) V (z V z)) V (T V z)))) V ((((x V y) V (x V y)) V ((x V y) V (x V y))) V ((((T V T) V (z V z)) V (T V z)) V (((T V T) V (z V z)) V (T V z))))) V ((((x V x) V (F V F)) V ((x V x) V (F V F))) V (((((x V y) V (x V y)) V ((x V y) V (x V y))) V ((((T V T) V (z V z)) V (T V z)) V (((T V T) V (z V z)) V (T V z)))) V ((((x V y) V (x V y)) V ((x V y) V (x V y))) V ((((T V T) V (z V z)) V (T V z)) V (((T V T) V (z V z)) V (T V z))))))))");
-//         assertEquals(ex.simplify().toString(), "(T # ~(((x | y) & ~(z))))");
-//     }
-
-//     /**
-//      * Test the simplify method of the And class.
-//      */
+//     * Test the simplify method of the And class.
+//     */
 //     @Test
 //     public void testSimplify() {
 //         // ex1 = ((x&y)&(x&y))
@@ -229,8 +241,8 @@
 //     }
 
 //     /**
-//      * Test the evaluate method.
-//      */
+//     * Test the evaluate method.
+//     */
 //     @Test
 //     private void evaluateTest() {
 //         // ex1 = (T | F)

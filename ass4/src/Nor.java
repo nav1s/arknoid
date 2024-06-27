@@ -1,12 +1,15 @@
 
+import java.util.List;
 import java.util.Map;
 
 /**
+ * This class represents a nor logic gate.
  */
 public class Nor extends BinaryExpression {
+
     /**
-     * @param e1
-     * @param e2
+     * @param e1 the first expression
+     * @param e2 the second expression
      */
     public Nor(Expression e1, Expression e2) {
         super(e1, e2);
@@ -85,21 +88,34 @@ public class Nor extends BinaryExpression {
     }
 
     @Override
-    public Expression simplify() {
-        if (this.getVariables().size() == 0) {
-            try {
-                return new Val(this.evaluate());
-            } catch (Exception e) {
+    public Expression simplifyNonEmptyExpression() {
+        Expression e1 = this.getE1().simplifyNonEmptyExpression();
+        Expression e2 = this.getE2().simplifyNonEmptyExpression();
+
+        Expression newExpression = new Xor(e1, e2);
+
+        String str = newExpression.toString();
+        List<String> variables = newExpression.getVariables();
+
+        for (String var : variables) {
+            String falseExpression1 = "(" + var + " V T)";
+            String falseExpression2 = "(T V " + var + ")";
+            if (str.equals(falseExpression1) || str.equals(falseExpression2)) {
                 return new Val(false);
             }
+
+            String notVar1 = "(" + var + " V F)";
+            String notVar2 = "(F V " + var + ")";
+            if (str.equals(notVar1) || str.equals(notVar2)) {
+                return new Not(new Var(var));
+            }
+
+            String notVar3 = "(" + var + " V " + var + ")";
+            if (str.equals(notVar3)) {
+                return new Not(new Var(var));
+            }
+
         }
-
-        return new Val(false);
-    }
-
-    @Override
-    public Expression simplifyNonEmptyExpression() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'simplifyNonEmptyExpression'");
+        return newExpression;
     }
 }

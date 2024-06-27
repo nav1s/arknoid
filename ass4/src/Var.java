@@ -4,12 +4,13 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * This class represents a variable.
  */
 public class Var implements Expression {
     private String string;
 
     /**
-     * @param string
+     * @param string the chosen string for the variable
      */
     public Var(String string) {
         this.string = string;

@@ -3,7 +3,8 @@ import java.util.List;
 import java.util.Map;
 
 /**
-*/
+ * This class represents an expression.
+ */
 public interface Expression {
 
    /**
@@ -67,9 +68,8 @@ public interface Expression {
    Expression simplifyNonEmptyExpression();
 
    /**
-    * @return a cloned version of our expression
+    * @return a duplicated version of our expression
     */
    Expression duplicate();
-
 
 }

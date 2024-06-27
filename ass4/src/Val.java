@@ -4,12 +4,13 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * This class represents a boolean value.
  */
 public class Val implements Expression {
     private Boolean bool;
 
     /**
-     * @param bool
+     * @param bool the value of the expression
      */
     public Val(boolean bool) {
         this.bool = bool;

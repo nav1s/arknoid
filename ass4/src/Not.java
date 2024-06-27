@@ -2,11 +2,12 @@
 import java.util.Map;
 
 /**
+ * This class represents a not logic gate.
  */
 public class Not extends UnaryExpression {
 
     /**
-     * @param e1
+     * @param e1 the first expression
      */
     public Not(Expression e1) {
         super(e1);
@@ -74,21 +75,8 @@ public class Not extends UnaryExpression {
     }
 
     @Override
-    public Expression simplify() {
-        if (this.getVariables().size() == 0) {
-            try {
-                return new Val(this.evaluate());
-            } catch (Exception e) {
-                return new Val(false);
-            }
-        }
-
-        return new Val(false);
-    }
-
-    @Override
     public Expression simplifyNonEmptyExpression() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'simplifyNonEmptyExpression'");
+        Expression e1 = this.getE1().simplifyNonEmptyExpression();
+        return new Not(e1);
     }
 }

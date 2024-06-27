@@ -1,12 +1,15 @@
 
+import java.util.List;
 import java.util.Map;
 
 /**
+ * This class represents a nand logic gate.
  */
 public class Nand extends BinaryExpression {
+
     /**
-     * @param e1
-     * @param e2
+     * @param e1 the first expression
+     * @param e2 the second expression
      */
     public Nand(Expression e1, Expression e2) {
         super(e1, e2);
@@ -101,8 +104,34 @@ public class Nand extends BinaryExpression {
 
     @Override
     public Expression simplifyNonEmptyExpression() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'simplifyNonEmptyExpression'");
+        Expression e1 = this.getE1().simplifyNonEmptyExpression();
+        Expression e2 = this.getE2().simplifyNonEmptyExpression();
+
+        Expression newExpression = new Nand(e1, e2);
+
+        String str = newExpression.toString();
+        List<String> variables = newExpression.getVariables();
+
+        for (String var : variables) {
+            String notVar1 = "(" + var + " A T)";
+            String notVar2 = "(T A " + var + ")";
+            if (str.equals(notVar1) || str.equals(notVar2)) {
+                return new Not(new Var(var));
+            }
+
+            String trueExpression1 = "(" + var + " A F)";
+            String trueExpression2 = "(F A " + var + ")";
+            if (str.equals(trueExpression1) || str.equals(trueExpression2)) {
+                return new Val(true);
+            }
+
+            String notVar3 = "(" + var + " A " + var + ")";
+            if (str.equals(notVar3)) {
+                return new Not(new Var(var));
+            }
+
+        }
+        return newExpression;
     }
 
 

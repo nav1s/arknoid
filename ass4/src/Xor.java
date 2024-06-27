@@ -3,11 +3,13 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * This class represents a xor logic gate.
  */
 public class Xor extends BinaryExpression {
+
     /**
-     * @param e1
-     * @param e2
+     * @param e1 the first expression
+     * @param e2 the second expression
      */
     public Xor(Expression e1, Expression e2) {
         super(e1, e2);
