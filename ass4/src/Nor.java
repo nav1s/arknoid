@@ -70,8 +70,8 @@ public class Nor extends BinaryExpression {
         Expression e1 = this.getE1();
         Expression e2 = this.getE2();
 
-        Expression nor1 = e1.nandify();
-        Expression nor2 = e2.nandify();
+        Expression nor1 = e1.norify();
+        Expression nor2 = e2.norify();
 
         return new Nor(nor1, nor2);
     }

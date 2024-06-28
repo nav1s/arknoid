@@ -103,6 +103,35 @@ public class TestsFromGuide {
         expectedOutput = "x";
         assert expectedOutput.equals(output);
 
+        // or basic simplify tests
+
+        e = new Or(new Var("x"), new Val(true));
+        output = e.toString();
+        expectedOutput = "(x | T)";
+        assert expectedOutput.equals(output);
+
+        output = e.simplify().toString();
+        expectedOutput = "T";
+        assert expectedOutput.equals(output);
+
+        e = new Or(new Var("x"), new Val(false));
+        output = e.toString();
+        expectedOutput = "(x | F)";
+        assert expectedOutput.equals(output);
+
+        output = e.simplify().toString();
+        expectedOutput = "x";
+        assert expectedOutput.equals(output);
+
+        e = new Or(new Var("x"), new Var("x"));
+        output = e.toString();
+        expectedOutput = "(x | x)";
+        assert expectedOutput.equals(output);
+
+        output = e.simplify().toString();
+        expectedOutput = "x";
+        assert expectedOutput.equals(output);
+
         // extra tests
         e = new Xor(new And(new Var("x"), new Val(false)), new Or(new Var("y"), new Val(false)));
 

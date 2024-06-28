@@ -1,29 +1,38 @@
-// import java.util.Map;
+import java.util.Map;
 
-// /**
-// * ExpressionsTest class.
-// * This class tests the Expression interface and its implementations.
-// */
-// public class Test2 {
+/**
+* ExpressionsTest class.
+* This class tests the Expression interface and its implementations.
+*/
+public class Test2 {
 
-//     /**
-//     * Test the evaluate method of the And class.
-//     */
-//     public void testAndEvaluate() {
-//         Expression expr1 = new Var("x");
-//         Expression expr2 = new Var("y");
-//         And andExpression = new And(expr1, expr2);
+    /**
+    * Test the evaluate method of the And class.
+    */
+    public void testAndEvaluate() {
+        Expression expr1 = new Var("x");
+        Expression expr2 = new Var("y");
+        And andExpression = new And(expr1, expr2);
 
-//         Map<String, Boolean> assignment = new HashMap<>();
-//         assignment.put("x", true);
-//         assignment.put("y", false);
+        Map<String, Boolean> assignment = new HashMap<>();
+        assignment.put("x", true);
+        assignment.put("y", false);
 
-//         try {
-//             assertFalse(andExpression.evaluate(assignment));
-//         } catch (Exception e) {
-//             fail("Exception thrown during evaluation: " + e.getMessage());
-//         }
-//     }
+        try {
+            assert andExpression.evaluate(assignment).equals(false);
+        } catch (Exception e) {
+            System.out.println("Exception thrown during evaluation: " + e.getMessage());
+        }
+    }
+
+    /**
+     * @param args
+     */
+    public static void main(String[] args) {
+        Test2 tst = new Test2();
+        tst.testAndEvaluate();
+    }
+}
 
 // /**
 // * Test BIU.

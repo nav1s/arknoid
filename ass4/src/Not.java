@@ -60,7 +60,7 @@ public class Not extends UnaryExpression {
     public Expression norify() {
         Expression e1 = this.getE1();
 
-        Expression nor1 = e1.nandify();
+        Expression nor1 = e1.norify();
 
         return new Nor(nor1, nor1);
     }
