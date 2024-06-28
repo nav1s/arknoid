@@ -62,6 +62,7 @@ public interface Expression {
     */
    Expression simplify();
 
+   // todo get rid of these methods
    /**
     * @return a simplified version of the current expression.
     */
