@@ -90,19 +90,6 @@ public class Nand extends BinaryExpression {
     }
 
     @Override
-    public Expression simplify() {
-        if (this.getVariables().size() == 0) {
-            try {
-                return new Val(this.evaluate());
-            } catch (Exception e) {
-                return new Val(false);
-            }
-        }
-
-        return new Val(false);
-    }
-
-    @Override
     public Expression simplifyNonEmptyExpression() {
         Expression e1 = this.getE1().simplifyNonEmptyExpression();
         Expression e2 = this.getE2().simplifyNonEmptyExpression();
@@ -133,6 +120,5 @@ public class Nand extends BinaryExpression {
         }
         return newExpression;
     }
-
 
 }
