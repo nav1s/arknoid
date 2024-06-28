@@ -5,6 +5,47 @@ import java.util.TreeMap;
 /**
  */
 public class TestsFromGuide {
+    /**
+     */
+    public static void moreSimplifyTests() {
+        // nor basic simplify tests
+        Expression e = new Nor(new Var("x"), new Val(true));
+        String output = e.toString();
+        String expectedOutput = "(x V T)";
+        assert expectedOutput.equals(output);
+
+        output = e.simplify().toString();
+        expectedOutput = "F";
+        assert expectedOutput.equals(output);
+
+        e = new Nor(new Var("x"), new Val(false));
+        output = e.toString();
+        expectedOutput = "(x V F)";
+        assert expectedOutput.equals(output);
+
+        output = e.simplify().toString();
+        expectedOutput = "~(x)";
+        assert expectedOutput.equals(output);
+
+        e = new Nor(new Var("x"), new Var("x"));
+        output = e.toString();
+        expectedOutput = "(x V x)";
+        assert expectedOutput.equals(output);
+
+        output = e.simplify().toString();
+        expectedOutput = "~(x)";
+        assert expectedOutput.equals(output);
+
+        // xnor basic simplify tests
+        e = new Xnor(new Var("x"), new Var("x"));
+        output = e.toString();
+        expectedOutput = "(x # x)";
+        assert expectedOutput.equals(output);
+
+        output = e.simplify().toString();
+        expectedOutput = "T";
+        assert expectedOutput.equals(output);
+    }
 
     /**
      */
@@ -141,7 +182,6 @@ public class TestsFromGuide {
         expectedOutput = "~(x)";
         assert expectedOutput.equals(output);
 
-
         e = new And(new Xnor(new Var("x"), new Var("x")), new Var("y"));
 
         output = e.toString();
@@ -223,6 +263,7 @@ public class TestsFromGuide {
         assert expectedOutput.equals(output);
 
         simplifyTests();
+        moreSimplifyTests();
 
         System.out.println("passed all tests from the guide");
         System.exit(0);
