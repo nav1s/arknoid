@@ -92,7 +92,7 @@ public class Nor extends BinaryExpression {
         Expression e1 = this.getE1().simplifyNonEmptyExpression();
         Expression e2 = this.getE2().simplifyNonEmptyExpression();
 
-        Expression newExpression = new Xor(e1, e2);
+        Expression newExpression = new Nor(e1, e2);
 
         String str = newExpression.toString();
         List<String> variables = newExpression.getVariables();
