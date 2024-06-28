@@ -116,20 +116,24 @@ public class Main {
         expectedOutput = "((x A F) # ~(((x | F) & (T ^ z))))";
         assert expectedOutput.equals(output);
 
-        System.out.println("Passed all of the main tests");
-        System.exit(0);
+        output = e.simplify().toString();
+        expectedOutput = "(T # ~((x & ~(z))))";
+        assert expectedOutput.equals(output);
 
-        System.out.println("After simplification: " + e.simplify());
-        System.out.println("Should print: (T # ~((x ^ ~(z))))\n");
         Map<String, Boolean> map = new HashMap<>();
         map.put("x", true);
         map.put("z", false);
         try {
-            System.out.println("evaluate using x = true, z = false: " + e.evaluate(map));
-            System.out.println("Should print: false");
+            output = e.evaluate(map).toString();
+            expectedOutput = "false";
+            assert expectedOutput.equals(output);
+
         } catch (Exception ignored) {
             System.out.println("Error. Exception thrown during evaluation.");
         }
+
+        System.out.println("Passed all of the main tests");
+        System.exit(0);
 
     }
 }

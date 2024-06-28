@@ -74,11 +74,49 @@ public class TestsFromGuide {
         expectedOutput = "F";
         assert expectedOutput.equals(output);
 
+
+        // and basic simplify tests
+        e = new And(new Var("x"), new Val(true));
+        output = e.toString();
+        expectedOutput = "(x & T)";
+        assert expectedOutput.equals(output);
+
+        output = e.simplify().toString();
+        expectedOutput = "x";
+        assert expectedOutput.equals(output);
+
+        e = new And(new Var("x"), new Val(false));
+        output = e.toString();
+        expectedOutput = "(x & F)";
+        assert expectedOutput.equals(output);
+
+        output = e.simplify().toString();
+        expectedOutput = "F";
+        assert expectedOutput.equals(output);
+
+        e = new And(new Var("x"), new Var("x"));
+        output = e.toString();
+        expectedOutput = "(x & x)";
+        assert expectedOutput.equals(output);
+
+        output = e.simplify().toString();
+        expectedOutput = "x";
+        assert expectedOutput.equals(output);
+
         // extra tests
         e = new Xor(new And(new Var("x"), new Val(false)), new Or(new Var("y"), new Val(false)));
 
         output = e.toString();
         expectedOutput = "((x & F) ^ (y | F))";
+        assert expectedOutput.equals(output);
+
+        e = new Not(new Not(new Val(false)));
+        output = e.toString();
+        expectedOutput = "~(~(F))";
+        assert expectedOutput.equals(output);
+
+        output = e.simplify().toString();
+        expectedOutput = "F";
         assert expectedOutput.equals(output);
 
         System.out.println("passed all tests from the guide");
