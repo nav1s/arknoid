@@ -3,7 +3,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * This class tests a few expressions.
+ * This class performs some tests on an expression.
  */
 public class ExpressionsTest {
 
@@ -18,8 +18,7 @@ public class ExpressionsTest {
         map.put("x", true);
         map.put("y", true);
         map.put("z", false);
-        // todo fix this
-        map.put("k", false);
+
         try {
             String output = e.evaluate(map).toString();
             System.out.println(output);

@@ -1,6 +1,7 @@
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * This class represents a binary expression.
@@ -26,6 +27,15 @@ public abstract class BinaryExpression extends BaseExpression {
 
         return lst;
     }
+
+    @Override
+    public Boolean evaluate(Map<String, Boolean> assignment) throws Exception {
+        Expression e1 = this.getE1();
+        Expression e2 = this.getE2();
+
+        return e1.evaluate(assignment) & e2.evaluate(assignment);
+    }
+
 
     /**
      * @return the first expression
