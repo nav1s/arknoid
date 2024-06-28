@@ -97,9 +97,9 @@ public class Xnor extends BinaryExpression {
         List<String> variables = newExpression.getVariables();
 
         for (String var : variables) {
-            String sameVar = "(" + var + " # " + var + ")";
-            if (str.equals(sameVar)) {
-                return new Val(false);
+            String trueExpression = "(" + var + " # " + var + ")";
+            if (str.equals(trueExpression)) {
+                return new Val(true);
             }
 
         }
