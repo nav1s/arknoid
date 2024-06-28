@@ -61,16 +61,4 @@ public interface Expression {
     * @return a simplified version of the current expression.
     */
    Expression simplify();
-
-   // todo get rid of these methods
-   /**
-    * @return a simplified version of the current expression.
-    */
-   Expression simplifyNonEmptyExpression();
-
-   /**
-    * @return a duplicated version of our expression
-    */
-   Expression duplicate();
-
 }

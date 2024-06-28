@@ -78,25 +78,21 @@ public class Or extends BinaryExpression {
     }
 
     @Override
-    public Expression duplicate() {
-        Expression e1 = this.getE1();
-        Expression e2 = this.getE2();
-
-        Expression clonedE1 = e1.duplicate();
-        Expression clonedE2 = e2.duplicate();
-
-        return new Or(clonedE1, clonedE2);
-    }
-
-    @Override
-    public Expression simplifyNonEmptyExpression() {
-        Expression e1 = this.getE1().simplifyNonEmptyExpression();
-        Expression e2 = this.getE2().simplifyNonEmptyExpression();
+    public Expression simplify() {
+        Expression e1 = this.getE1().simplify();
+        Expression e2 = this.getE2().simplify();
 
         Expression newExpression = new Or(e1, e2);
 
         String str = newExpression.toString();
         List<String> variables = newExpression.getVariables();
+
+        if (variables.size() == 0) {
+            try {
+                return new Val(this.evaluate());
+            } catch (Exception e) {
+            }
+        }
 
         for (String var : variables) {
             String trueExpression1 = "(" + var + " | T)";

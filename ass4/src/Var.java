@@ -47,7 +47,7 @@ public class Var implements Expression {
             return new Var(this.string);
         }
 
-        return expression.duplicate();
+        return expression;
     }
 
     @Override
@@ -57,34 +57,16 @@ public class Var implements Expression {
 
     @Override
     public Expression nandify() {
-        return this.duplicate();
+        return new Var(string);
     }
 
     @Override
     public Expression norify() {
-        return this.duplicate();
-    }
-
-    @Override
-    public Expression duplicate() {
-        return new Var(this.string);
+        return new Var(string);
     }
 
     @Override
     public Expression simplify() {
-        if (this.getVariables().size() == 0) {
-            try {
-                return new Val(this.evaluate());
-            } catch (Exception e) {
-                return new Val(false);
-            }
-        }
-
-        return simplifyNonEmptyExpression();
-    }
-
-    @Override
-    public Expression simplifyNonEmptyExpression() {
         return new Var(this.string);
     }
 

@@ -1,4 +1,5 @@
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -66,17 +67,19 @@ public class Not extends UnaryExpression {
     }
 
     @Override
-    public Expression duplicate() {
-        Expression e1 = this.getE1();
+    public Expression simplify() {
+        Expression e1 = this.getE1().simplify();
+        Expression newExpression = new Not(e1);
 
-        Expression clonedE1 = e1.duplicate();
+        List<String> variables = newExpression.getVariables();
 
-        return new Not(clonedE1);
-    }
+        if (variables.size() == 0) {
+            try {
+                return new Val(this.evaluate());
+            } catch (Exception e) {
+            }
+        }
 
-    @Override
-    public Expression simplifyNonEmptyExpression() {
-        Expression e1 = this.getE1().simplifyNonEmptyExpression();
-        return new Not(e1);
+        return newExpression;
     }
 }

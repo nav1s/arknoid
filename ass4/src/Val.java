@@ -48,34 +48,16 @@ public class Val implements Expression {
 
     @Override
     public Expression nandify() {
-        return this.duplicate();
+        return new Val(bool);
     }
 
     @Override
     public Expression norify() {
-        return this.duplicate();
-    }
-
-    @Override
-    public Expression duplicate() {
-        return new Val(this.bool);
+        return new Val(bool);
     }
 
     @Override
     public Expression simplify() {
-        if (this.getVariables().size() == 0) {
-            try {
-                return new Val(this.evaluate());
-            } catch (Exception e) {
-                return new Val(false);
-            }
-        }
-
-        return simplifyNonEmptyExpression();
-    }
-
-    @Override
-    public Expression simplifyNonEmptyExpression() {
         return new Val(this.bool);
     }
 
