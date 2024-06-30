@@ -25,12 +25,12 @@ public class Var implements Expression {
             }
         }
 
-        throw new Exception("Unable to find variable");
+        throw new Exception();
     }
 
     @Override
     public Boolean evaluate() throws Exception {
-        throw new Exception("Unable to find variable");
+        throw new Exception();
     }
 
     @Override
