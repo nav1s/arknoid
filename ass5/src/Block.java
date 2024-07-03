@@ -1,5 +1,7 @@
 
 import java.awt.Color;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import biuoop.DrawSurface;
@@ -8,9 +10,10 @@ import biuoop.DrawSurface;
  * This class represents a block in a two dimensional cartesian plane.
  *
  */
-public class Block implements Collidable, Sprite {
+public class Block implements Collidable, Sprite, HitNotifier {
     private Rectangle rect;
     private java.awt.Color color;
+    private ArrayList<HitListener> hitListeners = new ArrayList<HitListener>();
 
     /**
      * @param rect the rectangle of our block
@@ -47,7 +50,7 @@ public class Block implements Collidable, Sprite {
     }
 
     @Override
-    public Velocity hit(Point collisionPoint, Velocity currentVelocity) {
+    public Velocity hit(Ball hitter, Point collisionPoint, Velocity currentVelocity) {
         double dx = currentVelocity.getDx();
         double dy = currentVelocity.getDy();
 
@@ -59,10 +62,14 @@ public class Block implements Collidable, Sprite {
             dy = -dy;
         }
 
-        if (this.rect.checkCornerHit(collisionPoint)) {
-            double tmp = dx + randomDoubleBounded(0, 2);
-            dx = dy + randomDoubleBounded(0, 2);
-            dy = tmp;
+        // if (this.rect.checkCornerHit(collisionPoint)) {
+        // double tmp = dx + randomDoubleBounded(0, 2);
+        // dx = dy + randomDoubleBounded(0, 2);
+        // dy = tmp;
+        // }
+
+        if (!ballColorMatch(hitter)) {
+            this.notifyHit(hitter);
         }
 
         return new Velocity(dx, dy);
@@ -109,6 +116,27 @@ public class Block implements Collidable, Sprite {
         }
 
         return false;
+    }
+
+    @Override
+    public void addHitListener(HitListener hl) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'addHitListener'");
+    }
+
+    @Override
+    public void removeHitListener(HitListener hl) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'removeHitListener'");
+    }
+
+    private void notifyHit(Ball hitter) {
+        // Make a copy of the hitListeners before iterating over them.
+        List<HitListener> listeners = new ArrayList<HitListener>(this.hitListeners);
+        // Notify all listeners about a hit event:
+        for (HitListener hl : listeners) {
+            hl.hitEvent(this, hitter);
+        }
     }
 
 }
