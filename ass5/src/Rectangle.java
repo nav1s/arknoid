@@ -127,7 +127,7 @@ public class Rectangle {
      * @return true if we got a vertical hit, otherwise false
      */
     public boolean checkVerticalHit(double x) {
-        if (Double.compare(x, this.upperRight.getX()) <= 0 || Double.compare(x, this.upperLeft.getX()) >= 0) {
+        if (Double.compare(x, this.upperLeft.getX()) <= 0 || Double.compare(x, this.upperRight.getX()) >= 0) {
             return true;
         }
         return false;
