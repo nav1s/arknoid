@@ -91,4 +91,24 @@ public class Block implements Collidable, Sprite {
         g.addCollidable(this);
     }
 
+    /**
+     * @param g the game object
+     */
+    public void removeFromGame(Game g) {
+        g.removeCollidable(this);
+        g.removeSprite(this);
+    }
+
+    /**
+     * @param ball the ball we want to check
+     * @return true if the color matches, otherwise false
+     */
+    public boolean ballColorMatch(Ball ball) {
+        if (ball.getColor().equals(this.color)) {
+            return true;
+        }
+
+        return false;
+    }
+
 }

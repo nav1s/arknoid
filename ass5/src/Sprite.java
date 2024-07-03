@@ -5,6 +5,7 @@ import biuoop.DrawSurface;
  * This class represents a sprite in a two dimensional cartesian plane.
 */
 public interface Sprite {
+
     /**
      * draw the sprite to the screen.
      * @param d

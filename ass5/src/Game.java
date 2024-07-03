@@ -54,11 +54,24 @@ public class Game {
     }
 
     /**
+     * @param c the collidable we want to remove
+     */
+    public void removeCollidable(Collidable c) {
+        gameEnvironment.addCollidable(c);
+    }
+
+    /**
      * @param s the sprite we want to add
      */
     public void addSprite(Sprite s) {
         spriteCollection.addSprite(s);
+    }
 
+    /**
+     * @param s the sprite we want to remove
+     */
+    public void removeSprite(Sprite s) {
+        spriteCollection.removeSprite(s);
     }
 
     /**
