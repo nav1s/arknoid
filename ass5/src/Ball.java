@@ -351,4 +351,11 @@ public class Ball implements Sprite {
         g.addSprite(this);
     }
 
+    /**
+     * @param g the game object
+     */
+    public void removeFromGame(Game g) {
+        g.removeSprite(this);
+    }
+
 }

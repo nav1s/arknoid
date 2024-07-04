@@ -34,7 +34,7 @@ public class Game {
     private GUI gui;
     private KeyboardSensor keyboard;
     private Sleeper sleeper = new Sleeper();
-    private Counter remaingingBlocks = new Counter();
+    private Counter remainingBlocks = new Counter();
 
     /**
      * The default constructor.
@@ -58,7 +58,7 @@ public class Game {
      * @param c the collidable we want to remove
      */
     public void removeCollidable(Collidable c) {
-        gameEnvironment.addCollidable(c);
+        gameEnvironment.removeCollidable(c);
     }
 
     /**
@@ -110,7 +110,7 @@ public class Game {
         block.addToGame(this);
 
         PrintingHitListener ht = new PrintingHitListener();
-        BlockRemover blockRemover = new BlockRemover(this, remaingingBlocks);
+        BlockRemover blockRemover = new BlockRemover(this, remainingBlocks);
 
         // add blocks to the game
         for (int i = 1; i <= NUMBER_OF_ROWS_OF_BLOCKS; i++) {
@@ -153,6 +153,11 @@ public class Game {
         int millisecondsPerFrame = 1000 / framesPerSecond;
 
         while (true) {
+            if (this.remainingBlocks.getValue() == 1) {
+                gui.close();
+                break;
+            }
+
             long startTime = System.currentTimeMillis(); // timing
             DrawSurface drawer = gui.getDrawSurface();
 
