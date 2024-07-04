@@ -181,6 +181,14 @@ public class Ball implements Sprite {
     }
 
     /**
+     * @param color the new color for our ball
+     */
+    public void setColor(java.awt.Color color) {
+        this.color = color;
+    }
+
+
+    /**
      * @param surface
      *            the surface we draw the ball on Draw our ball on a surface taken
      *            from the

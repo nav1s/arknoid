@@ -8,20 +8,25 @@ public class BlockRemover implements HitListener {
     private Counter remainingBlocks;
 
     /**
-     * @param game
-     * @param remainingBlocks
+     * @param game the game object
+     * @param remainingBlocks a counter for the number of remaining blocks
      */
     public BlockRemover(Game game, Counter remainingBlocks) {
-
+        this.game = game;
+        this.remainingBlocks = remainingBlocks;
     }
 
     /**
      * Blocks that are hit should be removed
      * from the game. Remember to remove this listener from the block
      * that is being removed from the game.
-     * @param beingHit
-     * @param hitter
+     * @param beingHit the block that got hit
+     * @param hitter the ball that made the hit with the block
      */
     public void hitEvent(Block beingHit, Ball hitter) {
+        hitter.setColor(beingHit.getColor());
+        beingHit.removeFromGame(game);
+        beingHit.removeHitListener(this);
+        remainingBlocks.decrease(1);
     }
 }

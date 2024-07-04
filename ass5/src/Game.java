@@ -34,6 +34,7 @@ public class Game {
     private GUI gui;
     private KeyboardSensor keyboard;
     private Sleeper sleeper = new Sleeper();
+    private Counter remaingingBlocks = new Counter();
 
     /**
      * The default constructor.
@@ -109,6 +110,7 @@ public class Game {
         block.addToGame(this);
 
         PrintingHitListener ht = new PrintingHitListener();
+        BlockRemover blockRemover = new BlockRemover(this, remaingingBlocks);
 
         // add blocks to the game
         for (int i = 1; i <= NUMBER_OF_ROWS_OF_BLOCKS; i++) {
@@ -122,6 +124,7 @@ public class Game {
                 block = new Block(rect, color);
                 block.addToGame(this);
                 block.addHitListener(ht);
+                block.addHitListener(blockRemover);
             }
 
         }

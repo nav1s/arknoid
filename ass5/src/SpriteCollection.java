@@ -35,6 +35,7 @@ public class SpriteCollection {
      * call timePassed() on all sprites.
      */
     public void notifyAllTimePassed() {
+        List<Sprite> sprites = new ArrayList<>(this.sprites);
         for (Sprite sprite : sprites) {
             sprite.timePassed();
         }
@@ -46,6 +47,7 @@ public class SpriteCollection {
      * @param d
      */
     public void drawAllOn(DrawSurface d) {
+        List<Sprite> sprites = new ArrayList<>(this.sprites);
         for (Sprite sprite : sprites) {
             sprite.drawOn(d);
         }

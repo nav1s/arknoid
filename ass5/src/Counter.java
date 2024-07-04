@@ -3,13 +3,14 @@
  * Simple class that is used for counting things.
  */
 public class Counter {
+    private int counter = 0;
+
     /**
      * add number to current count.
      * @param number
      */
     void increase(int number) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'removeHitListener'");
+        counter += number;
     }
 
     /**
@@ -17,16 +18,13 @@ public class Counter {
      * @param number the number we want to subtract
      */
     void decrease(int number) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'removeHitListener'");
+        counter -= number;
     }
 
     /**
      * @return the current count
      */
     int getValue() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'removeHitListener'");
-
+        return this.counter;
     }
 }

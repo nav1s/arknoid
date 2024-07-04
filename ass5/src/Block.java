@@ -137,4 +137,12 @@ public class Block implements Collidable, Sprite, HitNotifier {
         }
     }
 
+    /**
+     * @return the color of the block
+     */
+    public java.awt.Color getColor() {
+        return color;
+    }
+
+
 }
