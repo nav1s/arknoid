@@ -35,6 +35,7 @@ public class Game {
     private KeyboardSensor keyboard;
     private Sleeper sleeper = new Sleeper();
     private Counter remainingBlocks = new Counter();
+    private Counter remainingBalls = new Counter();
 
     /**
      * The default constructor.
@@ -87,9 +88,14 @@ public class Game {
         ball = new Ball(500, 500, DEFAULT_BALL_RADIUS, gameEnvironment);
         ball.addToGame(this);
 
+        ball = new Ball(600, 450, DEFAULT_BALL_RADIUS, gameEnvironment);
+        ball.addToGame(this);
+
+        remainingBalls.increase(3);
+
         Rectangle upperRectangle = new Rectangle(new Point(0, 0), GUI_WIDTH, BORDER_BLOCK_SIZE);
-        Rectangle downRectangle = new Rectangle(new Point(BORDER_BLOCK_SIZE, GUI_HEIGHT - BORDER_BLOCK_SIZE),
-                GUI_WIDTH - BORDER_BLOCK_SIZE,
+        Rectangle downRectangle = new Rectangle(new Point(BORDER_BLOCK_SIZE, GUI_HEIGHT),
+                GUI_WIDTH,
                 DEFAULT_BLOCK_HEIGHT);
 
         Rectangle leftRectangle = new Rectangle(new Point(0, BORDER_BLOCK_SIZE),
@@ -125,6 +131,7 @@ public class Game {
                 block.addToGame(this);
                 block.addHitListener(ht);
                 block.addHitListener(blockRemover);
+                remainingBlocks.increase(1);
             }
 
         }
@@ -153,7 +160,7 @@ public class Game {
         int millisecondsPerFrame = 1000 / framesPerSecond;
 
         while (true) {
-            if (this.remainingBlocks.getValue() == 1) {
+            if (this.remainingBlocks.getValue() == 0) {
                 gui.close();
                 break;
             }
@@ -162,7 +169,8 @@ public class Game {
             DrawSurface drawer = gui.getDrawSurface();
 
             drawer.setColor(BACKGROUND_COLOR);
-            drawer.fillRectangle(20, 20, GUI_WIDTH - 40, GUI_HEIGHT - 40);
+            drawer.fillRectangle(BORDER_BLOCK_SIZE, BORDER_BLOCK_SIZE, GUI_WIDTH - BORDER_BLOCK_SIZE,
+                    GUI_HEIGHT - BORDER_BLOCK_SIZE);
 
             this.spriteCollection.drawAllOn(drawer);
             gui.show(drawer);
