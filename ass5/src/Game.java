@@ -108,6 +108,8 @@ public class Game {
         block = new Block(rightRectangle, BORDER_BACKGROUND_COLOR);
         block.addToGame(this);
 
+        PrintingHitListener ht = new PrintingHitListener();
+
         // add blocks to the game
         for (int i = 1; i <= NUMBER_OF_ROWS_OF_BLOCKS; i++) {
             Color color = Ball.generateRandomColor();
@@ -119,6 +121,7 @@ public class Game {
                         DEFAULT_BLOCK_HEIGHT);
                 block = new Block(rect, color);
                 block.addToGame(this);
+                block.addHitListener(ht);
             }
 
         }

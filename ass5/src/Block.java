@@ -120,14 +120,12 @@ public class Block implements Collidable, Sprite, HitNotifier {
 
     @Override
     public void addHitListener(HitListener hl) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'addHitListener'");
+        this.hitListeners.add(hl);
     }
 
     @Override
     public void removeHitListener(HitListener hl) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'removeHitListener'");
+        this.hitListeners.remove(hl);
     }
 
     private void notifyHit(Ball hitter) {

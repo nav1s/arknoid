@@ -57,7 +57,7 @@ public class Paddle implements Sprite, Collidable {
     }
 
     @Override
-    public Velocity hit(Point collisionPoint, Velocity currentVelocity) {
+    public Velocity hit(Ball hitter, Point collisionPoint, Velocity currentVelocity) {
         double leftX = this.rect.getUpperLeft().getX();
         double position = collisionPoint.getX() - leftX;
 

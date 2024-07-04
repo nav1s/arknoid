@@ -248,7 +248,7 @@ public class Ball implements Sprite {
 
         Point collisionPoint = collisionInfo.collisionPoint();
         this.center = new Point(collisionPoint.getX() - deltaRx, collisionPoint.getY() - deltaRy);
-        this.velocity = collisionInfo.collisionObject().hit(collisionPoint, this.velocity);
+        this.velocity = collisionInfo.collisionObject().hit(this, collisionPoint, this.velocity);
 
     }
 
