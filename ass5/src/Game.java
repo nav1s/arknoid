@@ -92,6 +92,9 @@ public class Game {
         ball.addToGame(this);
 
         remainingBalls.increase(3);
+        PrintingHitListener hitsPrinter = new PrintingHitListener();
+        BlockRemover blockRemover = new BlockRemover(this, remainingBlocks);
+        BallRemover ballRemover = new BallRemover(this, remainingBalls);
 
         Rectangle upperRectangle = new Rectangle(new Point(0, 0), GUI_WIDTH, BORDER_BLOCK_SIZE);
         Rectangle downRectangle = new Rectangle(new Point(BORDER_BLOCK_SIZE, GUI_HEIGHT),
@@ -107,6 +110,8 @@ public class Game {
         block.addToGame(this);
 
         block = new Block(downRectangle, BORDER_BACKGROUND_COLOR);
+        block.addHitListener(ballRemover);
+        block.addHitListener(hitsPrinter);
         block.addToGame(this);
 
         block = new Block(leftRectangle, BORDER_BACKGROUND_COLOR);
@@ -114,9 +119,6 @@ public class Game {
 
         block = new Block(rightRectangle, BORDER_BACKGROUND_COLOR);
         block.addToGame(this);
-
-        PrintingHitListener ht = new PrintingHitListener();
-        BlockRemover blockRemover = new BlockRemover(this, remainingBlocks);
 
         // add blocks to the game
         for (int i = 1; i <= NUMBER_OF_ROWS_OF_BLOCKS; i++) {
@@ -129,7 +131,6 @@ public class Game {
                         DEFAULT_BLOCK_HEIGHT);
                 block = new Block(rect, color);
                 block.addToGame(this);
-                block.addHitListener(ht);
                 block.addHitListener(blockRemover);
                 remainingBlocks.increase(1);
             }
@@ -160,7 +161,7 @@ public class Game {
         int millisecondsPerFrame = 1000 / framesPerSecond;
 
         while (true) {
-            if (this.remainingBlocks.getValue() == 0) {
+            if (this.remainingBlocks.getValue() == 0 || this.remainingBalls.getValue() == 0) {
                 gui.close();
                 break;
             }
