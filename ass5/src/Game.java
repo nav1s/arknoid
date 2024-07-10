@@ -10,6 +10,7 @@ import biuoop.Sleeper;
  * This class initializes and runs our game.
 */
 public class Game {
+    private static final int SCORE_BONUS_FOR_FINISHING_LEVEL = 100;
     // GUI properties
     private static final String GUI_TITLE = "Arknoid (exclusive beta)";
     private static final int GUI_HEIGHT = 600;
@@ -36,6 +37,7 @@ public class Game {
     private Sleeper sleeper = new Sleeper();
     private Counter remainingBlocks = new Counter();
     private Counter remainingBalls = new Counter();
+    private Counter currentScore = new Counter();
 
     /**
      * The default constructor.
@@ -93,6 +95,8 @@ public class Game {
 
         remainingBalls.increase(3);
         PrintingHitListener hitsPrinter = new PrintingHitListener();
+        ScoreTrackingListener scoreTrackingListener = new ScoreTrackingListener(currentScore);
+
         BlockRemover blockRemover = new BlockRemover(this, remainingBlocks);
         BallRemover ballRemover = new BallRemover(this, remainingBalls);
 
@@ -132,6 +136,7 @@ public class Game {
                 block = new Block(rect, color);
                 block.addToGame(this);
                 block.addHitListener(blockRemover);
+                block.addHitListener(scoreTrackingListener);
                 remainingBlocks.increase(1);
             }
 
@@ -141,6 +146,8 @@ public class Game {
         Paddle paddle = new Paddle(keyboard, paddleRectangle, java.awt.Color.YELLOW);
         paddle.addToGame(this);
 
+        ScoreIndicator scoreIndicator = new ScoreIndicator(currentScore);
+        scoreIndicator.addToGame(this);
     }
 
     /**
@@ -162,6 +169,7 @@ public class Game {
 
         while (true) {
             if (this.remainingBlocks.getValue() == 0 || this.remainingBalls.getValue() == 0) {
+                currentScore.increase(SCORE_BONUS_FOR_FINISHING_LEVEL);
                 gui.close();
                 break;
             }
@@ -172,6 +180,7 @@ public class Game {
             drawer.setColor(BACKGROUND_COLOR);
             drawer.fillRectangle(BORDER_BLOCK_SIZE, BORDER_BLOCK_SIZE, GUI_WIDTH - BORDER_BLOCK_SIZE,
                     GUI_HEIGHT - BORDER_BLOCK_SIZE);
+
 
             this.spriteCollection.drawAllOn(drawer);
             gui.show(drawer);

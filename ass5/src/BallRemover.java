@@ -1,6 +1,6 @@
 
 /**
- * a BlockRemover is in charge of removing blocks from the game, as well as keeping count
+ * BlockRemover is in charge of removing blocks from the game, as well as keeping count
  * of the number of blocks that remain.
  */
 public class BallRemover implements HitListener {
@@ -21,8 +21,7 @@ public class BallRemover implements HitListener {
      * @param hitter the ball that made the hit with the block
      */
     public void hitEvent(Block beingHit, Ball hitter) {
-        hitter.removeFromGame(game);
-        remainingBalls.decrease(1);
-        System.out.println(remainingBalls.getValue());
+        // hitter.removeFromGame(game);
+        // remainingBalls.decrease(1);
     }
 }
