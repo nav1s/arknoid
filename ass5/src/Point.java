@@ -1,4 +1,3 @@
-
 /**
  * This class represents a point in a two dimensional cartesian plane.
  *

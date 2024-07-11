@@ -1,4 +1,3 @@
-
 /**
  * This class increases the score counter whenever a block got hit.
  */
