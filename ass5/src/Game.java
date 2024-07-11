@@ -94,18 +94,17 @@ public class Game {
         ball.addToGame(this);
 
         remainingBalls.increase(3);
-        PrintingHitListener hitsPrinter = new PrintingHitListener();
         ScoreTrackingListener scoreTrackingListener = new ScoreTrackingListener(currentScore);
 
         BlockRemover blockRemover = new BlockRemover(this, remainingBlocks);
         BallRemover ballRemover = new BallRemover(this, remainingBalls);
 
-        Rectangle upperRectangle = new Rectangle(new Point(0, 0), GUI_WIDTH, BORDER_BLOCK_SIZE);
+        Rectangle upperRectangle = new Rectangle(new Point(0, BORDER_BLOCK_SIZE), GUI_WIDTH, BORDER_BLOCK_SIZE);
         Rectangle downRectangle = new Rectangle(new Point(BORDER_BLOCK_SIZE, GUI_HEIGHT),
                 GUI_WIDTH,
                 DEFAULT_BLOCK_HEIGHT);
 
-        Rectangle leftRectangle = new Rectangle(new Point(0, BORDER_BLOCK_SIZE),
+        Rectangle leftRectangle = new Rectangle(new Point(0, BORDER_BLOCK_SIZE * 2),
                 BORDER_BLOCK_SIZE, GUI_HEIGHT - BORDER_BLOCK_SIZE);
         Rectangle rightRectangle = new Rectangle(new Point(GUI_WIDTH - BORDER_BLOCK_SIZE, BORDER_BLOCK_SIZE),
                 BORDER_BLOCK_SIZE, GUI_HEIGHT - BORDER_BLOCK_SIZE);
@@ -115,7 +114,6 @@ public class Game {
 
         block = new Block(downRectangle, BORDER_BACKGROUND_COLOR);
         block.addHitListener(ballRemover);
-        block.addHitListener(hitsPrinter);
         block.addToGame(this);
 
         block = new Block(leftRectangle, BORDER_BACKGROUND_COLOR);

@@ -16,10 +16,11 @@ public class ScoreIndicator implements Sprite {
 
     @Override
     public void drawOn(DrawSurface surface) {
-        int x = 200;
+        int x = 400;
         int y = 20;
-        String score = currentScore.toString();
-        int fontSize = 20;
+        String score = "Score: " + currentScore.toString();
+        int fontSize = 30;
+        surface.setColor(java.awt.Color.BLACK);
         surface.drawText(x, y, score, fontSize);
     }
 
