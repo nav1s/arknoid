@@ -1,4 +1,3 @@
-import biuoop.DrawSurface;
 import biuoop.GUI;
 import biuoop.Sleeper;
 
