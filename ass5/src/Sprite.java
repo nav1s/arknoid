@@ -1,4 +1,3 @@
-import biuoop.DrawSurface;
 
 /**
  * This class represents a sprite in a two dimensional cartesian plane.

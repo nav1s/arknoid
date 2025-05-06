@@ -1,4 +1,3 @@
-
 /**
  * This class represents a change in a position of an object on a two
  * dimensional cartesian plane.

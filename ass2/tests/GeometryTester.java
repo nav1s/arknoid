@@ -1,4 +1,3 @@
-/**
  * This class does some simple testing of the Point and Line classes.
  */
 public class GeometryTester {

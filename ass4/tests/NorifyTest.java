@@ -1,4 +1,3 @@
-/**
  * nor table:.
  * not: A NOR A
  * and: ( A NOR A ) NOR ( B NOR B )

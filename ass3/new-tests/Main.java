@@ -1,4 +1,3 @@
-import biuoop.GUI;
 import biuoop.Sleeper;
 
 import java.awt.Color;

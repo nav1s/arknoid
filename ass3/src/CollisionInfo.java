@@ -1,4 +1,3 @@
-
 /**
  * This class represents an info about collision occurring in a two dimensional cartesian plane.
 */

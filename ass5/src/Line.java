@@ -1,4 +1,3 @@
-import java.util.List;
 
 /**
  * This class represents a line in a two dimensional cartesian plane.

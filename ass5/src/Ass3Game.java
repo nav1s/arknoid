@@ -1,4 +1,3 @@
-/**
  * This class runs our game.
  */
 public class Ass3Game {

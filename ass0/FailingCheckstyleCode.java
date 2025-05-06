@@ -1,4 +1,3 @@
-/**
  * This is a javadoc.
  */
 public class FailingCheckstyleCode {

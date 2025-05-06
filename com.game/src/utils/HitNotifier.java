@@ -1,6 +1,4 @@
 
-package utils;
-
 import listeners.HitListener;
 
 /**

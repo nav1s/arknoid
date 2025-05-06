@@ -1,4 +1,3 @@
-
 /**
  * This class represents a line in a two dimensional cartesian plane.
  *

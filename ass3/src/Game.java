@@ -1,4 +1,3 @@
-import java.awt.Color;
 
 import biuoop.DrawSurface;
 import biuoop.GUI;

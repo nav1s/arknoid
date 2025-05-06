@@ -1,4 +1,3 @@
-import biuoop.DrawSurface;
 
 /**
  * This class is in charge of displaying the current score.

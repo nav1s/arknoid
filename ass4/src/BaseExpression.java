@@ -1,4 +1,3 @@
-
 /**
  * This class is an abstract class for a basic expression.
  */

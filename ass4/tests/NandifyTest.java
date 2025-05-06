@@ -1,4 +1,3 @@
-/**
  * nand table:.
  * not: A NAND A
  * and: ( A NAND B ) NAND ( A NAND B )

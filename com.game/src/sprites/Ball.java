@@ -1,4 +1,3 @@
-
 package sprites;
 
 import java.util.Random;

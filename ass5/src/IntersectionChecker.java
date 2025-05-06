@@ -1,4 +1,3 @@
-/**
  * this class checks whether two lines intersects.
  */
 public class IntersectionChecker {

@@ -1,4 +1,3 @@
-/**
  * Simple class that is used for counting things.
  */
 public class Counter {

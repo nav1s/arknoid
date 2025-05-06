@@ -1,4 +1,3 @@
-
 package listeners;
 
 import sprites.Ball;
