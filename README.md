@@ -1,14 +1,6 @@
 ## Overview
 This project is an implementation of the classic Arkanoid (also known as breakout) game in Java. Players control a paddle to bounce balls and break blocks, earning points for each block destroyed.
 
-## Game Features
-- Colorful blocks arranged in rows
-- Multiple balls in play
-- Paddle control with keyboard
-- Score tracking
-- Physics-based collision system
-- Special block interactions
-
 ## Getting Started
 
 ### Prerequisites
