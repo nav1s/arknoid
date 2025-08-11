@@ -1,5 +1,5 @@
 ## Overview
-This project is an implementation of the classic Arkanoid (Breakout) game in Java. Players control a paddle to bounce balls and break blocks, earning points for each block destroyed.
+This project is an implementation of the classic Arkanoid (also known as breakout) game in Java. Players control a paddle to bounce balls and break blocks, earning points for each block destroyed.
 
 ## Game Features
 - Colorful blocks arranged in rows
@@ -9,11 +9,23 @@ This project is an implementation of the classic Arkanoid (Breakout) game in Jav
 - Physics-based collision system
 - Special block interactions
 
-## How to Run
+## Getting Started
 
 ### Prerequisites
 - Java Runtime Environment (JRE) 8 or above
 - Apache Ant
+
+### Cloning the Repository
+
+```bash
+# Using HTTPS
+git clone https://github.com/nav1s/arknoid.git
+cd arknoid/com.game
+
+# OR using SSH
+git clone git@github.com:nav1s/arknoid.git
+cd arknoid/com.game
+```
 
 ### Running the Game
 Using Ant:
