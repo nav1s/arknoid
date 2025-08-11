@@ -12,16 +12,14 @@ This project is an implementation of the classic Arkanoid (also known as breakou
 ```bash
 # Using HTTPS
 git clone https://github.com/nav1s/arknoid.git
-cd arknoid/com.game
 
 # OR using SSH
 git clone git@github.com:nav1s/arknoid.git
-cd arknoid/com.game
 ```
 
 ### Running the Game
-Using Ant:
 ```
+cd arknoid/com.game
 ant run
 ```
 
