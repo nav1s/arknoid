@@ -1,14 +1,13 @@
 package sprites;
 
-import java.awt.Color;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-
 import biuoop.DrawSurface;
 import geometry.Point;
 import geometry.Rectangle;
 import geometry.Velocity;
+import java.awt.Color;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 import listeners.HitListener;
 import utils.Collidable;
 import utils.Game;
@@ -19,6 +18,7 @@ import utils.HitNotifier;
  *
  */
 public class Block implements Collidable, Sprite, HitNotifier {
+
     private Rectangle rect;
     private java.awt.Color color;
     private ArrayList<HitListener> hitListeners = new ArrayList<HitListener>();
@@ -54,11 +54,14 @@ public class Block implements Collidable, Sprite, HitNotifier {
         Random rand = new Random();
         double randomDouble = rand.nextDouble();
         return num1 + (randomDouble * (num2 - num1));
-
     }
 
     @Override
-    public Velocity hit(Ball hitter, Point collisionPoint, Velocity currentVelocity) {
+    public Velocity hit(
+        Ball hitter,
+        Point collisionPoint,
+        Velocity currentVelocity
+    ) {
         double dx = currentVelocity.getDx();
         double dy = currentVelocity.getDy();
 
@@ -87,16 +90,23 @@ public class Block implements Collidable, Sprite, HitNotifier {
     public void drawOn(DrawSurface surface) {
         surface.setColor(this.color);
         Point upperLeft = this.rect.getUpperLeft();
-        surface.fillRectangle((int) upperLeft.getX(), (int) upperLeft.getY(), (int) this.rect.getWidth(),
-                (int) this.rect.getHeight());
+        surface.fillRectangle(
+            (int) upperLeft.getX(),
+            (int) upperLeft.getY(),
+            (int) this.rect.getWidth(),
+            (int) this.rect.getHeight()
+        );
         surface.setColor(java.awt.Color.BLACK);
-        surface.drawRectangle((int) upperLeft.getX(), (int) upperLeft.getY(), (int) this.rect.getWidth(),
-                (int) this.rect.getHeight());
+        surface.drawRectangle(
+            (int) upperLeft.getX(),
+            (int) upperLeft.getY(),
+            (int) this.rect.getWidth(),
+            (int) this.rect.getHeight()
+        );
     }
 
     @Override
-    public void timePassed() {
-    }
+    public void timePassed() {}
 
     /**
      * @param g the game object
@@ -138,7 +148,9 @@ public class Block implements Collidable, Sprite, HitNotifier {
 
     private void notifyHit(Ball hitter) {
         // Make a copy of the hitListeners before iterating over them.
-        List<HitListener> listeners = new ArrayList<HitListener>(this.hitListeners);
+        List<HitListener> listeners = new ArrayList<HitListener>(
+            this.hitListeners
+        );
         // Notify all listeners about a hit event:
         for (HitListener hl : listeners) {
             hl.hitEvent(this, hitter);
@@ -151,6 +163,4 @@ public class Block implements Collidable, Sprite, HitNotifier {
     public java.awt.Color getColor() {
         return color;
     }
-
-
 }
