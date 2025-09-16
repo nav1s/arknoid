@@ -4,6 +4,8 @@ This project is an implementation of the classic Arknoid (also known as breakout
 ## Demo
 ![Arknoid Demo](assets/arknoid-demo.gif)
 
+> Note: The demo speed is 1.75x the normal game speed.
+
 ## Getting Started
 
 ### Prerequisites
